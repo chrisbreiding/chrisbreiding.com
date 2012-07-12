@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title><%= @title %></title>
+
+    <% if @asset_path %>
+        <% if @favicon %>
+            <link rel="shortcut icon" href="/<%= @asset_path %>/ui/favicon.ico" type="image/x-icon" />
+        <% end %>
+
+        <link rel="stylesheet" href="/<%= @asset_path %>/css/styles.css" />
+    <% end %>
+</head>
+<body>
+
+    <%= yield %>
+
+    <script type="text/javascript" src="/shared/js/google-analytics.js"></script>
+
+</body>
+</html>
