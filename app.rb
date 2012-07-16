@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'pony'
+require 'maruku'
 require_relative '../secrets.rb'
 
 get '/' do

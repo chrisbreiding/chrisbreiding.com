@@ -7,4 +7,5 @@
 <p><%= params[:email] %></p>
 
 <h3 style="border-top: solid 1px #e3e3e3; padding-top: .7em;">Message</h3>
-<p><%= params[:message] %></p>
+<% email_message = Maruku.new params[:message] %>
+<%= email_message.to_html %>
