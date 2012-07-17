@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <title><%= @title %></title>
 
+    <% if @responsive %>
+        <meta name="viewport" content="width=device-width; initial-scale=1.0">
+    <% end %>
+
     <% if @asset_path %>
         <% if @favicon %>
             <link rel="shortcut icon" href="/<%= @asset_path %>/ui/favicon.ico" type="image/x-icon" />
