@@ -1,5 +1,5 @@
-### CRB Web Development
+### chrisbreiding.com
 
-My humble brochure site.
+My brochure site
 
-[View site](http://crbdev.com)
+[View site](http://chrisbreiding.com)

@@ -4,7 +4,7 @@ require 'maruku'
 require_relative '../secrets.rb'
 
 get '/' do
-  @title = 'CRB Web Development'
+  @title = 'Chris Breiding | Web Developer'
   @responsive = true
   @asset_path = 'index'
   @favicon = true
@@ -25,7 +25,7 @@ post '/send-message' do
       user_name: 'chris@chrisbreiding.com',
       password: GAPPS_PW,
       authentication: :plain,
-      domain: 'crbdev.com'
+      domain: 'chrisbreiding.com'
     }
   })
 
