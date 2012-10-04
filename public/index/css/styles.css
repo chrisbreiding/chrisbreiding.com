@@ -25,15 +25,6 @@ body {
     height: 100%;
 }
 
-h1 {
-    color: #626262;
-    font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 64px;
-    font-weight: normal;
-    margin-bottom: 10px;
-    text-shadow: 0 -2px 1px rgba(0,0,0,0.8);
-}
-
 h2 {
     font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
     font-size: 36px;
@@ -61,6 +52,62 @@ p {
 .clearfix:after { clear:both; }
 .clearfix { zoom:1; /* For IE 6/7 */ }
 
+
+/* ---- Header ---- */
+
+.header {
+    margin-bottom: 10px;
+}
+
+h1 {
+    color: #626262;
+    float: left;
+    font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 64px;
+    font-weight: normal;
+    line-height: 1;
+    text-shadow: 0 -2px 1px rgba(0,0,0,0.8);
+}
+
+.social {
+    float: right;
+}
+
+    .social li {
+        float: left;
+        margin-left: 15px;
+    }
+
+    .social li:first-child {
+        margin-left: 0;
+    }
+
+        .social a {
+            background: url('../ui/sprite.png') no-repeat;
+            display: block;
+            outline: none;
+            text-indent: -9999px;
+            width: 40px;
+            height: 40px;
+        }
+
+        .social .github a {
+            background-position: 0 0;
+        }
+
+        .social .github a:hover,
+        .social .github a:focus {
+            background-position: 0 -40px;
+        }
+
+        .social .linkedin a {
+            background-position: -40px 0;
+        }
+
+        .social .linkedin a:hover,
+        .social .linkedin a:focus {
+            background-position: -40px -40px;
+        }
 
 /* ---- Top ---- */
 
@@ -404,10 +451,6 @@ p {
         width: 55%;
     }
 
-        .contact form {
-            background: none;
-        }
-
         .contact input {
             height: 38px;
             line-height: 38px;
@@ -426,17 +469,16 @@ p {
             width: 100%;
         }
 
+        .mail-icon {
+            display: none;
+        }
+
 }
 
 /*
 *   <= 845
 */
 @media only screen and (max-width: 845px) {
-
-    h1 {
-        margin-bottom: 0;
-        text-align: center;
-    }
 
     /* Services */
 
@@ -466,9 +508,20 @@ p {
 }
 
 /*
-*   <= 590
+*   <= 740
 */
-@media only screen and (max-width: 590px) {
+@media only screen and (max-width: 740px) {
+
+    .services li:last-child {
+        display: block;
+    }
+
+}
+
+/*
+*   <= 620
+*/
+@media only screen and (max-width: 620px) {
 
     h1 {
         font-size: 54px;
@@ -476,11 +529,14 @@ p {
 
     /* Services */
 
-    .services li {
-        display: block;
-        font-size: 28px;
-        padding: 0;
+    .services {
+        font-size: 30px;
     }
+
+        .services li {
+            display: block;
+            padding: 0;
+        }
 
     /* Skills, Contact */
 
@@ -524,6 +580,28 @@ p {
                 box-sizing: border-box;
                 width: 100%;
             }
+
+}
+
+/*
+*   <= 430
+*/
+@media only screen and (max-width: 430px) {
+
+    h1 {
+        margin-bottom: 10px;
+    }
+
+    h1,
+    .social {
+        float: none;
+        text-align: center;
+    }
+
+        .social li {
+            display: inline-block;
+            float: none;
+        }
 
 }
 
