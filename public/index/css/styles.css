@@ -18,7 +18,7 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input
 /* ---- General ---- */
 
 body {
-    background: url('../ui/vintage_speckles.png');
+    background: url('../ui/body-bg.jpg');
     color: #424242;
     font-family: 'Helvetica Neue', Arial, sans-serif;
     width: 100%;
@@ -82,8 +82,9 @@ p {
     width: 600px;
 }
 
-        .slider li {
-            background: url('../ui/sprite.jpg') no-repeat;
+        .slider li,
+        .slides li {
+            background: url('../ui/portfolio-sprite.jpg') no-repeat;
         }
 
     .slides {
@@ -94,7 +95,6 @@ p {
     }
 
         .slides li {
-            background: url('../ui/sprite.jpg') no-repeat;
             -moz-border-radius: 3px;
             -webkit-border-radius: 3px;
             border-radius: 3px;
@@ -195,7 +195,7 @@ p {
 }
 
 .contact form {
-    background: url('../ui/mail.png') 100% 0 no-repeat;
+    position: relative;
 }
 
     .contact fieldset {
@@ -325,6 +325,15 @@ p {
     .invalid {
         border-color: #600;
         color: #600;
+    }
+
+    .mail-icon {
+        background: url('../ui/sprite.png') 100% 0 no-repeat;
+        position: absolute;
+            top: 0;
+            right: 0;
+        width: 158px;
+        height: 100px;
     }
 
 /*****************************
