@@ -22,7 +22,7 @@ post '/send-message' do
       address: 'smtp.gmail.com',
       port: '587',
       enable_starttls_auto: true,
-      user_name: 'chris@chrisbreiding.com',
+      user_name: 'admin@chrisbreiding.com',
       password: GAPPS_PW,
       authentication: :plain,
       domain: 'chrisbreiding.com'
