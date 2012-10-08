@@ -267,7 +267,6 @@ h1 {
         -webkit-border-radius: 3px;
         border-radius: 3px;
         border: solid 1px #d3d3d3;
-        color: #333;
         font-family: 'Helvetica Neue', Arial, sans-serif;
         font-size: .9em;
         height: 28px;
@@ -278,6 +277,10 @@ h1 {
     .contact input {
         display: block;
         width: 300px;
+    }
+
+    .contact .placeholder {
+        color: #AAA;
     }
 
     .contact textarea {
@@ -292,11 +295,6 @@ h1 {
 
     .contact .default {
         color: #777;
-    }
-
-    .contact input:focus,
-    .contact textarea:focus {
-        color: #333;
     }
 
     .contact .error-message {

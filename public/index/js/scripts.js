@@ -72,10 +72,14 @@
     var Contact = {
 
 		init : function () {
+            var $inputs = $('.contact-input');
+
 			this.$contactForm = $('#contact-form');
-			this.inputs = $('.contact-input').map(function () {
+			this.inputs = $inputs.map(function () {
                 return new Input(this);
             });
+
+            $inputs.placeholder();
 
 			this.addEvents();
 		},
@@ -135,32 +139,15 @@
 	};
 
     var Input = function (el) {
-        this.$el = $(el)
-                    .on('focus', $.proxy(this.onFocus, this))
-                    .on('blur', $.proxy(this.onBlur, this));
+        this.$el = $(el).on('blur', $.proxy(this.onBlur, this));
 
         this.onBlur();
     };
 
     Input.prototype = {
 
-        onFocus : function () {
-            if ( !this.isValid() ) {
-                this.$el.val('');
-            } else {
-                this.$el.select();
-            }
-        },
-
         onBlur : function (e) {
-            if ( this.isValid() ) {
-                this.$el.removeClass('default');
-                this.removeError();
-            } else {
-                this.$el
-                    .val( this.$el.attr('title') )
-                    .addClass('default');
-            }
+            if ( this.isValid() ) this.removeError();
         },
 
         validate : function () {
