@@ -1,6 +1,12 @@
-/* ---- Reset ---- */
+@import "compass/reset";
+@import "compass/css3";
 
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img,a img{border:none;}address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:inherit;font-weight:inherit;}del,ins{text-decoration:none;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:baseline;}sub{vertical-align:baseline;}legend{color:#000;}
+@import "portfolio/*.png";
+@import "icons/*.png";
+@include all-portfolio-sprites;
+@include all-icons-sprites;
+
+$default-border-radius: 3px;
 
 /* ---- Fonts ---- */
 
@@ -38,6 +44,7 @@ h3 {
 }
 
 p {
+    line-height: 1.5;
     margin: 20px 0;
 }
 
@@ -54,9 +61,11 @@ p {
     width: 930px;
 }
 
-.clearfix:before,.clearfix:after { content:""; display:table; }
-.clearfix:after { clear:both; }
-.clearfix { zoom:1; /* For IE 6/7 */ }
+.clearfix {
+    &:before,&:after { content:""; display:table; }
+    &:after { clear:both; }
+    zoom:1; // For IE 6/7
+}
 
 
 /* ---- Header ---- */
@@ -77,43 +86,30 @@ h1 {
 
 .social {
     float: right;
-}
 
-    .social li {
+    li {
         float: left;
         margin-left: 15px;
+
+        &:first-child {
+            margin-left: 0;
+        }
     }
 
-    .social li:first-child {
-        margin-left: 0;
+    a {
+        display: block;
+        @include opacity(0.5);
+        outline: none;
+        text-indent: -9999px;
+        width: 40px;
+        height: 40px;
+
+        &:hover {
+            @include opacity(1.0);
+        }
     }
+}
 
-        .social a {
-            background: url('../ui/sprite.png') no-repeat;
-            display: block;
-            outline: none;
-            text-indent: -9999px;
-            width: 40px;
-            height: 40px;
-        }
-
-        .social .github a {
-            background-position: 0 0;
-        }
-
-        .social .github a:hover,
-        .social .github a:focus {
-            background-position: 0 -40px;
-        }
-
-        .social .linkedin a {
-            background-position: -40px 0;
-        }
-
-        .social .linkedin a:hover,
-        .social .linkedin a:focus {
-            background-position: -40px -40px;
-        }
 
 /* ---- Top ---- */
 
@@ -123,48 +119,51 @@ h1 {
 }
 
 .portfolio {
-    padding-bottom: 25px;
+    padding: 15px 0;
 }
 
     .port {
-        padding-bottom: 15px;
-    }
+        padding-bottom: 25px;
 
         .port-desc {
             float: left;
             width: 270px;
+
+            p {
+                color: #727272;
+                font-size: .9em;
+            }
         }
 
-            .port-desc p {
-                color: #727272;
-            }
-
-        .port ul {
+        ul {
             float: right;
             width: 660px;
         }
 
-            .port li {
+            li {
                 float: left;
                 margin-left: 20px;
                 width: 200px;
-            }
 
-                .port li span {
+                span {
                     display: block;
                 }
 
-                .port .thumb {
-                    background: rgba(0,0,0,0.2);
-                    width: 200px;
-                    height: 150px;
+                .thumb {
+                    @include border-radius;
+                    border: solid 1px #c7c7c7;
+                    @include box-shadow(1px 1px 5px rgba(0, 0, 0, 0.2) inset);
+                    width: 198px;
+                    height: 148px;
                 }
 
-                .port .label {
+                .label {
                     font-size: .9em;
-                    padding-top: 3px;
+                    padding-top: 8px;
                     text-align: center;
                 }
+            }
+    }
 
 /* ---- Bottom ---- */
 
@@ -178,33 +177,28 @@ h1 {
     float: left;
     padding-right: 14px;
     width: 380px;
-}
 
-    .skills-list li {
+    li {
         background: #e3e3e3;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
+        @include border-radius;
         border: solid 1px #d2d2d2;
-        -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        box-shadow: inset 1px 1px 5px rgba(0,0,0,0.2);
+        @include box-shadow(1px 1px 5px rgba(0, 0, 0, 0.2) inset);
         float: left;
         font-weight: bold;
         margin: 0 15px 15px 0;
         padding: 10px 15px;
     }
+}
 
 .contact {
     float: right;
     width: 500px;
-}
 
-.contact form {
-    position: relative;
-}
+    form {
+        position: relative;
+    }
 
-    .contact fieldset {
+    fieldset {
         margin-bottom: 20px;
         position: relative;
     }
@@ -214,17 +208,15 @@ h1 {
         width: 322px;
     }
 
-    .contact label {
+    label {
         position: absolute;
         left: -9999px;
     }
 
-    .contact input,
-    .contact textarea {
+    input,
+    textarea {
         background: #FFF;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
+        @include border-radius;
         border: solid 1px #d3d3d3;
         font-family: 'Helvetica Neue', Arial, sans-serif;
         font-size: .9em;
@@ -233,16 +225,16 @@ h1 {
         padding: 5px 10px;
     }
 
-    .contact input {
+    input {
         display: block;
         width: 300px;
     }
 
-    .contact .placeholder {
+    .placeholder {
         color: #AAA;
     }
 
-    .contact textarea {
+    textarea {
         width: 478px;
         height: 200px;
     }
@@ -252,15 +244,13 @@ h1 {
         border-color: #D1A4A4;
     }
 
-    .contact .default {
+    .default {
         color: #777;
     }
 
-    .contact .error-message {
+    .error-message {
         background: #B34C4C;
-        -moz-border-radius: 0 3px 0 3px;
-        -webkit-border-radius: 0 3px 0 3px;
-        border-radius: 0 3px 0 3px;
+        @include border-radius(0 3px 0 3px);
         color: #FFF;
         font-size: .8em;
         padding: 5px 8px;
@@ -269,18 +259,16 @@ h1 {
             top: 0;
     }
 
-    .contact input:focus + .error-message,
-    .contact textarea:focus + .error-message {
+    input:focus + .error-message,
+    textarea:focus + .error-message {
         display: none;
     }
 
-    .contact button {
+    button {
         background: #424242;
         background: -webkit-gradient(linear, left top, left bottom, from(#555), to(#333));
         background: -moz-linear-gradient(top, #555, #333);
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
+        @include border-radius;
         border: solid 1px #424242;
         color: #e3e3e3;
         cursor: pointer;
@@ -291,14 +279,14 @@ h1 {
         line-height: 35px;
     }
 
-    .contact button:hover,
-    .contact button:focus {
+    button:hover,
+    button:focus {
         background: #666;
         background: -webkit-gradient(linear, left top, left bottom, from(#777), to(#555));
         background: -moz-linear-gradient(top, #777, #555);
     }
 
-    .contact button:active {
+    button:active {
         background: #333;
         background: -webkit-gradient(linear, left top, left bottom, from(#555), to(#777));
         background: -moz-linear-gradient(top, #555, #777);
@@ -306,9 +294,7 @@ h1 {
 
     .processing {
         background: #333 url('../ui/processing.gif') 50% 50% no-repeat;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
+        @include border-radius;
         border: solid 1px #424242;
         float: right;
         width: 123px;
@@ -317,9 +303,7 @@ h1 {
 
     .response {
         background: #f8f8f8;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
+        @include border-radius;
         border: solid 1px #d3d3d3;
         font-size: 1.2em;
         line-height: 1.5;
@@ -331,14 +315,15 @@ h1 {
         color: #600;
     }
 
-    .mail-icon {
-        background: url('../ui/sprite.png') 100% 0 no-repeat;
+    .icons-mail {
         position: absolute;
             top: 0;
             right: 0;
         width: 158px;
         height: 100px;
     }
+}
+
 
 /*****************************
 

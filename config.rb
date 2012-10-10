@@ -1,8 +1,8 @@
 require './app'
 
 project_path          = Sinatra::Application.root
+relative_assets       = true
 
-http_path             = '/'
 http_images_path      = '/ui'
 http_stylesheets_path = '/css'
 

@@ -1,632 +1,744 @@
-/* ---- Reset ---- */
+/* line 17, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
 
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img,a img{border:none;}address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:inherit;font-weight:inherit;}del,ins{text-decoration:none;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:baseline;}sub{vertical-align:baseline;}legend{color:#000;}
+/* line 22, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 106, portfolio/*.png */
+.portfolio-sprite, .portfolio-aquarium, .portfolio-austentatious, .portfolio-calculator, .portfolio-eleventh, .portfolio-list, .portfolio-movies, .portfolio-nagazasshi, .portfolio-tasks, .portfolio-tv {
+  background: url('../ui/portfolio-s10e742943c.png') no-repeat;
+}
+
+/* line 58, icons/*.png */
+.icons-sprite, .icons-github, .icons-linkedin, .icons-mail {
+  background: url('../ui/icons-sa2004bfaf6.png') no-repeat;
+}
+
+/* line 60, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.portfolio-aquarium {
+  background-position: 0 -450px;
+}
+
+/* line 60, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.portfolio-austentatious {
+  background-position: 0 -300px;
+}
+
+/* line 60, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.portfolio-calculator {
+  background-position: 0 -1200px;
+}
+
+/* line 60, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.portfolio-eleventh {
+  background-position: 0 0;
+}
+
+/* line 60, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.portfolio-list {
+  background-position: 0 -1050px;
+}
+
+/* line 60, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.portfolio-movies {
+  background-position: 0 -750px;
+}
+
+/* line 60, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.portfolio-nagazasshi {
+  background-position: 0 -150px;
+}
+
+/* line 60, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.portfolio-tasks {
+  background-position: 0 -900px;
+}
+
+/* line 60, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.portfolio-tv {
+  background-position: 0 -600px;
+}
+
+/* line 60, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-github {
+  background-position: 0 -100px;
+}
+
+/* line 60, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-linkedin {
+  background-position: 0 -140px;
+}
+
+/* line 60, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-mail {
+  background-position: 0 0;
+}
 
 /* ---- Fonts ---- */
-
 @font-face {
-    font-family: 'Bebas Neue';
-    src: url('../fonts/Bebas-Neue/BebasNeue-webfont.eot');
-    src: url('../fonts/Bebas-Neue/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/Bebas-Neue/BebasNeue-webfont.woff') format('woff'),
-         url('../fonts/Bebas-Neue/BebasNeue-webfont.ttf') format('truetype'),
-         url('../fonts/Bebas-Neue/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Bebas Neue';
+  src: url("../fonts/Bebas-Neue/BebasNeue-webfont.eot");
+  src: url("../fonts/Bebas-Neue/BebasNeue-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Bebas-Neue/BebasNeue-webfont.woff") format("woff"), url("../fonts/Bebas-Neue/BebasNeue-webfont.ttf") format("truetype"), url("../fonts/Bebas-Neue/BebasNeue-webfont.svg#BebasNeueRegular") format("svg");
+  font-weight: normal;
+  font-style: normal;
 }
 
 /* ---- General ---- */
-
+/* line 26, ../../views/sass/styles.scss */
 body {
-    background: url('../ui/body-bg.jpg');
-    color: #424242;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    width: 100%;
-    height: 100%;
+  background: url("../ui/body-bg.jpg");
+  color: #424242;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  width: 100%;
+  height: 100%;
 }
 
+/* line 34, ../../views/sass/styles.scss */
 h2 {
-    font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 36px;
-    margin-bottom: 20px;
+  font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 36px;
+  margin-bottom: 20px;
 }
 
+/* line 40, ../../views/sass/styles.scss */
+h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* line 46, ../../views/sass/styles.scss */
 p {
-    margin: 20px 0;
+  line-height: 1.5;
+  margin: 20px 0;
 }
-
 
 /* ---- Helpers ---- */
-
+/* line 54, ../../views/sass/styles.scss */
 .wrap {
-    padding: 0 15px;
+  padding: 0 15px;
 }
 
+/* line 58, ../../views/sass/styles.scss */
 .container {
-    margin: 0 auto;
-    padding: 20px 0;
-    width: 930px;
+  margin: 0 auto;
+  padding: 20px 0;
+  width: 930px;
 }
 
-.clearfix:before,.clearfix:after { content:""; display:table; }
-.clearfix:after { clear:both; }
-.clearfix { zoom:1; /* For IE 6/7 */ }
-
+/* line 64, ../../views/sass/styles.scss */
+.clearfix {
+  zoom: 1;
+}
+/* line 65, ../../views/sass/styles.scss */
+.clearfix:before, .clearfix:after {
+  content: "";
+  display: table;
+}
+/* line 66, ../../views/sass/styles.scss */
+.clearfix:after {
+  clear: both;
+}
 
 /* ---- Header ---- */
-
+/* line 73, ../../views/sass/styles.scss */
 .header {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
+/* line 77, ../../views/sass/styles.scss */
 h1 {
-    color: #626262;
-    float: left;
-    font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 64px;
-    font-weight: normal;
-    line-height: 1;
-    text-shadow: 0 -2px 1px rgba(0,0,0,0.8);
+  color: #626262;
+  float: left;
+  font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 64px;
+  font-weight: normal;
+  line-height: 1;
+  text-shadow: 0 -2px 1px rgba(0, 0, 0, 0.8);
 }
 
+/* line 87, ../../views/sass/styles.scss */
 .social {
-    float: right;
+  float: right;
 }
-
-    .social li {
-        float: left;
-        margin-left: 15px;
-    }
-
-    .social li:first-child {
-        margin-left: 0;
-    }
-
-        .social a {
-            background: url('../ui/sprite.png') no-repeat;
-            display: block;
-            outline: none;
-            text-indent: -9999px;
-            width: 40px;
-            height: 40px;
-        }
-
-        .social .github a {
-            background-position: 0 0;
-        }
-
-        .social .github a:hover,
-        .social .github a:focus {
-            background-position: 0 -40px;
-        }
-
-        .social .linkedin a {
-            background-position: -40px 0;
-        }
-
-        .social .linkedin a:hover,
-        .social .linkedin a:focus {
-            background-position: -40px -40px;
-        }
+/* line 90, ../../views/sass/styles.scss */
+.social li {
+  float: left;
+  margin-left: 15px;
+}
+/* line 94, ../../views/sass/styles.scss */
+.social li:first-child {
+  margin-left: 0;
+}
+/* line 99, ../../views/sass/styles.scss */
+.social a {
+  display: block;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+  outline: none;
+  text-indent: -9999px;
+  width: 40px;
+  height: 40px;
+}
+/* line 107, ../../views/sass/styles.scss */
+.social a:hover {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
 
 /* ---- Top ---- */
-
-.top {
-    padding-bottom: 40px;
+/* line 116, ../../views/sass/styles.scss */
+.bio {
+  font-size: 1.1em;
+  text-align: center;
 }
 
-.services {
-    float: left;
-    font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 36px;
-    line-height: 2em;
-    padding-top: 15px;
-    width: 300px;
+/* line 121, ../../views/sass/styles.scss */
+.portfolio {
+  padding: 15px 0;
 }
 
-.slider {
-    float: right;
-    width: 600px;
+/* line 125, ../../views/sass/styles.scss */
+.port {
+  padding-bottom: 25px;
 }
-
-        .slider li,
-        .slides li {
-            background: url('../ui/portfolio-sprite.jpg') no-repeat;
-        }
-
-    .slides {
-        float: right;
-        position: relative;
-        width: 502px;
-        height: 252px;
-    }
-
-        .slides li {
-            -moz-border-radius: 3px;
-            -webkit-border-radius: 3px;
-            border-radius: 3px;
-            border: solid 1px #424242;
-            display: none;
-            position: absolute;
-            text-indent: -9999px;
-            width: 500px;
-            height: 250px;
-        }
-
-        .slides li.slide-1 {
-            display: list-item;
-        }
-
-        .slides li.slide-2 {
-            background-position: 0 -250px;
-        }
-
-        .slides li.slide-3 {
-            background-position: 0 -500px;
-        }
-
-    .slider-nav {
-        float: left;
-        width: 90px;
-    }
-
-        .slider-nav li {
-            -moz-border-radius: 100px;
-            -webkit-border-radius: 100px;
-            border-radius: 100px;
-            border: solid 1px #424242;
-            cursor: pointer;
-            margin-top: 18px;
-            opacity: .5;
-            text-indent: -9999px;
-            -moz-transition: all ease .5s;
-            -webkit-transition: all ease .5s;
-            transition: all ease .5s;
-            width : 70px;
-            height: 70px;
-        }
-
-        .slider-nav li:first-child {
-            margin-top: 0;
-        }
-
-        .slider-nav li.slide-1 {
-            background-position: -500px 0;
-        }
-
-        .slider-nav li.slide-2 {
-            background-position: -500px -70px;
-        }
-
-        .slider-nav li.slide-3 {
-            background-position: -500px -140px;
-        }
-
-        .slider-nav li:hover,
-        .slider-nav li.active {
-            opacity: 1;
-        }
+/* line 128, ../../views/sass/styles.scss */
+.port .port-desc {
+  float: left;
+  width: 270px;
+}
+/* line 132, ../../views/sass/styles.scss */
+.port .port-desc p {
+  color: #727272;
+  font-size: .9em;
+}
+/* line 138, ../../views/sass/styles.scss */
+.port ul {
+  float: right;
+  width: 660px;
+}
+/* line 143, ../../views/sass/styles.scss */
+.port li {
+  float: left;
+  margin-left: 20px;
+  width: 200px;
+}
+/* line 148, ../../views/sass/styles.scss */
+.port li span {
+  display: block;
+}
+/* line 152, ../../views/sass/styles.scss */
+.port li .thumb {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  border: solid 1px #c7c7c7;
+  -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2) inset;
+  -moz-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2) inset;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2) inset;
+  width: 198px;
+  height: 148px;
+}
+/* line 160, ../../views/sass/styles.scss */
+.port li .label {
+  font-size: .9em;
+  padding-top: 8px;
+  text-align: center;
+}
 
 /* ---- Bottom ---- */
-
+/* line 170, ../../views/sass/styles.scss */
 .bottom {
-    border-top: dashed 1px #424242;
-    padding: 40px 0;
+  border-top: dashed 1px #424242;
+  padding: 40px 0;
 }
 
+/* line 175, ../../views/sass/styles.scss */
 .skills {
-    border-right: dashed 1px #424242;
-    float: left;
-    padding-right: 14px;
-    width: 380px;
+  border-right: dashed 1px #424242;
+  float: left;
+  padding-right: 14px;
+  width: 380px;
+}
+/* line 181, ../../views/sass/styles.scss */
+.skills li {
+  background: #e3e3e3;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  border: solid 1px #d2d2d2;
+  -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2) inset;
+  -moz-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2) inset;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2) inset;
+  float: left;
+  font-weight: bold;
+  margin: 0 15px 15px 0;
+  padding: 10px 15px;
 }
 
-    .skills-list li {
-        background: #e3e3e3;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
-        border: solid 1px #d2d2d2;
-        -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        box-shadow: inset 1px 1px 5px rgba(0,0,0,0.2);
-        float: left;
-        font-weight: bold;
-        margin: 0 15px 15px 0;
-        padding: 10px 15px;
-    }
-
+/* line 193, ../../views/sass/styles.scss */
 .contact {
-    float: right;
-    width: 500px;
+  float: right;
+  width: 500px;
 }
-
+/* line 197, ../../views/sass/styles.scss */
 .contact form {
-    position: relative;
+  position: relative;
 }
-
-    .contact fieldset {
-        margin-bottom: 20px;
-        position: relative;
-    }
-
-    .name-group,
-    .email-group {
-        width: 322px;
-    }
-
-    .contact label {
-        position: absolute;
-        left: -9999px;
-    }
-
-    .contact input,
-    .contact textarea {
-        background: #FFF;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
-        border: solid 1px #d3d3d3;
-        font-family: 'Helvetica Neue', Arial, sans-serif;
-        font-size: .9em;
-        height: 28px;
-        line-height: 28px;
-        padding: 5px 10px;
-    }
-
-    .contact input {
-        display: block;
-        width: 300px;
-    }
-
-    .contact .placeholder {
-        color: #AAA;
-    }
-
-    .contact textarea {
-        width: 478px;
-        height: 200px;
-    }
-
-    .error input,
-    .error textarea {
-        border-color: #D1A4A4;
-    }
-
-    .contact .default {
-        color: #777;
-    }
-
-    .contact .error-message {
-        background: #B34C4C;
-        -moz-border-radius: 0 3px 0 3px;
-        -webkit-border-radius: 0 3px 0 3px;
-        border-radius: 0 3px 0 3px;
-        color: #FFF;
-        font-size: .8em;
-        padding: 5px 8px;
-        position: absolute;
-            right: 0;
-            top: 0;
-    }
-
-    .contact input:focus + .error-message,
-    .contact textarea:focus + .error-message {
-        display: none;
-    }
-
-    .contact button {
-        background: #424242;
-        background: -webkit-gradient(linear, left top, left bottom, from(#555), to(#333));
-        background: -moz-linear-gradient(top, #555, #333);
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
-        border: solid 1px #424242;
-        color: #e3e3e3;
-        cursor: pointer;
-        float: right;
-        font-size: .9em;
-        width: 125px;
-        height: 40px;
-        line-height: 35px;
-    }
-
-    .contact button:hover,
-    .contact button:focus {
-        background: #666;
-        background: -webkit-gradient(linear, left top, left bottom, from(#777), to(#555));
-        background: -moz-linear-gradient(top, #777, #555);
-    }
-
-    .contact button:active {
-        background: #333;
-        background: -webkit-gradient(linear, left top, left bottom, from(#555), to(#777));
-        background: -moz-linear-gradient(top, #555, #777);
-    }
-
-    .processing {
-        background: #333 url('../ui/processing.gif') 50% 50% no-repeat;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
-        border: solid 1px #424242;
-        float: right;
-        width: 123px;
-        height: 38px;
-    }
-
-    .response {
-        background: #f8f8f8;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
-        border: solid 1px #d3d3d3;
-        font-size: 1.2em;
-        line-height: 1.5;
-        padding: 20px;
-    }
-
-    .invalid {
-        border-color: #600;
-        color: #600;
-    }
-
-    .mail-icon {
-        background: url('../ui/sprite.png') 100% 0 no-repeat;
-        position: absolute;
-            top: 0;
-            right: 0;
-        width: 158px;
-        height: 100px;
-    }
+/* line 201, ../../views/sass/styles.scss */
+.contact fieldset {
+  margin-bottom: 20px;
+  position: relative;
+}
+/* line 207, ../../views/sass/styles.scss */
+.contact .name-group,
+.contact .email-group {
+  width: 322px;
+}
+/* line 211, ../../views/sass/styles.scss */
+.contact label {
+  position: absolute;
+  left: -9999px;
+}
+/* line 217, ../../views/sass/styles.scss */
+.contact input,
+.contact textarea {
+  background: #FFF;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  border: solid 1px #d3d3d3;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: .9em;
+  height: 28px;
+  line-height: 28px;
+  padding: 5px 10px;
+}
+/* line 228, ../../views/sass/styles.scss */
+.contact input {
+  display: block;
+  width: 300px;
+}
+/* line 233, ../../views/sass/styles.scss */
+.contact .placeholder {
+  color: #AAA;
+}
+/* line 237, ../../views/sass/styles.scss */
+.contact textarea {
+  width: 478px;
+  height: 200px;
+}
+/* line 243, ../../views/sass/styles.scss */
+.contact .error input,
+.contact .error textarea {
+  border-color: #D1A4A4;
+}
+/* line 247, ../../views/sass/styles.scss */
+.contact .default {
+  color: #777;
+}
+/* line 251, ../../views/sass/styles.scss */
+.contact .error-message {
+  background: #B34C4C;
+  -webkit-border-radius: 0 3px 0 3px;
+  -moz-border-radius: 0 3px 0 3px;
+  -ms-border-radius: 0 3px 0 3px;
+  -o-border-radius: 0 3px 0 3px;
+  border-radius: 0 3px 0 3px;
+  color: #FFF;
+  font-size: .8em;
+  padding: 5px 8px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+/* line 263, ../../views/sass/styles.scss */
+.contact input:focus + .error-message,
+.contact textarea:focus + .error-message {
+  display: none;
+}
+/* line 267, ../../views/sass/styles.scss */
+.contact button {
+  background: #424242;
+  background: -webkit-gradient(linear, left top, left bottom, from(#555555), to(#333333));
+  background: -moz-linear-gradient(top, #555555, #333333);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  border: solid 1px #424242;
+  color: #e3e3e3;
+  cursor: pointer;
+  float: right;
+  font-size: .9em;
+  width: 125px;
+  height: 40px;
+  line-height: 35px;
+}
+/* line 283, ../../views/sass/styles.scss */
+.contact button:hover,
+.contact button:focus {
+  background: #666;
+  background: -webkit-gradient(linear, left top, left bottom, from(#777777), to(#555555));
+  background: -moz-linear-gradient(top, #777777, #555555);
+}
+/* line 289, ../../views/sass/styles.scss */
+.contact button:active {
+  background: #333;
+  background: -webkit-gradient(linear, left top, left bottom, from(#555555), to(#777777));
+  background: -moz-linear-gradient(top, #555555, #777777);
+}
+/* line 295, ../../views/sass/styles.scss */
+.contact .processing {
+  background: #333333 url("../ui/processing.gif") 50% 50% no-repeat;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  border: solid 1px #424242;
+  float: right;
+  width: 123px;
+  height: 38px;
+}
+/* line 304, ../../views/sass/styles.scss */
+.contact .response {
+  background: #f8f8f8;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  border: solid 1px #d3d3d3;
+  font-size: 1.2em;
+  line-height: 1.5;
+  padding: 20px;
+}
+/* line 313, ../../views/sass/styles.scss */
+.contact .invalid {
+  border-color: #600;
+  color: #600;
+}
+/* line 318, ../../views/sass/styles.scss */
+.contact .icons-mail {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 158px;
+  height: 100px;
+}
 
 /*****************************
 
    Responsive Break Points
 
 *****************************/
-
 /*
 *   <= 959
 */
 @media only screen and (max-width: 959px) {
+  /* line 339, ../../views/sass/styles.scss */
+  .container {
+    width: 100%;
+  }
 
-    .container {
-        width: 100%;
-    }
+  /* Services */
+  /* line 345, ../../views/sass/styles.scss */
+  .services {
+    width: 275px;
+  }
 
-    /* Services */
+  /* Slider */
+  /* line 351, ../../views/sass/styles.scss */
+  .slider {
+    padding-left: 20px;
+    width: 502px;
+  }
 
-    .services {
-        width: 275px;
-    }
+  /* line 356, ../../views/sass/styles.scss */
+  .slider-nav {
+    float: none;
+    height: 72px;
+    margin: 0 auto;
+    padding-top: 10px;
+    width: 252px;
+  }
 
-    /* Slider */
+  /* line 364, ../../views/sass/styles.scss */
+  .slider-nav li {
+    float: left;
+    margin: 0 0 0 18px;
+  }
 
-   .slider {
-        padding-left: 20px;
-        width: 502px;
-    }
+  /* line 369, ../../views/sass/styles.scss */
+  .slider-nav li:first-child {
+    margin-left: 0;
+  }
 
-        .slider-nav {
-            float: none;
-            height: 72px;
-            margin: 0 auto;
-            padding-top: 10px;
-            width: 252px;
-        }
+  /* line 373, ../../views/sass/styles.scss */
+  .slides {
+    float: none;
+  }
 
-            .slider-nav li {
-                float: left;
-                margin: 0 0 0 18px;
-            }
+  /* Skills, Contacrt */
+  /* line 380, ../../views/sass/styles.scss */
+  .skills,
+  .contact {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
 
-            .slider-nav li:first-child {
-                margin-left: 0;
-            }
+  /* line 386, ../../views/sass/styles.scss */
+  .skills {
+    padding-right: 20px;
+    width: 45%;
+  }
 
-        .slides {
-            float: none;
-        }
+  /* line 391, ../../views/sass/styles.scss */
+  .contact {
+    padding-left: 20px;
+    width: 55%;
+  }
 
-    /* Skills, Contacrt */
+  /* line 396, ../../views/sass/styles.scss */
+  .contact input {
+    height: 38px;
+    line-height: 38px;
+  }
 
-    .skills,
-    .contact {
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-    }
+  /* line 402, ../../views/sass/styles.scss */
+  .name-group,
+  .email-group {
+    width: 100%;
+  }
 
-    .skills {
-        padding-right: 20px;
-        width: 45%;
-    }
+  /* line 407, ../../views/sass/styles.scss */
+  .contact input,
+  .contact textarea {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+  }
 
-    .contact {
-        padding-left: 20px;
-        width: 55%;
-    }
-
-        .contact input {
-            height: 38px;
-            line-height: 38px;
-        }
-
-        .name-group,
-        .email-group {
-            width: 100%;
-        }
-
-        .contact input,
-        .contact textarea {
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            width: 100%;
-        }
-
-        .mail-icon {
-            display: none;
-        }
-
+  /* line 414, ../../views/sass/styles.scss */
+  .mail-icon {
+    display: none;
+  }
 }
-
 /*
 *   <= 845
 */
 @media only screen and (max-width: 845px) {
+  /* Services */
+  /* line 427, ../../views/sass/styles.scss */
+  .services {
+    float: none;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    padding-top: 0;
+    text-align: center;
+    width: auto;
+  }
 
-    /* Services */
+  /* line 436, ../../views/sass/styles.scss */
+  .services li {
+    display: inline;
+    padding: 0 15px;
+  }
 
-    .services {
-        float: none;
-        line-height: 1.5;
-        margin-bottom: 15px;
-        padding-top: 0;
-        text-align: center;
-        width: auto;
-    }
-
-        .services li {
-            display: inline;
-            padding: 0 15px;
-        }
-
-    /* Slider */
-
-    .slider {
-        border-left: none;
-        float: none;
-        margin: 0 auto;
-        padding-left: 0;
-    }
-
+  /* Slider */
+  /* line 443, ../../views/sass/styles.scss */
+  .slider {
+    border-left: none;
+    float: none;
+    margin: 0 auto;
+    padding-left: 0;
+  }
 }
-
 /*
 *   <= 740
 */
 @media only screen and (max-width: 740px) {
-
-    .services li:last-child {
-        display: block;
-    }
-
+  /* line 457, ../../views/sass/styles.scss */
+  .services li:last-child {
+    display: block;
+  }
 }
-
 /*
 *   <= 620
 */
 @media only screen and (max-width: 620px) {
+  /* line 468, ../../views/sass/styles.scss */
+  h1 {
+    font-size: 54px;
+  }
 
-    h1 {
-        font-size: 54px;
-    }
+  /* Services */
+  /* line 474, ../../views/sass/styles.scss */
+  .services {
+    font-size: 30px;
+  }
 
-    /* Services */
+  /* line 478, ../../views/sass/styles.scss */
+  .services li {
+    display: block;
+    padding: 0;
+  }
 
-    .services {
-        font-size: 30px;
-    }
+  /* Skills, Contact */
+  /* line 485, ../../views/sass/styles.scss */
+  .skills {
+    border-right: none;
+    border-bottom: dashed 1px #424242;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+  }
 
-        .services li {
-            display: block;
-            padding: 0;
-        }
+  /* line 493, ../../views/sass/styles.scss */
+  .skills,
+  .contact {
+    float: none;
+    width: 100%;
+  }
 
-    /* Skills, Contact */
-
-    .skills {
-        border-right: none;
-        border-bottom: dashed 1px #424242;
-        margin-bottom: 30px;
-        padding-bottom: 20px;
-    }
-
-    .skills,
-    .contact {
-        float: none;
-        width: 100%;
-    }
-
-    .contact {
-        padding-left: 0;
-    }
-
+  /* line 498, ../../views/sass/styles.scss */
+  .contact {
+    padding-left: 0;
+  }
 }
-
 /*
 *   <= 542
 */
 @media only screen and (max-width: 542px) {
+  /* Slider */
+  /* line 512, ../../views/sass/styles.scss */
+  .slider,
+  .slides {
+    width: 100%;
+  }
 
-    /* Slider */
-
-    .slider,
-    .slides {
-        width: 100%;
-    }
-
-        .slides {
-        }
-
-            .slides li {
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                width: 100%;
-            }
-
+  /* line 519, ../../views/sass/styles.scss */
+  .slides li {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+  }
 }
-
 /*
 *   <= 430
 */
 @media only screen and (max-width: 430px) {
+  /* line 533, ../../views/sass/styles.scss */
+  h1 {
+    margin-bottom: 10px;
+  }
 
-    h1 {
-        margin-bottom: 10px;
-    }
+  /* line 538, ../../views/sass/styles.scss */
+  h1,
+  .social {
+    float: none;
+    text-align: center;
+  }
 
-    h1,
-    .social {
-        float: none;
-        text-align: center;
-    }
-
-        .social li {
-            display: inline-block;
-            float: none;
-        }
-
+  /* line 543, ../../views/sass/styles.scss */
+  .social li {
+    display: inline-block;
+    float: none;
+  }
 }
-
 /*
 *   <= 401
 */
 @media only screen and (max-width: 401px) {
+  /* Skills */
+  /* line 557, ../../views/sass/styles.scss */
+  .skills {
+    padding-right: 0;
+  }
 
-    /* Skills */
+  /* line 561, ../../views/sass/styles.scss */
+  .skills-list li {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-right: 6%;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+    width: 47%;
+  }
 
-    .skills {
-        padding-right: 0;
-    }
-
-        .skills-list li {
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            margin-right: 6%;
-            padding-left: 0;
-            padding-right: 0;
-            text-align: center;
-            width: 47%;
-        }
-
-        .skills-list li:nth-child(2n) {
-            margin-right: 0;
-        }
-
+  /* line 572, ../../views/sass/styles.scss */
+  .skills-list li:nth-child(2n) {
+    margin-right: 0;
+  }
 }
