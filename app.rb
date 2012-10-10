@@ -5,9 +5,6 @@ require_relative '../secrets.rb'
 
 get '/' do
   @title = 'Chris Breiding | Web Developer'
-  @responsive = true
-  @asset_path = 'index'
-  @favicon = true
   erb :index
 end
 

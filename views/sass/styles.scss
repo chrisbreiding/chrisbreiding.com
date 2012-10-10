@@ -1,0 +1,591 @@
+/* ---- Reset ---- */
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img,a img{border:none;}address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:inherit;font-weight:inherit;}del,ins{text-decoration:none;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:baseline;}sub{vertical-align:baseline;}legend{color:#000;}
+
+/* ---- Fonts ---- */
+
+@font-face {
+    font-family: 'Bebas Neue';
+    src: url('../fonts/Bebas-Neue/BebasNeue-webfont.eot');
+    src: url('../fonts/Bebas-Neue/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Bebas-Neue/BebasNeue-webfont.woff') format('woff'),
+         url('../fonts/Bebas-Neue/BebasNeue-webfont.ttf') format('truetype'),
+         url('../fonts/Bebas-Neue/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ---- General ---- */
+
+body {
+    background: url('../ui/body-bg.jpg');
+    color: #424242;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    width: 100%;
+    height: 100%;
+}
+
+h2 {
+    font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+p {
+    margin: 20px 0;
+}
+
+
+/* ---- Helpers ---- */
+
+.wrap {
+    padding: 0 15px;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 20px 0;
+    width: 930px;
+}
+
+.clearfix:before,.clearfix:after { content:""; display:table; }
+.clearfix:after { clear:both; }
+.clearfix { zoom:1; /* For IE 6/7 */ }
+
+
+/* ---- Header ---- */
+
+.header {
+    margin-bottom: 10px;
+}
+
+h1 {
+    color: #626262;
+    float: left;
+    font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 64px;
+    font-weight: normal;
+    line-height: 1;
+    text-shadow: 0 -2px 1px rgba(0,0,0,0.8);
+}
+
+.social {
+    float: right;
+}
+
+    .social li {
+        float: left;
+        margin-left: 15px;
+    }
+
+    .social li:first-child {
+        margin-left: 0;
+    }
+
+        .social a {
+            background: url('../ui/sprite.png') no-repeat;
+            display: block;
+            outline: none;
+            text-indent: -9999px;
+            width: 40px;
+            height: 40px;
+        }
+
+        .social .github a {
+            background-position: 0 0;
+        }
+
+        .social .github a:hover,
+        .social .github a:focus {
+            background-position: 0 -40px;
+        }
+
+        .social .linkedin a {
+            background-position: -40px 0;
+        }
+
+        .social .linkedin a:hover,
+        .social .linkedin a:focus {
+            background-position: -40px -40px;
+        }
+
+/* ---- Top ---- */
+
+.bio {
+    font-size: 1.1em;
+    text-align: center;
+}
+
+.portfolio {
+    padding-bottom: 25px;
+}
+
+    .port {
+        padding-bottom: 15px;
+    }
+
+        .port-desc {
+            float: left;
+            width: 270px;
+        }
+
+            .port-desc p {
+                color: #727272;
+            }
+
+        .port ul {
+            float: right;
+            width: 660px;
+        }
+
+            .port li {
+                float: left;
+                margin-left: 20px;
+                width: 200px;
+            }
+
+                .port li span {
+                    display: block;
+                }
+
+                .port .thumb {
+                    background: rgba(0,0,0,0.2);
+                    width: 200px;
+                    height: 150px;
+                }
+
+                .port .label {
+                    font-size: .9em;
+                    padding-top: 3px;
+                    text-align: center;
+                }
+
+/* ---- Bottom ---- */
+
+.bottom {
+    border-top: dashed 1px #424242;
+    padding: 40px 0;
+}
+
+.skills {
+    border-right: dashed 1px #424242;
+    float: left;
+    padding-right: 14px;
+    width: 380px;
+}
+
+    .skills-list li {
+        background: #e3e3e3;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        border: solid 1px #d2d2d2;
+        -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        box-shadow: inset 1px 1px 5px rgba(0,0,0,0.2);
+        float: left;
+        font-weight: bold;
+        margin: 0 15px 15px 0;
+        padding: 10px 15px;
+    }
+
+.contact {
+    float: right;
+    width: 500px;
+}
+
+.contact form {
+    position: relative;
+}
+
+    .contact fieldset {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .name-group,
+    .email-group {
+        width: 322px;
+    }
+
+    .contact label {
+        position: absolute;
+        left: -9999px;
+    }
+
+    .contact input,
+    .contact textarea {
+        background: #FFF;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        border: solid 1px #d3d3d3;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        font-size: .9em;
+        height: 28px;
+        line-height: 28px;
+        padding: 5px 10px;
+    }
+
+    .contact input {
+        display: block;
+        width: 300px;
+    }
+
+    .contact .placeholder {
+        color: #AAA;
+    }
+
+    .contact textarea {
+        width: 478px;
+        height: 200px;
+    }
+
+    .error input,
+    .error textarea {
+        border-color: #D1A4A4;
+    }
+
+    .contact .default {
+        color: #777;
+    }
+
+    .contact .error-message {
+        background: #B34C4C;
+        -moz-border-radius: 0 3px 0 3px;
+        -webkit-border-radius: 0 3px 0 3px;
+        border-radius: 0 3px 0 3px;
+        color: #FFF;
+        font-size: .8em;
+        padding: 5px 8px;
+        position: absolute;
+            right: 0;
+            top: 0;
+    }
+
+    .contact input:focus + .error-message,
+    .contact textarea:focus + .error-message {
+        display: none;
+    }
+
+    .contact button {
+        background: #424242;
+        background: -webkit-gradient(linear, left top, left bottom, from(#555), to(#333));
+        background: -moz-linear-gradient(top, #555, #333);
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        border: solid 1px #424242;
+        color: #e3e3e3;
+        cursor: pointer;
+        float: right;
+        font-size: .9em;
+        width: 125px;
+        height: 40px;
+        line-height: 35px;
+    }
+
+    .contact button:hover,
+    .contact button:focus {
+        background: #666;
+        background: -webkit-gradient(linear, left top, left bottom, from(#777), to(#555));
+        background: -moz-linear-gradient(top, #777, #555);
+    }
+
+    .contact button:active {
+        background: #333;
+        background: -webkit-gradient(linear, left top, left bottom, from(#555), to(#777));
+        background: -moz-linear-gradient(top, #555, #777);
+    }
+
+    .processing {
+        background: #333 url('../ui/processing.gif') 50% 50% no-repeat;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        border: solid 1px #424242;
+        float: right;
+        width: 123px;
+        height: 38px;
+    }
+
+    .response {
+        background: #f8f8f8;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        border: solid 1px #d3d3d3;
+        font-size: 1.2em;
+        line-height: 1.5;
+        padding: 20px;
+    }
+
+    .invalid {
+        border-color: #600;
+        color: #600;
+    }
+
+    .mail-icon {
+        background: url('../ui/sprite.png') 100% 0 no-repeat;
+        position: absolute;
+            top: 0;
+            right: 0;
+        width: 158px;
+        height: 100px;
+    }
+
+/*****************************
+
+   Responsive Break Points
+
+*****************************/
+
+/*
+*   <= 959
+*/
+@media only screen and (max-width: 959px) {
+
+    .container {
+        width: 100%;
+    }
+
+    /* Services */
+
+    .services {
+        width: 275px;
+    }
+
+    /* Slider */
+
+   .slider {
+        padding-left: 20px;
+        width: 502px;
+    }
+
+        .slider-nav {
+            float: none;
+            height: 72px;
+            margin: 0 auto;
+            padding-top: 10px;
+            width: 252px;
+        }
+
+            .slider-nav li {
+                float: left;
+                margin: 0 0 0 18px;
+            }
+
+            .slider-nav li:first-child {
+                margin-left: 0;
+            }
+
+        .slides {
+            float: none;
+        }
+
+    /* Skills, Contacrt */
+
+    .skills,
+    .contact {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .skills {
+        padding-right: 20px;
+        width: 45%;
+    }
+
+    .contact {
+        padding-left: 20px;
+        width: 55%;
+    }
+
+        .contact input {
+            height: 38px;
+            line-height: 38px;
+        }
+
+        .name-group,
+        .email-group {
+            width: 100%;
+        }
+
+        .contact input,
+        .contact textarea {
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .mail-icon {
+            display: none;
+        }
+
+}
+
+/*
+*   <= 845
+*/
+@media only screen and (max-width: 845px) {
+
+    /* Services */
+
+    .services {
+        float: none;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        padding-top: 0;
+        text-align: center;
+        width: auto;
+    }
+
+        .services li {
+            display: inline;
+            padding: 0 15px;
+        }
+
+    /* Slider */
+
+    .slider {
+        border-left: none;
+        float: none;
+        margin: 0 auto;
+        padding-left: 0;
+    }
+
+}
+
+/*
+*   <= 740
+*/
+@media only screen and (max-width: 740px) {
+
+    .services li:last-child {
+        display: block;
+    }
+
+}
+
+/*
+*   <= 620
+*/
+@media only screen and (max-width: 620px) {
+
+    h1 {
+        font-size: 54px;
+    }
+
+    /* Services */
+
+    .services {
+        font-size: 30px;
+    }
+
+        .services li {
+            display: block;
+            padding: 0;
+        }
+
+    /* Skills, Contact */
+
+    .skills {
+        border-right: none;
+        border-bottom: dashed 1px #424242;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+    }
+
+    .skills,
+    .contact {
+        float: none;
+        width: 100%;
+    }
+
+    .contact {
+        padding-left: 0;
+    }
+
+}
+
+/*
+*   <= 542
+*/
+@media only screen and (max-width: 542px) {
+
+    /* Slider */
+
+    .slider,
+    .slides {
+        width: 100%;
+    }
+
+        .slides {
+        }
+
+            .slides li {
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                width: 100%;
+            }
+
+}
+
+/*
+*   <= 430
+*/
+@media only screen and (max-width: 430px) {
+
+    h1 {
+        margin-bottom: 10px;
+    }
+
+    h1,
+    .social {
+        float: none;
+        text-align: center;
+    }
+
+        .social li {
+            display: inline-block;
+            float: none;
+        }
+
+}
+
+/*
+*   <= 401
+*/
+@media only screen and (max-width: 401px) {
+
+    /* Skills */
+
+    .skills {
+        padding-right: 0;
+    }
+
+        .skills-list li {
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            margin-right: 6%;
+            padding-left: 0;
+            padding-right: 0;
+            text-align: center;
+            width: 47%;
+        }
+
+        .skills-list li:nth-child(2n) {
+            margin-right: 0;
+        }
+
+}

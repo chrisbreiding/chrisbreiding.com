@@ -11,3 +11,4 @@ doc/
 *.sublime-project
 *.sublime-workspace
 development.log
+.sass-cache
