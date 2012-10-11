@@ -1,20 +1,17 @@
 @import "compass/reset";
 @import "compass/css3";
 
+$portfolio-layout: smart;
+$icons-layout: smart;
 @import "portfolio/*.png";
 @import "icons/*.png";
 @include all-portfolio-sprites;
 @include all-icons-sprites;
 
-@mixin placeholder-color($color: #AAA) {
-    &::-webkit-input-placeholder { color: $color; }
-    &:-moz-placeholder { color: $color; }
-    &:-ms-input-placeholder { color: $color; }
-}
-
 $blue: #2D5675;
 $default-border-radius: 3px;
-
+$font-default: 'Helvetica Neue', Arial, sans-serif;
+$font-strong: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
 
 // ---- Fonts ----
 
@@ -35,7 +32,7 @@ $default-border-radius: 3px;
 body {
     background: url('../ui/body-bg.jpg');
     color: #424242;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-family: $font-default;
     width: 100%;
     height: 100%;
 }
@@ -43,7 +40,7 @@ body {
 h1 {
     color: #D9E6F0;
     float: left;
-    font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+    font-family: $font-strong;
     font-size: 64px;
     font-weight: normal;
     line-height: 1;
@@ -51,7 +48,7 @@ h1 {
 }
 
 h2 {
-    font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+    font-family: $font-strong;
     font-size: 36px;
     margin-bottom: 20px;
 }
@@ -142,7 +139,7 @@ p {
 
         .port-desc {
             float: left;
-            width: 270px;
+            width: 280px;
 
             p {
                 color: #727272;
@@ -152,12 +149,12 @@ p {
 
         ul {
             float: right;
-            width: 660px;
+            width: 675px;
         }
 
             li {
                 float: left;
-                margin-left: 20px;
+                margin-left: 25px;
                 width: 200px;
 
                 span {
@@ -166,10 +163,9 @@ p {
 
                 .thumb {
                     @include border-radius;
-                    border: solid 1px #c7c7c7;
                     @include box-shadow(1px 1px 5px rgba(0, 0, 0, 0.2) inset);
-                    width: 198px;
-                    height: 148px;
+                    width: 200px;
+                    height: 150px;
                 }
 
                 .label {
@@ -220,7 +216,7 @@ p {
     }
 
     fieldset {
-        margin-bottom: 20px;
+        padding-bottom: 20px;
         position: relative;
     }
 
@@ -240,7 +236,7 @@ p {
         @include border-radius;
         border: solid 1px #c7c7c7;
         @include box-shadow(0 0 5px rgba(0, 0, 0, 0.2) inset);
-        font-family: 'Helvetica Neue', Arial, sans-serif;
+        font-family: $font-default;
         font-size: .9em;
         height: 28px;
         line-height: 28px;
@@ -274,7 +270,7 @@ p {
         background: #721E1E;
         @include border-radius(0 3px 0 3px);
         color: #FFF;
-        font-size: .8em;
+        font-size: .9em;
         padding: 5px 8px;
         position: absolute;
             right: 0;
@@ -288,9 +284,10 @@ p {
 
     button {
         background: $blue;
-        @include background(linear-gradient(top, $blue, darken($blue, 12%)));
+        @include background(linear-gradient(top, $blue, darken($blue, 8%)));
         @include border-radius;
         border: solid 1px #21415A;
+        @include box-shadow(0 0 2px rgba(255,255,255,0.2) inset);
         color: #e3e3e3;
         cursor: pointer;
         float: right;
@@ -535,9 +532,7 @@ p {
         padding-right: 0;
 
         li {
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
+            @include box-sizing(border-box);
             margin-right: 6%;
             padding-left: 0;
             padding-right: 0;
