@@ -6,9 +6,17 @@
 @include all-portfolio-sprites;
 @include all-icons-sprites;
 
+@mixin placeholder-color($color: #AAA) {
+    &::-webkit-input-placeholder { color: $color; }
+    &:-moz-placeholder { color: $color; }
+    &:-ms-input-placeholder { color: $color; }
+}
+
+$blue: #2D5675;
 $default-border-radius: 3px;
 
-/* ---- Fonts ---- */
+
+// ---- Fonts ----
 
 @font-face {
     font-family: 'Bebas Neue';
@@ -21,7 +29,8 @@ $default-border-radius: 3px;
     font-style: normal;
 }
 
-/* ---- General ---- */
+
+// ---- General ----
 
 body {
     background: url('../ui/body-bg.jpg');
@@ -29,6 +38,16 @@ body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     width: 100%;
     height: 100%;
+}
+
+h1 {
+    color: #D9E6F0;
+    float: left;
+    font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 64px;
+    font-weight: normal;
+    line-height: 1;
+    text-shadow: 0 -2px 1px rgba(0,0,0,0.8);
 }
 
 h2 {
@@ -49,16 +68,12 @@ p {
 }
 
 
-/* ---- Helpers ---- */
-
-.wrap {
-    padding: 0 15px;
-}
+// ---- Helpers ----
 
 .container {
     margin: 0 auto;
-    padding: 20px 0;
-    width: 930px;
+    padding: 25px 0;
+    width: 960px;
 }
 
 .clearfix {
@@ -68,20 +83,11 @@ p {
 }
 
 
-/* ---- Header ---- */
+// ---- Header ----
 
 .header {
-    margin-bottom: 10px;
-}
-
-h1 {
-    color: #626262;
-    float: left;
-    font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 64px;
-    font-weight: normal;
-    line-height: 1;
-    text-shadow: 0 -2px 1px rgba(0,0,0,0.8);
+    background: $blue;
+    @include box-shadow(0 0 10px rgba(0,0,0,0.4) inset);
 }
 
 .social {
@@ -110,20 +116,29 @@ h1 {
     }
 }
 
-
-/* ---- Top ---- */
-
 .bio {
+    color: #e3e3e3;
+    clear: both;
     font-size: 1.1em;
+    margin: 0;
+    padding-top: 15px;
     text-align: center;
 }
 
-.portfolio {
-    padding: 15px 0;
+
+// ---- Portfolio ----
+
+.portfolio .container {
+    padding-bottom: 5px;
 }
 
-    .port {
-        padding-bottom: 25px;
+    .port-section {
+        border-top: dashed 1px #424242;
+        padding: 25px 0;
+
+        &:first-child {
+            border-top: none;
+        }
 
         .port-desc {
             float: left;
@@ -165,18 +180,23 @@ h1 {
             }
     }
 
-/* ---- Bottom ---- */
+// ---- Bottom ----
 
 .bottom {
-    border-top: dashed 1px #424242;
-    padding: 40px 0;
+    background: #424242;
+    @include box-shadow(0 0 10px rgba(0,0,0,0.4) inset);
+
+    h2 {
+        color: #e3e3e3;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+    }
 }
 
 .skills {
-    border-right: dashed 1px #424242;
+    border-right: dashed 1px #919191;
     float: left;
-    padding-right: 14px;
-    width: 380px;
+    padding-right: 9px;
+    width: 420px;
 
     li {
         background: #e3e3e3;
@@ -192,6 +212,7 @@ h1 {
 
 .contact {
     float: right;
+    padding-left: 25px;
     width: 500px;
 
     form {
@@ -215,9 +236,10 @@ h1 {
 
     input,
     textarea {
-        background: #FFF;
+        background: #e3e3e3;
         @include border-radius;
-        border: solid 1px #d3d3d3;
+        border: solid 1px #c7c7c7;
+        @include box-shadow(0 0 5px rgba(0, 0, 0, 0.2) inset);
         font-family: 'Helvetica Neue', Arial, sans-serif;
         font-size: .9em;
         height: 28px;
@@ -239,17 +261,17 @@ h1 {
         height: 200px;
     }
 
-    .error input,
-    .error textarea {
-        border-color: #D1A4A4;
-    }
-
     .default {
         color: #777;
     }
 
+    .error input,
+    .error textarea {
+        border-color: #721E1E;
+    }
+
     .error-message {
-        background: #B34C4C;
+        background: #721E1E;
         @include border-radius(0 3px 0 3px);
         color: #FFF;
         font-size: .8em;
@@ -265,11 +287,10 @@ h1 {
     }
 
     button {
-        background: #424242;
-        background: -webkit-gradient(linear, left top, left bottom, from(#555), to(#333));
-        background: -moz-linear-gradient(top, #555, #333);
+        background: $blue;
+        @include background(linear-gradient(top, $blue, darken($blue, 12%)));
         @include border-radius;
-        border: solid 1px #424242;
+        border: solid 1px #21415A;
         color: #e3e3e3;
         cursor: pointer;
         float: right;
@@ -277,34 +298,31 @@ h1 {
         width: 125px;
         height: 40px;
         line-height: 35px;
-    }
 
-    button:hover,
-    button:focus {
-        background: #666;
-        background: -webkit-gradient(linear, left top, left bottom, from(#777), to(#555));
-        background: -moz-linear-gradient(top, #777, #555);
-    }
+        &:hover,
+        &:focus {
+            background: lighten($blue, 8%);
+            @include background(linear-gradient(top, lighten($blue, 8%), $blue));
+        }
 
-    button:active {
-        background: #333;
-        background: -webkit-gradient(linear, left top, left bottom, from(#555), to(#777));
-        background: -moz-linear-gradient(top, #555, #777);
+        &:active {
+            background: $blue;
+            @include background(linear-gradient(top, $blue, lighten($blue, 8%)));
+        }
     }
 
     .processing {
         background: #333 url('../ui/processing.gif') 50% 50% no-repeat;
         @include border-radius;
-        border: solid 1px #424242;
         float: right;
         width: 123px;
         height: 38px;
     }
 
     .response {
-        background: #f8f8f8;
         @include border-radius;
-        border: solid 1px #d3d3d3;
+        border: dashed 1px #919191;
+        color: #d3d3d3;
         font-size: 1.2em;
         line-height: 1.5;
         padding: 20px;
@@ -325,162 +343,114 @@ h1 {
 }
 
 
-/*****************************
+// *****************************
+//
+// Responsive Break Points
+//
+// *****************************
 
-   Responsive Break Points
-
-*****************************/
-
-/*
-*   <= 959
-*/
-@media only screen and (max-width: 959px) {
+//
+// <= 1000
+//
+@media only screen and (max-width: 1000px) {
 
     .container {
+        padding-right: 15px;
+        padding-left: 15px;
         width: 100%;
     }
 
-    /* Services */
-
-    .services {
-        width: 275px;
-    }
-
-    /* Slider */
-
-   .slider {
-        padding-left: 20px;
-        width: 502px;
-    }
-
-        .slider-nav {
-            float: none;
-            height: 72px;
-            margin: 0 auto;
-            padding-top: 10px;
-            width: 252px;
-        }
-
-            .slider-nav li {
-                float: left;
-                margin: 0 0 0 18px;
-            }
-
-            .slider-nav li:first-child {
-                margin-left: 0;
-            }
-
-        .slides {
-            float: none;
-        }
-
-    /* Skills, Contacrt */
-
+    .container,
     .skills,
-    .contact {
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
+    .contact,
+    .contact input,
+    .contact textarea {
+        @include box-sizing(border-box);
     }
+
+    // Portfolio
+
+    .port-section {
+        .port-desc,
+        ul {
+            float: none;
+            width: 100%;
+        }
+
+        li {
+            margin-left: 0;
+            width: 33%;
+
+            .thumb {
+                margin: 0 auto;
+            }
+        }
+    }
+
+    // Skills, Contact
 
     .skills {
-        padding-right: 20px;
         width: 45%;
     }
 
     .contact {
-        padding-left: 20px;
         width: 55%;
-    }
 
-        .contact input {
+        input {
             height: 38px;
             line-height: 38px;
         }
 
         .name-group,
-        .email-group {
+        .email-group,
+        input,
+        textarea {
             width: 100%;
         }
 
-        .contact input,
-        .contact textarea {
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            width: 100%;
-        }
-
-        .mail-icon {
+        .icons-mail {
             display: none;
         }
+    }
 
 }
 
-/*
-*   <= 845
-*/
-@media only screen and (max-width: 845px) {
+//
+// <= 700
+//
+@media only screen and (max-width: 700px) {
 
-    /* Services */
+   // Portfolio
 
-    .services {
-        float: none;
-        line-height: 1.5;
-        margin-bottom: 15px;
-        padding-top: 0;
-        text-align: center;
-        width: auto;
-    }
+    .port-section {
+        padding-bottom: 5px;
 
-        .services li {
-            display: inline;
+        .port-desc {
+            @include box-sizing(border-box);
+            float: left;
             padding: 0 15px;
+            text-align: center;
         }
 
-    /* Slider */
-
-    .slider {
-        border-left: none;
-        float: none;
-        margin: 0 auto;
-        padding-left: 0;
+        .port-desc,
+        li {
+            padding-bottom: 20px;
+            width: 50%;
+        }
     }
 
 }
 
-/*
-*   <= 740
-*/
-@media only screen and (max-width: 740px) {
-
-    .services li:last-child {
-        display: block;
-    }
-
-}
-
-/*
-*   <= 620
-*/
+//
+// <= 620
+//
 @media only screen and (max-width: 620px) {
 
     h1 {
         font-size: 54px;
     }
 
-    /* Services */
-
-    .services {
-        font-size: 30px;
-    }
-
-        .services li {
-            display: block;
-            padding: 0;
-        }
-
-    /* Skills, Contact */
+    // Skills, Contact
 
     .skills {
         border-right: none;
@@ -501,33 +471,40 @@ h1 {
 
 }
 
-/*
-*   <= 542
-*/
-@media only screen and (max-width: 542px) {
+//
+// <= 470
+//
+@media only screen and (max-width: 470px) {
 
-    /* Slider */
+   // Portfolio
 
-    .slider,
-    .slides {
-        width: 100%;
-    }
+    .port-section {
+        // padding-bottom: 5px;
 
-        .slides {
+        .port-desc {
+            padding: 0;
         }
 
-            .slides li {
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                width: 100%;
+        .port-desc,
+        li {
+            float: none;
+            width: 100%;
+        }
+
+        li {
+            // padding-bottom: 10px;
+
+            .thumb {
+                height: 50px;
             }
+        }
+    }
 
 }
 
-/*
-*   <= 430
-*/
+//
+// <= 430
+//
 @media only screen and (max-width: 430px) {
 
     h1 {
@@ -547,18 +524,17 @@ h1 {
 
 }
 
-/*
-*   <= 401
-*/
-@media only screen and (max-width: 401px) {
+//
+// <= 400
+//
+@media only screen and (max-width: 400px) {
 
-    /* Skills */
+    // Skills
 
     .skills {
         padding-right: 0;
-    }
 
-        .skills-list li {
+        li {
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
@@ -567,10 +543,11 @@ h1 {
             padding-right: 0;
             text-align: center;
             width: 47%;
-        }
 
-        .skills-list li:nth-child(2n) {
-            margin-right: 0;
+            &:nth-child(2n) {
+                margin-right: 0;
+            }
         }
+    }
 
 }
