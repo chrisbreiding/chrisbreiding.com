@@ -30,7 +30,7 @@ $font-strong: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
 // ---- General ----
 
 body {
-    background: url('../ui/body-bg.jpg');
+    background: url('../ui/body-bg.jpg') fixed;
     color: #424242;
     font-family: $font-default;
     width: 100%;
@@ -84,7 +84,6 @@ p {
 
 .header {
     background: $blue;
-    @include box-shadow(0 0 10px rgba(0,0,0,0.4) inset);
 }
 
 .social {
@@ -124,6 +123,10 @@ p {
 
 
 // ---- Portfolio ----
+
+.portfolio {
+    @include box-shadow(0 0 10px rgba(0,0,0,0.8) inset);
+}
 
 .portfolio .container {
     padding-bottom: 5px;
@@ -180,7 +183,6 @@ p {
 
 .bottom {
     background: #424242;
-    @include box-shadow(0 0 10px rgba(0,0,0,0.4) inset);
 
     h2 {
         color: #e3e3e3;
