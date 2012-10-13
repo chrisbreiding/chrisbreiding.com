@@ -122,25 +122,34 @@
 
         </div><!-- /.skills -->
 
-        <div class="contact">
+        <div class="contact" id="contact">
 
             <h2>Get in Touch</h2>
 
-            <form id="contact-form" class="clearfix" action="#" method="post">
+            <% if flash[:message_response] %>
+                <p class="response"><%= flash[:message_response] %></p>
+            <% end %>
 
-                <fieldset class="name-group clearfix">
+            <% errors = flash[:errors] || {} %>
+
+            <form id="contact-form" class="clearfix" action="/send-message" method="post">
+
+                <fieldset class="name-group clearfix <%= 'error' if errors[:name] %>">
                     <label for="name">Name</label>
-                    <input name="name" type="text" class="contact-input" value="" placeholder="Name" />
+                    <input name="name" type="text" class="contact-input" value="<%= flash[:name] || '' %>" placeholder="Name" />
+                    <div class="error-message">Please enter your name</div>
                 </fieldset>
 
-                <fieldset class="email-group clearfix">
+                <fieldset class="email-group clearfix <%= 'error' if errors[:email] %>">
                     <label for="email">Email</label>
-                    <input name="email" type="text" class="contact-input" value="" placeholder="Email" />
+                    <input name="email" type="text" class="contact-input" value="<%= flash[:email] || '' %>" placeholder="Email" />
+                    <div class="error-message">Please enter your email</div>
                 </fieldset>
 
-                <fieldset class="message-group clearfix">
+                <fieldset class="message-group clearfix <%= 'error' if errors[:message] %>">
                     <label for="message">Message</label>
-                    <textarea name="message" class="contact-input" placeholder="Message"></textarea>
+                    <textarea name="message" class="contact-input" placeholder="Message"><%= flash[:message] || '' %></textarea>
+                    <div class="error-message">Please enter a message</div>
                 </fieldset>
 
                 <button type="submit" name="submit">Send Message</button>
