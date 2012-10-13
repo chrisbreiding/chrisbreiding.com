@@ -272,11 +272,16 @@ p {
         background: #721E1E;
         @include border-radius(0 3px 0 3px);
         color: #FFF;
+        display: none;
         font-size: .9em;
         padding: 5px 8px;
         position: absolute;
             right: 0;
             top: 0;
+    }
+
+    .error .error-message {
+        display: block;
     }
 
     input:focus + .error-message,

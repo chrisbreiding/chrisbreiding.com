@@ -103,7 +103,6 @@
 		inputsValid : function () {
 			var allValid = true;
 
-			// gonna be lazy and just make sure it's not blank
 			this.inputs.each(function () {
                 var inputValid = this.validate();
 
@@ -114,10 +113,6 @@
 
 			return allValid;
 		},
-
-        errorTemplate : function (error) {
-            return '<div class="error-message">Please enter ' + error + '.</div>';
-        },
 
         sendMessage : function () {
             $.ajax({
@@ -131,7 +126,7 @@
 		close : function (response) {
 			this.$contactForm.slideUp(500, $.proxy(function () {
 				this.$contactForm
-					.after(response)
+					.after('<div class="response">' + response + '</div')
 					.remove();
 			}, this));
 		}
@@ -163,20 +158,11 @@
         },
 
         addError : function () {
-            var name = this.$el.attr('name'),
-                error = (name === "message" ? ' a ' : ' your ') + name;
-
-            this.$el.closest('fieldset')
-                .addClass('error')
-                .append( Contact.errorTemplate(error) );
+            this.$el.closest('fieldset').addClass('error');
         },
 
         removeError : function () {
-            this.$el
-                .closest('.error')
-                    .removeClass('error')
-                        .find('.error-message')
-                            .remove();
+            this.$el.closest('.error').removeClass('error');
         }
 
     };
