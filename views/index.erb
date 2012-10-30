@@ -30,68 +30,33 @@
 
         <h2>My Work</h2>
 
-        <div class="port-section clearfix">
-            <div class="port-desc">
-                <h3>Apps</h3>
-                <p>Apps utilizing a backend architecture, database persistence, user authentication, etc.</p>
-            </div>
-            <ul>
-                <li>
-                    <span class="thumb portfolio-tasks"></span>
-                    <span class="label">Task Manager</span>
-                </li>
-                <li>
-                    <span class="thumb portfolio-movies"></span>
-                    <span class="label">Movie Organizer</span>
-                </li>
-                <li>
-                    <span class="thumb portfolio-tv"></span>
-                    <span class="label">TV Episode Lists</span>
-                </li>
-            </ul>
-        </div>
+        <% @portfolio['types'].each do |type| %>
 
-        <div class="port-section clearfix">
-            <div class="port-desc">
-                <h3>Mini-Apps</h3>
-                <p>Little apps and experiments, mostly created while learning a new framework or technique.</p>
+            <div class="port-section clearfix">
+                <div class="port-desc">
+                    <h3><%= type['type'] %></h3>
+                    <p><%= type['description'] %></p>
+                </div>
+                <ul class="port-items">
+                    <% type['items'].each do |item| %>
+                        <li>
+                            <span class="item-thumb portfolio-<%= item['thumb'] %>"></span>
+                            <span class="item-name"><%= item['name'] %></span>
+                            <span class="item-extra">
+                                <span class="item-desc"><%= item['description'] %></span>
+                                <span class="item-label">Tools</span>
+                                <ul class="item-tools">
+                                    <% item['tools'].each do |tool| %>
+                                        <li><%= tool %></li>
+                                    <% end %>
+                                </ul>
+                            </span>
+                        </li>
+                    <% end %>
+                </ul>
             </div>
-            <ul>
-                <li>
-                    <span class="thumb portfolio-calculator"></span>
-                    <span class="label">Calculator</span>
-                </li>
-                <li>
-                    <span class="thumb portfolio-list"></span>
-                    <span class="label">List Randomizer</span>
-                </li>
-                <li>
-                    <span class="thumb portfolio-aquarium"></span>
-                    <span class="label">Aquarium</span>
-                </li>
-            </ul>
-        </div>
 
-        <div class="port-section clearfix">
-            <div class="port-desc">
-                <h3>Websites</h3>
-                <p>Sites created for clients, utilizing WordPress to give them a very user-friendly way of managing content.</p>
-            </div>
-            <ul>
-                <li>
-                    <span class="thumb portfolio-nagazasshi"></span>
-                    <span class="label">NagaZasshi</span>
-                </li>
-                <li>
-                    <span class="thumb portfolio-austentatious"></span>
-                    <span class="label">Austentatious</span>
-                </li>
-                <li>
-                    <span class="thumb portfolio-eleventh"></span>
-                    <span class="label">11th Hour</span>
-                </li>
-            </ul>
-        </div>
+        <% end %>
 
     </div><!-- /.container -->
 </div><!-- /.portfolio -->

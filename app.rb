@@ -2,8 +2,10 @@ require 'sinatra'
 require 'pony'
 require 'maruku'
 require 'rack-flash'
+require 'json'
 require_relative '../secrets.rb'
 
+set :root, File.dirname(__FILE__)
 enable :sessions
 use Rack::Flash
 
@@ -30,6 +32,8 @@ end
 
 get '/' do
   @title = 'Chris Breiding | Web Developer'
+  portfolio_yml = File.read('data/portfolio.yml')
+  @portfolio = Psych.load(portfolio_yml)
   erb :index
 end
 

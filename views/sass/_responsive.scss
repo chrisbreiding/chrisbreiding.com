@@ -1,0 +1,202 @@
+//
+// <= 1000
+//
+@media only screen and (max-width: 1000px) {
+
+    .container {
+        padding-right: 15px;
+        padding-left: 15px;
+        width: 100%;
+    }
+
+    .container,
+    .skills,
+    .contact,
+    .contact input,
+    .contact textarea {
+        @include box-sizing(border-box);
+    }
+
+    // Portfolio
+
+    .port-section .port-desc,
+    .port-items {
+        float: none;
+        width: 100%;
+    }
+
+        .port-items li {
+            margin-left: 0;
+            width: 33%;
+        }
+
+            .port-items li:hover .item-name {
+                color: $dark-grey;
+            }
+
+            .port-items li:hover .item-extra {
+                display: none;
+            }
+
+            .item-thumb {
+                margin: 0 auto;
+            }
+
+    // Skills, Contact
+
+    .skills {
+        width: 45%;
+    }
+
+    .contact {
+        width: 55%;
+
+        input {
+            height: 38px;
+            line-height: 38px;
+        }
+
+        .name-group,
+        .email-group,
+        input,
+        textarea {
+            width: 100%;
+        }
+
+        .icons-mail {
+            display: none;
+        }
+    }
+
+}
+
+//
+// <= 700
+//
+@media only screen and (max-width: 700px) {
+
+   // Portfolio
+
+    .port-section {
+        padding-bottom: 5px;
+
+        .port-desc {
+            @include box-sizing(border-box);
+            float: left;
+            padding: 0 15px;
+            text-align: center;
+        }
+    }
+
+    .port-section .port-desc,
+    .port-items li {
+        padding-bottom: 20px;
+        width: 50%;
+    }
+
+}
+
+//
+// <= 620
+//
+@media only screen and (max-width: 620px) {
+
+    h1 {
+        font-size: 54px;
+    }
+
+    // Skills, Contact
+
+    .skills {
+        border-right: none;
+        border-bottom: dashed 1px #919191;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+    }
+
+    .skills,
+    .contact {
+        float: none;
+        width: 100%;
+    }
+
+    .contact {
+        padding-left: 0;
+    }
+
+}
+
+//
+// <= 470
+//
+@media only screen and (max-width: 470px) {
+
+   // Portfolio
+
+    .port-section {
+        // padding-bottom: 5px;
+
+        .port-desc {
+            padding: 0;
+        }
+    }
+
+    .port-section .port-desc,
+    .port-items li {
+        float: none;
+        width: 100%;
+    }
+
+    .item-thumb {
+        height: 50px;
+    }
+
+}
+
+//
+// <= 430
+//
+@media only screen and (max-width: 430px) {
+
+    h1 {
+        margin-bottom: 10px;
+    }
+
+    h1,
+    .social {
+        float: none;
+        text-align: center;
+    }
+
+        .social li {
+            display: inline-block;
+            float: none;
+        }
+
+}
+
+//
+// <= 400
+//
+@media only screen and (max-width: 400px) {
+
+    // Skills
+
+    .skills {
+        padding-right: 0;
+
+        li {
+            @include box-sizing(border-box);
+            margin-right: 6%;
+            padding-left: 0;
+            padding-right: 0;
+            text-align: center;
+            width: 47%;
+
+            &:nth-child(2n) {
+                margin-right: 0;
+            }
+        }
+    }
+
+}

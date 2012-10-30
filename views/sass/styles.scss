@@ -9,6 +9,12 @@ $icons-layout: smart;
 @include all-icons-sprites;
 
 $blue: #2D5675;
+$red: #721E1E;
+
+$light-grey: #e3e3e3;
+$medium-grey: #919191;
+$dark-grey: #424242;
+
 $default-border-radius: 3px;
 $font-default: "Helvetica Neue", Arial, sans-serif;
 $font-strong: "Bebas Neue", "Helvetica Neue", Arial, sans-serif;
@@ -31,7 +37,7 @@ $font-strong: "Bebas Neue", "Helvetica Neue", Arial, sans-serif;
 
 body {
     background: url("../ui/body-bg.jpg") fixed;
-    color: #424242;
+    color: $dark-grey;
     font-family: $font-default;
     width: 100%;
     height: 100%;
@@ -113,7 +119,7 @@ p {
 }
 
 .bio {
-    color: #e3e3e3;
+    color: $light-grey;
     clear: both;
     font-size: 1.1em;
     margin: 0;
@@ -133,7 +139,7 @@ p {
 }
 
     .port-section {
-        border-top: dashed 1px #424242;
+        border-top: dashed 1px $dark-grey;
         padding: 25px 0;
 
         &:first-child {
@@ -149,55 +155,108 @@ p {
                 font-size: .9em;
             }
         }
+    }
 
-        ul {
+        .port-items {
             float: right;
             width: 675px;
-        }
 
             li {
                 float: left;
                 margin-left: 25px;
+                position: relative;
                 width: 200px;
 
                 span {
                     display: block;
                 }
+            }
+        }
 
-                .thumb {
+                .item-thumb,
+                .item-name {
+                    position: relative;
+                }
+
+                .item-thumb {
                     @include border-radius;
                     @include box-shadow(1px 1px 5px rgba(0, 0, 0, 0.2) inset);
                     width: 200px;
                     height: 150px;
                 }
 
-                .label {
+                .item-name {
                     font-size: .9em;
                     padding-top: 8px;
                     text-align: center;
                 }
-            }
-    }
+
+                .port-items li .item-extra {
+                    background: $dark-grey;
+                    @include border-radius;
+                    border: solid 1px darken($dark-grey, 10%);
+                    @include box-shadow(0 0 10px rgba(0, 0, 0, 0.4));
+                    color: $light-grey;
+                    display: none;
+                    @include opacity(0.95);
+                    padding: 15px 230px 15px 15px;
+                    position: absolute;
+                    left: -282px;
+                    top: -16px;
+                    width: 250px;
+                    height: 170px;
+                }
+
+                .port-items li:hover .item-thumb,
+                .port-items li:hover .item-name {
+                    color: #f8f8f8;
+                    z-index: 10;
+                }
+
+                .port-items li:hover .item-extra {
+                    display: block;
+                    z-index: 5;
+                }
+
+                    .item-desc {
+                        font-size: .9em;
+                        line-height: 1.5;
+                        margin-bottom: 10px;
+                    }
+
+                    .item-label {
+                        font-weight: bold;
+                        margin-bottom: 10px;
+                    }
+
+                    .item-tools li {
+                        float: none;
+                        font-size: .9em;
+                        line-height: 1.5;
+                        list-style: disc;
+                        margin-left: 20px;
+                    }
+
 
 // ---- Bottom ----
 
 .bottom {
-    background: #424242;
+    background: $dark-grey;
 
     h2 {
-        color: #e3e3e3;
+        color: $light-grey;
         text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
     }
 }
 
 .skills {
-    border-right: dashed 1px #919191;
+    border-right: dashed 1px $medium-grey;
     float: left;
     padding-right: 9px;
     width: 420px;
 
     li {
-        background: #e3e3e3;
+        background: $light-grey;
         @include border-radius;
         border: solid 1px #d2d2d2;
         @include box-shadow(1px 1px 5px rgba(0, 0, 0, 0.2) inset);
@@ -234,7 +293,7 @@ p {
 
     input,
     textarea {
-        background: #e3e3e3;
+        background: $light-grey;
         @include border-radius;
         border: solid 1px #c7c7c7;
         @include box-shadow(0 0 5px rgba(0, 0, 0, 0.2) inset);
@@ -265,11 +324,11 @@ p {
 
     .error input,
     .error textarea {
-        border-color: #721E1E;
+        border-color: $red;
     }
 
     .error-message {
-        background: #721E1E;
+        background: $red;
         @include border-radius(0 3px 0 3px);
         color: #FFF;
         display: none;
@@ -295,7 +354,7 @@ p {
         @include border-radius;
         border: solid 1px #21415A;
         @include box-shadow(0 0 2px rgba(255,255,255,0.2) inset);
-        color: #e3e3e3;
+        color: $light-grey;
         cursor: pointer;
         float: right;
         font-size: .9em;
@@ -325,8 +384,8 @@ p {
 
     .response {
         @include border-radius;
-        border: dashed 1px #919191;
-        color: #d3d3d3;
+        border: dashed 1px $medium-grey;
+        color: $light-grey;
         font-size: 1.2em;
         line-height: 1.5;
         padding: 20px;
@@ -346,210 +405,4 @@ p {
     }
 }
 
-
-// *****************************
-//
-// Responsive Break Points
-//
-// *****************************
-
-//
-// <= 1000
-//
-@media only screen and (max-width: 1000px) {
-
-    .container {
-        padding-right: 15px;
-        padding-left: 15px;
-        width: 100%;
-    }
-
-    .container,
-    .skills,
-    .contact,
-    .contact input,
-    .contact textarea {
-        @include box-sizing(border-box);
-    }
-
-    // Portfolio
-
-    .port-section {
-        .port-desc,
-        ul {
-            float: none;
-            width: 100%;
-        }
-
-        li {
-            margin-left: 0;
-            width: 33%;
-
-            .thumb {
-                margin: 0 auto;
-            }
-        }
-    }
-
-    // Skills, Contact
-
-    .skills {
-        width: 45%;
-    }
-
-    .contact {
-        width: 55%;
-
-        input {
-            height: 38px;
-            line-height: 38px;
-        }
-
-        .name-group,
-        .email-group,
-        input,
-        textarea {
-            width: 100%;
-        }
-
-        .icons-mail {
-            display: none;
-        }
-    }
-
-}
-
-//
-// <= 700
-//
-@media only screen and (max-width: 700px) {
-
-   // Portfolio
-
-    .port-section {
-        padding-bottom: 5px;
-
-        .port-desc {
-            @include box-sizing(border-box);
-            float: left;
-            padding: 0 15px;
-            text-align: center;
-        }
-
-        .port-desc,
-        li {
-            padding-bottom: 20px;
-            width: 50%;
-        }
-    }
-
-}
-
-//
-// <= 620
-//
-@media only screen and (max-width: 620px) {
-
-    h1 {
-        font-size: 54px;
-    }
-
-    // Skills, Contact
-
-    .skills {
-        border-right: none;
-        border-bottom: dashed 1px #424242;
-        margin-bottom: 30px;
-        padding-bottom: 20px;
-    }
-
-    .skills,
-    .contact {
-        float: none;
-        width: 100%;
-    }
-
-    .contact {
-        padding-left: 0;
-    }
-
-}
-
-//
-// <= 470
-//
-@media only screen and (max-width: 470px) {
-
-   // Portfolio
-
-    .port-section {
-        // padding-bottom: 5px;
-
-        .port-desc {
-            padding: 0;
-        }
-
-        .port-desc,
-        li {
-            float: none;
-            width: 100%;
-        }
-
-        li {
-            // padding-bottom: 10px;
-
-            .thumb {
-                height: 50px;
-            }
-        }
-    }
-
-}
-
-//
-// <= 430
-//
-@media only screen and (max-width: 430px) {
-
-    h1 {
-        margin-bottom: 10px;
-    }
-
-    h1,
-    .social {
-        float: none;
-        text-align: center;
-    }
-
-        .social li {
-            display: inline-block;
-            float: none;
-        }
-
-}
-
-//
-// <= 400
-//
-@media only screen and (max-width: 400px) {
-
-    // Skills
-
-    .skills {
-        padding-right: 0;
-
-        li {
-            @include box-sizing(border-box);
-            margin-right: 6%;
-            padding-left: 0;
-            padding-right: 0;
-            text-align: center;
-            width: 47%;
-
-            &:nth-child(2n) {
-                margin-right: 0;
-            }
-        }
-    }
-
-}
+@import "responsive"
