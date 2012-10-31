@@ -4,18 +4,20 @@
         <h1>Chris Breiding</h1>
 
         <ul class="social">
-            <li>
-                <a class="icons-github"
-                   href="https://github.com/chrisbreiding"
-                   target="_blank" title="View my Github profile">
-                   Github
+            <li class="github">
+                <a href="https://github.com/chrisbreiding"
+                   target="_blank"
+                   title="View my Github profile">
+                   <i class="icon-github-sign"></i>
+                   <span class="social-label">Github</span>
                 </a>
             </li>
-            <li>
-                <a class="icons-linkedin"
-                   href="http://www.linkedin.com/in/chrisbreiding"
-                   target="_blank" title="Connect with me on LinkedIn">
-                   LinkedIn
+            <li class="linkedin">
+                <a href="http://www.linkedin.com/in/chrisbreiding"
+                   target="_blank"
+                   title="Connect with me on LinkedIn">
+                   <i class="icon-linkedin-sign"></i>
+                   <span class="social-label">LinkedIn</span>
                 </a>
             </li>
         </ul>
@@ -42,6 +44,22 @@
                         <li>
                             <span class="item-thumb portfolio-<%= item['thumb'] %>"></span>
                             <span class="item-name"><%= item['name'] %></span>
+                            <ul class="item-links">
+                                <% if item['github'] %>
+                                    <li>
+                                        <a href="<%= item['github'] %>" target="_blank">
+                                            <i class="icon-github"></i>
+                                            <span class="item-link-label">View on Github</span>
+                                        </a>
+                                    </li>
+                                <% end %>
+                                <li>
+                                    <a href="<%= item['web'] %>" target="_blank">
+                                        <i class="icon-globe"></i>
+                                        <span class="item-link-label">View on Web</span>
+                                    </a>
+                                </li>
+                            </ul>
                             <span class="item-extra">
                                 <span class="item-desc"><%= item['description'] %></span>
                                 <span class="item-label">Tools</span>
@@ -119,7 +137,7 @@
 
                 <button type="submit" name="submit">Send Message</button>
 
-                <div class="icons-mail"></div>
+                <i class="icon-envelope-alt"></i>
 
             </form>
 

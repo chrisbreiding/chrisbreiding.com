@@ -6,6 +6,8 @@ types:
   -
     name: Movie Organizer
     description: "Catalog of movies enhanced with data from Rotten Tomatoes API"
+    github: http://github.com/chrisbreiding/movies
+    web: http://movies.crbapps.com
     thumb: movies
     tools:
     - Backbone
@@ -15,6 +17,8 @@ types:
   -
     name: TV Episode Lists
     description: "Pulls in and displays upcoming TV episodes through a cron job"
+    github: http://github.com/chrisbreiding/newtv
+    web: http://newtv.crbapps.com
     thumb: tv
     tools:
     - jQuery
@@ -24,6 +28,8 @@ types:
   -
     name: Task Manager
     description: "Manage tasks: add, remove, link, sort, categorize, mark as important or done"
+    github: http://github.com/chrisbreiding/tasks
+    web: http://tasks.crbapps.com
     thumb: tasks
     tools:
     - jQuery/jQuery UI
@@ -36,6 +42,8 @@ types:
   -
     name: Calculator
     description: "Testing out Angular and OOP principles"
+    github: http://github.com/chrisbreiding/crbapps
+    web: http://crbapps.com/calculator
     thumb: calculator
     tools:
     - Angular
@@ -43,12 +51,16 @@ types:
   -
     name: List Randomizer
     description: "Experiment with OOP and DOM manipulation without a library"
+    github: http://github.com/chrisbreiding/crbapps
+    web: http://crbapps.com/randomize
     thumb: list
     tools:
     - JavaScript
   -
     name: Aquarium
     description: "Fun with Backbone"
+    github: http://github.com/chrisbreiding/crbapps
+    web: http://crbapps.com/aquarium
     thumb: aquarium
     tools:
     - Backbone
@@ -60,6 +72,7 @@ types:
   -
     name: NagaZasshi
     description: "Design, custom theme, magazine viewer, link viewer"
+    web: http://www.nagazasshi.com
     thumb: nagazasshi
     tools:
     - WordPress
@@ -68,6 +81,7 @@ types:
   -
     name: Austentatious
     description: "Design, custom theme, music player, history viewer"
+    web: http://www.austentatiousmusical.com
     thumb: austentatious
     tools:
     - WordPress
@@ -75,6 +89,7 @@ types:
   -
     name: 11th Hour
     description: "Custom theme, 3rd-party ticketing system integration"
+    web: http://www.11thhourtheatrecompany.org
     thumb: eleventh
     tools:
     - WordPress

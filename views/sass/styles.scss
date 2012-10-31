@@ -1,12 +1,8 @@
 @import "compass/reset";
 @import "compass/css3";
 
-$portfolio-layout: smart;
-$icons-layout: smart;
 @import "portfolio/*.png";
-@import "icons/*.png";
 @include all-portfolio-sprites;
-@include all-icons-sprites;
 
 $blue: #2D5675;
 $red: #721E1E;
@@ -97,7 +93,7 @@ p {
 
     li {
         float: left;
-        margin-left: 15px;
+        margin-left: 5px;
 
         &:first-child {
             margin-left: 0;
@@ -105,18 +101,28 @@ p {
     }
 
     a {
+        color: darken($blue, 12%);
         display: block;
-        @include opacity(0.5);
         outline: none;
-        text-indent: -9999px;
-        width: 40px;
-        height: 40px;
+        text-align: center;
+        text-decoration: none;
+
+        i {
+            font-size: 45px;
+            width: 45px;
+            height: 45px;
+        }
 
         &:hover {
-            @include opacity(1.0);
+            color: darken($blue, 17%);
         }
     }
 }
+
+    .social-label {
+        position: absolute;
+        left: -9999px;
+    }
 
 .bio {
     color: $light-grey;
@@ -195,7 +201,7 @@ p {
                     background: $dark-grey;
                     @include border-radius;
                     border: solid 1px darken($dark-grey, 10%);
-                    @include box-shadow(0 0 10px rgba(0, 0, 0, 0.4));
+                    @include box-shadow(0 0 10px rgba(0, 0, 0, 0.4), 0 0 1px #FFF inset);
                     color: $light-grey;
                     display: none;
                     @include opacity(0.95);
@@ -204,7 +210,7 @@ p {
                     left: -282px;
                     top: -16px;
                     width: 250px;
-                    height: 170px;
+                    min-height: 170px;
                 }
 
                 .port-items li:hover .item-thumb,
@@ -235,6 +241,56 @@ p {
                         line-height: 1.5;
                         list-style: disc;
                         margin-left: 20px;
+                    }
+
+                .port-items li .item-links {
+                    background: #333;
+                    @include border-radius(0 3px 0 3px);
+                    @include opacity(0.95);
+                    display: none;
+                    padding: 8px;
+                    position: absolute;
+                    right: -1px;
+                    top: -1px;
+                    z-index: 15;
+
+                    li {
+                        float: left;
+                        margin-left: 10px;
+                        width: 22px;
+
+                        &:first-child {
+                            margin-left: 0;
+                        }
+
+                        a {
+                            color: #a5a5a5;
+                            display: block;
+                            outline: none;
+                            text-align: center;
+                            text-decoration: none;
+                            width: 22px;
+                            height: 20px;
+                            line-height: 20px;
+
+                            &:hover {
+                                color: #e3e3e3;
+                            }
+
+                            i {
+                                font-size: 20px;
+                            }
+                        }
+                    }
+                }
+
+                .port-items li:hover .item-links {
+                    display: block;
+                }
+
+                    .item-link-label {
+                        left: -9999px;
+                        position: absolute;
                     }
 
 
@@ -306,7 +362,7 @@ p {
 
     input {
         display: block;
-        width: 300px;
+        width: 330px;
     }
 
     .placeholder {
@@ -396,13 +452,17 @@ p {
         color: #600;
     }
 
-    .icons-mail {
+    .icon-envelope-alt {
+        color: #5B5B5B;
+        cursor: default;
+        font-size: 140px;
         position: absolute;
-            top: 0;
-            right: 0;
+            top: -20px;
+            right: -30px;
         width: 158px;
         height: 100px;
     }
 }
 
-@import "responsive"
+@import "responsive";
+@import "font-awesome";
