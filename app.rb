@@ -2,10 +2,8 @@ require 'sinatra'
 require 'pony'
 require 'maruku'
 require 'rack-flash'
-require 'json'
 require_relative '../secrets.rb'
 
-set :root, File.dirname(__FILE__)
 enable :sessions
 use Rack::Flash
 
