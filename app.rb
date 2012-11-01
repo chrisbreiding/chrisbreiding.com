@@ -30,8 +30,8 @@ end
 
 get '/' do
   @title = 'Chris Breiding | Web Developer'
-  portfolio_yml = File.read('data/portfolio.yml')
-  @portfolio = Psych.load(portfolio_yml)
+  content_yml = File.read('data/content.yml')
+  @content = Psych.load(content_yml)
   erb :index
 end
 

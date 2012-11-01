@@ -4,25 +4,19 @@
         <h1>Chris Breiding</h1>
 
         <ul class="social">
-            <li class="github">
-                <a href="https://github.com/chrisbreiding"
-                   target="_blank"
-                   title="View my Github profile">
-                   <i class="icon-github-sign"></i>
-                   <span class="social-label">Github</span>
-                </a>
-            </li>
-            <li class="linkedin">
-                <a href="http://www.linkedin.com/in/chrisbreiding"
-                   target="_blank"
-                   title="Connect with me on LinkedIn">
-                   <i class="icon-linkedin-sign"></i>
-                   <span class="social-label">LinkedIn</span>
-                </a>
-            </li>
+            <% @content['social_links'].each do |social_link| %>
+                <li class="<%= social_link['class'] %>">
+                    <a href="<%= social_link['href'] %>"
+                       target="_blank"
+                       title="<%= social_link['title'] %>">
+                       <i class="<%= social_link['icon'] %>"></i>
+                       <span class="social-label"><%= social_link['name'] %></span>
+                    </a>
+                </li>
+            <% end %>
         </ul>
 
-        <p class="bio">I'm a web developer based in Atlanta, GA. <br />I love solving problems with code and creating great web applications and sites.</p>
+        <p class="bio"><%= @content['bio'] %></p>
 
     </div><!-- /.container -->
 </div><!-- /.header -->
@@ -32,7 +26,7 @@
 
         <h2>My Work</h2>
 
-        <% @portfolio['types'].each do |type| %>
+        <% @content['types'].each do |type| %>
 
             <div class="port-section clearfix">
                 <div class="port-desc">
@@ -87,20 +81,9 @@
             <h2>Areas of Expertise</h2>
 
             <ul class="clearfix">
-                <li>JavaScript</li>
-                <li>Angular</li>
-                <li>Backbone</li>
-                <li>jQuery</li>
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>Git</li>
-                <li>Ruby</li>
-                <li>Ruby on Rails</li>
-                <li>PHP</li>
-                <li>CodeIgniter</li>
-                <li>WordPress</li>
-                <li>Drupal</li>
-                <li>Photoshop</li>
+                <% @content['skills'].each do |skill| %>
+                    <li><%= skill %></li>
+                <% end %>
             </ul>
 
         </div><!-- /.skills -->
