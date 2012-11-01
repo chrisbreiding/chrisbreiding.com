@@ -44,11 +44,7 @@
                 margin: 0 auto;
             }
 
-            .item-thumb:hover {
-                @include box-shadow(1px 1px 5px rgba(0, 0, 0, 0.2) inset);
-                @include scale(1);
-            }
-
+            .item-thumb:hover,
             .details-open .item-thumb {
                 @include box-shadow(1px 1px 5px rgba(0, 0, 0, 0.2) inset);
             }

@@ -196,13 +196,11 @@ p {
                 .item-thumb:hover,
                 .item-thumb:focus {
                     @include box-shadow(0 0 5px rgba(0, 0, 0, 0.5));
-                    @include scale(1.05);
                 }
 
                 .details-open .item-thumb {
                     cursor: default;
                     @include box-shadow(none);
-                    @include scale(1);
                 }
 
                 .item-name {
