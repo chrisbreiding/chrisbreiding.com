@@ -16,7 +16,7 @@ types:
     - Rotten Tomatoes API
   -
     name: TV Episode Lists
-    description: "Pulls in and displays upcoming TV episodes through a cron job"
+    description: "Pulls in lists of TV episodes daily from TVRage API and displays upcoming ones"
     github: http://github.com/chrisbreiding/newtv
     web: http://newtv.crbapps.com
     thumb: tv
@@ -27,7 +27,7 @@ types:
     - Devise
   -
     name: Task Manager
-    description: "Manage tasks: add, remove, link, sort, categorize, mark as important or done"
+    description: "Task manager with ability to add, remove, link, sort, categorize, and mark tasks as important or done"
     github: http://github.com/chrisbreiding/tasks
     web: http://tasks.crbapps.com
     thumb: tasks
@@ -41,7 +41,7 @@ types:
   items:
   -
     name: Calculator
-    description: "Testing out Angular and OOP principles"
+    description: "Simple calculator - an experiement with Angular and applying OOP principles"
     github: http://github.com/chrisbreiding/crbapps
     web: http://crbapps.com/calculator
     thumb: calculator
@@ -50,7 +50,7 @@ types:
     - JavaScript
   -
     name: List Randomizer
-    description: "Experiment with OOP and DOM manipulation without a library"
+    description: "Randomizes a list - an experiment with OOP and DOM manipulation without a library"
     github: http://github.com/chrisbreiding/crbapps
     web: http://crbapps.com/randomize
     thumb: list
@@ -58,7 +58,7 @@ types:
     - JavaScript
   -
     name: Aquarium
-    description: "Fun with Backbone"
+    description: "Some fun with Backbone - add or remove fish, move them around, and change their color"
     github: http://github.com/chrisbreiding/crbapps
     web: http://crbapps.com/aquarium
     thumb: aquarium
@@ -71,7 +71,7 @@ types:
   items:
   -
     name: NagaZasshi
-    description: "Design, custom theme, magazine viewer, link viewer"
+    description: "Designed/developed custom theme <br />Features: magazine viewer, link viewer"
     web: http://www.nagazasshi.com
     thumb: nagazasshi
     tools:
@@ -80,16 +80,18 @@ types:
     - PhotoShop
   -
     name: Austentatious
-    description: "Design, custom theme, music player, history viewer"
+    description: "Designed/developed custom theme <br />Features: music player, history viewer"
     web: http://www.austentatiousmusical.com
     thumb: austentatious
     tools:
     - WordPress
+    - jQuery
     - jPlayer
   -
     name: 11th Hour
-    description: "Custom theme, 3rd-party ticketing system integration"
+    description: "Developed custom theme and designed elements <br />Features: 3rd-party ticketing system integration"
     web: http://www.11thhourtheatrecompany.org
     thumb: eleventh
     tools:
     - WordPress
+    - jQuery
