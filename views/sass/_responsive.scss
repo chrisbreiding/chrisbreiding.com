@@ -30,16 +30,27 @@
             width: 33%;
         }
 
-            .port-items li:hover .item-name {
+            .port-items .details-open .item-name {
                 color: $dark-grey;
             }
 
-            .port-items li:hover .item-extra {
+            .port-items .details-open .item-links,
+            .port-items .details-open .item-extra {
                 display: none;
             }
 
             .item-thumb {
+                cursor: default;
                 margin: 0 auto;
+            }
+
+            .item-thumb:hover {
+                @include box-shadow(1px 1px 5px rgba(0, 0, 0, 0.2) inset);
+                @include scale(1);
+            }
+
+            .details-open .item-thumb {
+                @include box-shadow(1px 1px 5px rgba(0, 0, 0, 0.2) inset);
             }
 
     // Skills, Contact
@@ -63,7 +74,7 @@
             width: 100%;
         }
 
-        .icons-mail {
+        .icon-envelope-alt {
             display: none;
         }
     }

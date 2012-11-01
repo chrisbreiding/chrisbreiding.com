@@ -1,72 +1,36 @@
 ;(function($) {
 
-	var Slider = {
+    var Portfolio = {
 
-		init : function () {
-			this.$slider = $('.slider');
-			this.numSlides = this.$slider.find('li').length;
-			this.currentSlideIndex = 1;
+        init : function () {
+            this.addEvents();
+        },
 
-			this.createNav();
-			this.run();
-		},
+        addEvents : function () {
+            $('.port-items')
+                .on('click', '.item-thumb', $.proxy(this.reveal, this))
+                .on('click', '.item-links', function (e) { e.stopPropagation() });
 
-		createNav : function () {
-			$('<ul />', {
-				html : $('.slides')
-							.find('li')
-							.clone()
-							.each(function (i) {
-								$(this).data('slide', i + 1);
-							})
-			})
-			.addClass('slider-nav')
-			.appendTo( this.$slider );
+            $(document.body).on('click', this.hide);
+        },
 
-			$('.slide-1').addClass('active');
+        reveal : function (e) {
+            e.stopPropagation();
 
-			this.addEvents();
-		},
+            var $parent = $(e.target).closest('li');
 
-		addEvents : function () {
-			var self = this;
+            if ( !$parent.hasClass('details-open') ) {
+                this.hide();
+                $parent.addClass('details-open');
+            } else {
+                this.hide();
+            }
+       },
 
-			this.$slider.on('click', '.slider-nav li', function () {
-				self.switchSlide.call(self, this, true);
-			});
-		},
+        hide : function () {
+            $('.details-open').removeClass('details-open');
+        }
 
-		switchSlide : function (el, manual) {
-			var $el = $(el),
-				slideIndex = $el.data('slide'),
-				$slide = $( '.slides .slide-' + slideIndex),
-				timing = manual ? 500 : 1000;
-
-			if( !$slide.hasClass('active') ) {
-
-				if(manual) clearTimeout(this.sliderTimeout);
-
-				$('.slides .active').fadeOut(timing).removeClass('active');
-				$slide.fadeIn(timing).addClass('active');
-
-				$('.slider-nav .active').removeClass('active');
-				$el.addClass('active');
-
-				this.currentSlideIndex = slideIndex > (this.numSlides - 1) ? 0 : slideIndex;
-
-				if(manual) this.run();
-
-			}
-		},
-
-		run : function () {
-			var nextSlideNav = $('.slider-nav .slide-' + (this.currentSlideIndex + 1)).get(0);
-
-			this.sliderTimeout = setTimeout($.proxy(function () {
-				this.switchSlide(nextSlideNav);
-				this.run();
-			}, this), 4000);
-		}
     };
 
     var Contact = {
@@ -167,7 +131,7 @@
 
     };
 
-	Slider.init();
+    Portfolio.init();
     Contact.init();
 
 }(jQuery));
