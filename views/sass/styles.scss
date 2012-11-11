@@ -166,8 +166,9 @@ p {
         .port-items {
             float: right;
             width: 675px;
+        }
 
-            li {
+            .port-item {
                 float: left;
                 margin-left: 25px;
                 position: relative;
@@ -177,7 +178,10 @@ p {
                     display: block;
                 }
             }
-        }
+
+            .details-open {
+                z-index: 100;
+            }
 
                 .item-thumb,
                 .item-name {
@@ -187,20 +191,19 @@ p {
                 .item-thumb {
                     @include border-radius;
                     @include box-shadow(1px 1px 5px rgba(0, 0, 0, 0.2) inset);
-                    cursor: pointer;
                     @include transition(.25s);
                     width: 200px;
                     height: 150px;
-                }
 
-                .item-thumb:hover,
-                .item-thumb:focus {
-                    @include box-shadow(0 0 5px rgba(0, 0, 0, 0.5));
-                }
+                    .port-item:hover &,
+                    .port-item:focus & {
+                        @include box-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+                    }
 
-                .details-open .item-thumb {
-                    cursor: default;
-                    @include box-shadow(none);
+                    .details-open & {
+                        cursor: default;
+                        @include box-shadow(none);
+                    }
                 }
 
                 .item-name {
@@ -215,7 +218,7 @@ p {
                     z-index: 10;
                 }
 
-                .port-items li .item-extra {
+                .port-item .item-extra {
                     background: $dark-grey;
                     @include border-radius;
                     border: solid 1px darken($dark-grey, 10%);
@@ -231,7 +234,7 @@ p {
                     min-height: 170px;
                 }
 
-                .port-items .details-open .item-extra {
+                .details-open .item-extra {
                     display: block;
                     z-index: 5;
                 }
@@ -255,38 +258,41 @@ p {
                         margin-left: 20px;
                     }
 
-                .port-items li .item-links {
-                    background: #333;
-                    @include border-radius(0 3px 0 3px);
-                    @include opacity(0.95);
+                .port-item .item-links {
                     display: none;
-                    padding: 8px;
+                    padding: 5px;
                     position: absolute;
-                    right: -1px;
-                    top: -1px;
+                    right: 0;
+                    top: 0;
                     z-index: 15;
+
+                    $port-icon-size: 32px;
 
                     li {
                         float: left;
-                        margin-left: 10px;
-                        width: 22px;
+                        margin-left: 5px;
+                        width: $port-icon-size + 2;
 
                         &:first-child {
                             margin-left: 0;
                         }
 
                         a {
+                            @include background(linear-gradient(top, #444, #222));
+                            @include border-radius;
+                            @include box-shadow(0 0 1px rgba(255,255,255,0.4) inset);
                             color: #a5a5a5;
                             display: block;
                             outline: none;
                             text-align: center;
                             text-decoration: none;
-                            width: 22px;
-                            height: 20px;
-                            line-height: 20px;
+                            width: $port-icon-size;
+                            height: $port-icon-size;
+                            line-height: $port-icon-size;
 
                             &:hover {
-                                color: #e3e3e3;
+                                @include background(linear-gradient(top, $blue, darken($blue, 8%)));
+                                color: #FFF;
                             }
 
                             i {
@@ -296,14 +302,10 @@ p {
                     }
                 }
 
-                .port-items .details-open .item-links {
+                .port-item:hover .item-links,
+                .details-open .item-links {
                     display: block;
                 }
-
-                    .item-link-label {
-                        left: -9999px;
-                        position: absolute;
-                    }
 
 
 // ---- Bottom ----
@@ -464,7 +466,7 @@ p {
         color: #600;
     }
 
-    .icon-envelope-alt {
+    .icon-envelope {
         color: #5B5B5B;
         cursor: default;
         font-size: 140px;

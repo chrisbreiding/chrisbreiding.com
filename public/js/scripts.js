@@ -8,16 +8,17 @@
 
         addEvents : function () {
             $('.port-items')
-                .on('click', '.item-thumb', $.proxy(this.reveal, this))
+                .on('click', '.item-more-info', $.proxy(this.reveal, this))
                 .on('click', '.item-links', function (e) { e.stopPropagation() });
 
             $(document.body).on('click', this.hide);
         },
 
         reveal : function (e) {
+            e.preventDefault();
             e.stopPropagation();
 
-            var $parent = $(e.target).closest('li');
+            var $parent = $(e.target).closest('.port-item');
 
             if ( !$parent.hasClass('details-open') ) {
                 this.hide();

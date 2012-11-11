@@ -35,22 +35,25 @@
                 </div>
                 <ul class="port-items">
                     <% type['items'].each do |item| %>
-                        <li>
+                        <li class="port-item">
                             <span class="item-thumb portfolio-<%= item['thumb'] %>"></span>
                             <span class="item-name"><%= item['name'] %></span>
                             <ul class="item-links">
+                                <li>
+                                    <a class="item-more-info" href="#" title="View more info">
+                                        <i class="icon-info-sign"></i>
+                                    </a>
+                                </li>
                                 <% if item['github'] %>
                                     <li>
                                         <a href="<%= item['github'] %>" target="_blank" title="View on Github">
                                             <i class="icon-github"></i>
-                                            <span class="item-link-label">View on Github</span>
                                         </a>
                                     </li>
                                 <% end %>
                                 <li>
                                     <a href="<%= item['web'] %>" target="_blank" title="View on Web">
                                         <i class="icon-globe"></i>
-                                        <span class="item-link-label">View on Web</span>
                                     </a>
                                 </li>
                             </ul>
@@ -120,7 +123,7 @@
 
                 <button type="submit" name="submit">Send Message</button>
 
-                <i class="icon-envelope-alt"></i>
+                <i class="icon-envelope"></i>
 
             </form>
 
