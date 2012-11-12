@@ -212,8 +212,8 @@ p {
                     text-align: center;
                 }
 
-                .port-items .details-open .item-thumb,
-                .port-items .details-open .item-name {
+                .details-open .item-thumb,
+                .details-open .item-name {
                     color: #f8f8f8;
                     z-index: 10;
                 }
@@ -258,13 +258,18 @@ p {
                         margin-left: 20px;
                     }
 
-                .port-item .item-links {
+                .item-links {
                     display: none;
                     padding: 5px;
                     position: absolute;
                     right: 0;
                     top: 0;
                     z-index: 15;
+
+                    .port-item:hover &,
+                    .details-open & {
+                        display: block;
+                    }
 
                     $port-icon-size: 32px;
 
@@ -300,11 +305,6 @@ p {
                             }
                         }
                     }
-                }
-
-                .port-item:hover .item-links,
-                .details-open .item-links {
-                    display: block;
                 }
 
 
