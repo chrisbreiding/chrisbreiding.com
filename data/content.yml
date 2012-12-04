@@ -57,12 +57,12 @@ types:
   items:
   -
     name: Calculator
-    description: "Simple calculator - an experiement with AngularJS, RequireJS, and applying OOP principles"
+    description: "Simple calculator - an experiement with Angular, RequireJS, and applying OOP principles"
     github: http://github.com/chrisbreiding/crbapps
     web: http://crbapps.com/calculator
     thumb: calculator
     tools:
-    - AngularJS
+    - Angular
     - RequireJS
     - CoffeeScript
   -
@@ -117,11 +117,14 @@ skills:
 - JavaScript
 - Angular
 - Backbone
+- CoffeeScript
+- RequireJS
 - jQuery
 - HTML
 - CSS
 - Ruby
-- Ruby on Rails
+- Rails
+- Sinatra
 - RSpec
 - Git
 - SQL
