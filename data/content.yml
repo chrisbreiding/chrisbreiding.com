@@ -57,13 +57,14 @@ types:
   items:
   -
     name: Calculator
-    description: "Simple calculator - an experiement with Angular and applying OOP principles"
+    description: "Simple calculator - an experiement with AngularJS, RequireJS, and applying OOP principles"
     github: http://github.com/chrisbreiding/crbapps
     web: http://crbapps.com/calculator
     thumb: calculator
     tools:
-    - Angular
-    - JavaScript
+    - AngularJS
+    - RequireJS
+    - CoffeeScript
   -
     name: List Randomizer
     description: "Randomizes a list - an experiment with OOP and DOM manipulation without a library"
