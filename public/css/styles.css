@@ -338,10 +338,9 @@ p {
 .details-open .item-thumb,
 .details-open .item-name {
   color: #f8f8f8;
-  z-index: 10;
 }
 
-/* line 221, ../../views/sass/styles.scss */
+/* line 220, ../../views/sass/styles.scss */
 .port-item .item-extra {
   background: #424242;
   -webkit-border-radius: 3px;
@@ -365,26 +364,25 @@ p {
   min-height: 170px;
 }
 
-/* line 237, ../../views/sass/styles.scss */
+/* line 236, ../../views/sass/styles.scss */
 .details-open .item-extra {
   display: block;
-  z-index: 5;
 }
 
-/* line 242, ../../views/sass/styles.scss */
+/* line 240, ../../views/sass/styles.scss */
 .item-desc {
   font-size: .9em;
   line-height: 1.5;
   margin-bottom: 10px;
 }
 
-/* line 248, ../../views/sass/styles.scss */
+/* line 246, ../../views/sass/styles.scss */
 .item-label {
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-/* line 253, ../../views/sass/styles.scss */
+/* line 251, ../../views/sass/styles.scss */
 .item-tools li {
   float: none;
   font-size: .9em;
@@ -393,30 +391,29 @@ p {
   margin-left: 20px;
 }
 
-/* line 261, ../../views/sass/styles.scss */
+/* line 259, ../../views/sass/styles.scss */
 .item-links {
   display: none;
   padding: 5px;
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 15;
 }
-/* line 270, ../../views/sass/styles.scss */
+/* line 267, ../../views/sass/styles.scss */
 .port-item:hover .item-links, .details-open .item-links {
   display: block;
 }
-/* line 276, ../../views/sass/styles.scss */
+/* line 273, ../../views/sass/styles.scss */
 .item-links li {
   float: left;
   margin-left: 5px;
   width: 34px;
 }
-/* line 281, ../../views/sass/styles.scss */
+/* line 278, ../../views/sass/styles.scss */
 .item-links li:first-child {
   margin-left: 0;
 }
-/* line 285, ../../views/sass/styles.scss */
+/* line 282, ../../views/sass/styles.scss */
 .item-links li a {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444444), color-stop(100%, #222222));
   background: -webkit-linear-gradient(top, #444444, #222222);
@@ -440,7 +437,7 @@ p {
   height: 32px;
   line-height: 32px;
 }
-/* line 298, ../../views/sass/styles.scss */
+/* line 295, ../../views/sass/styles.scss */
 .item-links li a:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2d5675), color-stop(100%, #224058));
   background: -webkit-linear-gradient(top, #2d5675, #224058);
@@ -449,29 +446,29 @@ p {
   background: linear-gradient(top, #2d5675, #224058);
   color: #FFF;
 }
-/* line 303, ../../views/sass/styles.scss */
+/* line 300, ../../views/sass/styles.scss */
 .item-links li a i {
   font-size: 20px;
 }
 
-/* line 313, ../../views/sass/styles.scss */
+/* line 310, ../../views/sass/styles.scss */
 .bottom {
   background: #424242;
 }
-/* line 316, ../../views/sass/styles.scss */
+/* line 313, ../../views/sass/styles.scss */
 .bottom h2 {
   color: #e3e3e3;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
 }
 
-/* line 322, ../../views/sass/styles.scss */
+/* line 319, ../../views/sass/styles.scss */
 .skills {
   border-right: dashed 1px #919191;
   float: left;
   padding-right: 9px;
   width: 420px;
 }
-/* line 328, ../../views/sass/styles.scss */
+/* line 325, ../../views/sass/styles.scss */
 .skills li {
   background: #e3e3e3;
   -webkit-border-radius: 3px;
@@ -489,32 +486,32 @@ p {
   padding: 10px 15px;
 }
 
-/* line 340, ../../views/sass/styles.scss */
+/* line 337, ../../views/sass/styles.scss */
 .contact {
   float: right;
   padding-left: 25px;
   width: 500px;
 }
-/* line 345, ../../views/sass/styles.scss */
+/* line 342, ../../views/sass/styles.scss */
 .contact form {
   position: relative;
 }
-/* line 349, ../../views/sass/styles.scss */
+/* line 346, ../../views/sass/styles.scss */
 .contact fieldset {
   padding-bottom: 20px;
   position: relative;
 }
-/* line 355, ../../views/sass/styles.scss */
+/* line 352, ../../views/sass/styles.scss */
 .contact .name-group,
 .contact .email-group {
   width: 352px;
 }
-/* line 359, ../../views/sass/styles.scss */
+/* line 356, ../../views/sass/styles.scss */
 .contact label {
   position: absolute;
   left: -9999px;
 }
-/* line 365, ../../views/sass/styles.scss */
+/* line 362, ../../views/sass/styles.scss */
 .contact input,
 .contact textarea {
   background: #e3e3e3;
@@ -533,30 +530,30 @@ p {
   line-height: 28px;
   padding: 5px 10px;
 }
-/* line 377, ../../views/sass/styles.scss */
+/* line 374, ../../views/sass/styles.scss */
 .contact input {
   display: block;
   width: 330px;
 }
-/* line 382, ../../views/sass/styles.scss */
+/* line 379, ../../views/sass/styles.scss */
 .contact .placeholder {
   color: #AAA;
 }
-/* line 386, ../../views/sass/styles.scss */
+/* line 383, ../../views/sass/styles.scss */
 .contact textarea {
   width: 478px;
   height: 200px;
 }
-/* line 391, ../../views/sass/styles.scss */
+/* line 388, ../../views/sass/styles.scss */
 .contact .default {
   color: #777;
 }
-/* line 396, ../../views/sass/styles.scss */
+/* line 393, ../../views/sass/styles.scss */
 .contact .error input,
 .contact .error textarea {
   border-color: #721e1e;
 }
-/* line 400, ../../views/sass/styles.scss */
+/* line 397, ../../views/sass/styles.scss */
 .contact .error-message {
   background: #721e1e;
   -webkit-border-radius: 0 3px 0 3px;
@@ -572,16 +569,16 @@ p {
   right: 0;
   top: 0;
 }
-/* line 412, ../../views/sass/styles.scss */
+/* line 409, ../../views/sass/styles.scss */
 .contact .error .error-message {
   display: block;
 }
-/* line 417, ../../views/sass/styles.scss */
+/* line 414, ../../views/sass/styles.scss */
 .contact input:focus + .error-message,
 .contact textarea:focus + .error-message {
   display: none;
 }
-/* line 421, ../../views/sass/styles.scss */
+/* line 418, ../../views/sass/styles.scss */
 .contact button {
   background: #2d5675;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2d5675), color-stop(100%, #224058));
@@ -606,7 +603,7 @@ p {
   height: 40px;
   line-height: 35px;
 }
-/* line 436, ../../views/sass/styles.scss */
+/* line 433, ../../views/sass/styles.scss */
 .contact button:hover, .contact button:focus {
   background: #386c92;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #386c92), color-stop(100%, #2d5675));
@@ -615,7 +612,7 @@ p {
   background: -o-linear-gradient(top, #386c92, #2d5675);
   background: linear-gradient(top, #386c92, #2d5675);
 }
-/* line 441, ../../views/sass/styles.scss */
+/* line 438, ../../views/sass/styles.scss */
 .contact button:active {
   background: #2d5675;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2d5675), color-stop(100%, #386c92));
@@ -624,7 +621,7 @@ p {
   background: -o-linear-gradient(top, #2d5675, #386c92);
   background: linear-gradient(top, #2d5675, #386c92);
 }
-/* line 447, ../../views/sass/styles.scss */
+/* line 444, ../../views/sass/styles.scss */
 .contact .processing {
   background: #333333 url("../ui/processing.gif") 50% 50% no-repeat;
   -webkit-border-radius: 3px;
@@ -636,7 +633,7 @@ p {
   width: 123px;
   height: 38px;
 }
-/* line 455, ../../views/sass/styles.scss */
+/* line 452, ../../views/sass/styles.scss */
 .contact .response {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -649,12 +646,12 @@ p {
   line-height: 1.5;
   padding: 20px;
 }
-/* line 464, ../../views/sass/styles.scss */
+/* line 461, ../../views/sass/styles.scss */
 .contact .invalid {
   border-color: #600;
   color: #600;
 }
-/* line 469, ../../views/sass/styles.scss */
+/* line 466, ../../views/sass/styles.scss */
 .contact .icon-envelope {
   color: #5B5B5B;
   cursor: default;

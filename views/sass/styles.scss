@@ -215,7 +215,6 @@ p {
                 .details-open .item-thumb,
                 .details-open .item-name {
                     color: #f8f8f8;
-                    z-index: 10;
                 }
 
                 .port-item .item-extra {
@@ -236,7 +235,6 @@ p {
 
                 .details-open .item-extra {
                     display: block;
-                    z-index: 5;
                 }
 
                     .item-desc {
@@ -264,7 +262,6 @@ p {
                     position: absolute;
                     right: 0;
                     top: 0;
-                    z-index: 15;
 
                     .port-item:hover &,
                     .details-open & {
