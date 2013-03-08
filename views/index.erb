@@ -95,29 +95,23 @@
 
             <h2>Get in Touch</h2>
 
-            <% if flash[:message_response] %>
-                <p class="response"><%= flash[:message_response] %></p>
-            <% end %>
+            <form id="contact-form" class="clearfix" method="post">
 
-            <% errors = flash[:errors] || {} %>
-
-            <form id="contact-form" class="clearfix" action="/send-message" method="post">
-
-                <fieldset class="name-group clearfix <%= 'error' if errors[:name] %>">
+                <fieldset class="name-group clearfix">
                     <label for="name">Name</label>
-                    <input name="name" type="text" class="contact-input" value="<%= flash[:name] || '' %>" placeholder="Name" />
+                    <input name="name" type="text" class="contact-input" placeholder="Name" />
                     <div class="error-message">Please enter your name</div>
                 </fieldset>
 
-                <fieldset class="email-group clearfix <%= 'error' if errors[:email] %>">
+                <fieldset class="email-group clearfix">
                     <label for="email">Email</label>
-                    <input name="email" type="text" class="contact-input" value="<%= flash[:email] || '' %>" placeholder="Email" />
+                    <input name="email" type="text" class="contact-input" placeholder="Email" />
                     <div class="error-message">Please enter your email</div>
                 </fieldset>
 
-                <fieldset class="message-group clearfix <%= 'error' if errors[:message] %>">
+                <fieldset class="message-group clearfix">
                     <label for="message">Message</label>
-                    <textarea name="message" class="contact-input" placeholder="Message"><%= flash[:message] || '' %></textarea>
+                    <textarea name="message" class="contact-input" placeholder="Message"></textarea>
                     <div class="error-message">Please enter a message</div>
                 </fieldset>
 

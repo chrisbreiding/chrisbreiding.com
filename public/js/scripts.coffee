@@ -6,11 +6,11 @@ class Portfolio
   addEvents: ->
     $('.port-items')
         .on('click', '.item-more-info', @reveal)
-        .on('click', '.item-links', (e) -> e.stopPropagation())
+        .on('click', '.item-links', (e)-> e.stopPropagation())
 
     $(document.body).on 'click', @hide
 
-  reveal: (e) =>
+  reveal: (e)=>
     e.preventDefault()
     e.stopPropagation()
 
@@ -28,11 +28,11 @@ class Portfolio
 
 class Input
 
-  constructor: (el) ->
+  constructor: (el)->
     @$el = $(el).on 'blur', @onBlur
     @onBlur()
 
-  onBlur: (e) =>
+  onBlur: (e)=>
     @removeError() if @isValid()
 
   validate: ->
@@ -59,7 +59,7 @@ class Contact
 
     @$contactForm = $('#contact-form')
     @inputs = $inputs.map ->
-      new Input @
+      new Input this
 
     $inputs.placeholder()
 
@@ -68,13 +68,13 @@ class Contact
   addEvents: ->
     @$contactForm.on 'submit', @onSubmit
 
-  onSubmit: (e) =>
+  onSubmit: (e)=>
     e.preventDefault()
 
     if @inputsValid() and !$('.processing').length
       @$contactForm
         .find('button')
-        .after( $('<div class="processing" />') )
+        .after($('<div class="processing" />'))
         .remove()
       @sendMessage()
 
@@ -94,11 +94,11 @@ class Contact
   sendMessage: ->
     $.ajax
       type: 'POST'
-      url: '/send-message'
+      url: 'http://courier.crbapps.com/send'
       data: @$contactForm.serialize()
       success: @close
 
-  close: (response) =>
+  close: (response)=>
     @$contactForm.slideUp 500, =>
       @$contactForm
         .after("<div class='response'>#{response}</div")
