@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'psych'
 
 get '/' do
   @title = 'Chris Breiding | Web Developer'

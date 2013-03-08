@@ -93,7 +93,7 @@ class Contact
 
   sendMessage: ->
     $.ajax
-      type: 'POST'
+      dataType: 'JSONP'
       url: 'http://courier.crbapps.com/send'
       data: @$contactForm.serialize()
       success: @close

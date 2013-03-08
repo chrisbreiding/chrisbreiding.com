@@ -121,7 +121,7 @@
 
     Contact.prototype.sendMessage = function() {
       return $.ajax({
-        type: 'POST',
+        dataType: 'JSONP',
         url: 'http://courier.crbapps.com/send',
         data: this.$contactForm.serialize(),
         success: this.close
