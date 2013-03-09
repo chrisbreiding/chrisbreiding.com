@@ -1,4 +1,4 @@
-require 'sinatra'
-require File.dirname(__FILE__) + '/app.rb'
+require 'rubygems'
+require 'middleman/rack'
 
-run Sinatra::Application
+run Middleman.server

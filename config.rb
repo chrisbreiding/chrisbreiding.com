@@ -1,11 +1,26 @@
-require './app'
+set :css_dir, 'stylesheets'
+set :js_dir, 'javascripts'
+set :images_dir, 'images'
 
-project_path          = Sinatra::Application.root
-relative_assets       = true
+# Build-specific configuration
+configure :build do
+  # For example, change the Compass output style for deployment
+  activate :minify_css
 
-http_images_path      = '/ui'
-http_stylesheets_path = '/css'
+  # Minify Javascript on build
+  activate :minify_javascript
 
-css_dir               = File.join 'public', 'css'
-sass_dir              = File.join 'views', 'sass'
-images_dir            = File.join 'public', 'ui'
+  # Enable cache buster
+  activate :asset_hash
+
+  # Use relative URLs
+  activate :relative_assets
+
+  # Compress PNGs after build
+  require "middleman-smusher"
+  activate :smusher
+end
+
+activate :deploy do |deploy|
+  deploy.method = :git
+end

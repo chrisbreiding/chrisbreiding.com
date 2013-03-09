@@ -32,7 +32,7 @@ $font-strong: "Bebas Neue", "Helvetica Neue", Arial, sans-serif;
 // ---- General ----
 
 body {
-    background: url("../ui/body-bg.jpg") fixed;
+    background: image-url('body-bg.jpg') fixed;
     color: $dark-grey;
     font-family: $font-default;
     width: 100%;

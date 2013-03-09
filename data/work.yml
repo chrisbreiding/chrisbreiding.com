@@ -1,20 +1,3 @@
-social_links:
--
-  name: Github
-  class: github
-  href: https://github.com/chrisbreiding
-  icon: icon-github-sign
-  title: View my Github profile
--
-  name: LinkedIn
-  class: LinkedIn
-  href: http://www.linkedin.com/in/chrisbreiding
-  icon: icon-linkedin-sign
-  title: Connect with me on LinkedIn
-
-bio: "I'm a web developer based in Atlanta, GA. <br />I love solving problems with code and creating great web applications and sites."
-
-types:
 -
   type: Apps
   description: "Apps utilizing a backend architecture, database persistence, user authentication, etc."
@@ -112,24 +95,3 @@ types:
     tools:
     - WordPress
     - jQuery
-
-skills:
-- JavaScript
-- Angular
-- Backbone
-- CoffeeScript
-- RequireJS
-- jQuery
-- HTML
-- CSS
-- Ruby
-- Rails
-- Sinatra
-- RSpec
-- Git
-- SQL
-- PHP
-- CodeIgniter
-- WordPress
-- Drupal
-- Photoshop

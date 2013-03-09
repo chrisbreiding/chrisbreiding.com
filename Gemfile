@@ -1,11 +1,5 @@
-source "http://rubygems.org"
+source 'http://rubygems.org'
 
-gem "sinatra"
-
-group :development do
-  gem "compass"
-  gem "guard"
-  gem "guard-compass"
-  gem "guard-coffeescript"
-  gem 'rb-fsevent', '~> 0.9.1'
-end
+gem "middleman",        "~>3.0.12"
+gem "middleman-smusher" # compresses pngs
+gem "middleman-deploy", "~> 0.0.10"
