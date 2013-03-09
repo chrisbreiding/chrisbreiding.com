@@ -57,7 +57,7 @@ class Contact
   constructor: ->
     $inputs = $('.contact-input')
 
-    @$contactForm = $('#contact-form')
+    @$contactForm = $('#contact-form').show()
     @inputs = $inputs.map ->
       new Input this
 
