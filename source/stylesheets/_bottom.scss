@@ -1,0 +1,167 @@
+.bottom {
+  background: $dark-grey;
+
+  h2 {
+    color: $light-grey;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+  }
+}
+
+.skills {
+  border-right: dashed 1px $medium-grey;
+  float: left;
+  padding-right: 9px;
+  width: 420px;
+
+  li {
+    background: $light-grey;
+    @include border-radius;
+    border: solid 1px #d2d2d2;
+    @include box-shadow(1px 1px 5px rgba(0, 0, 0, 0.2) inset);
+    float: left;
+    font-weight: bold;
+    margin: 0 15px 15px 0;
+    padding: 10px 15px;
+  }
+}
+
+.contact {
+  float: right;
+  padding-left: 25px;
+  width: 500px;
+
+  form {
+    position: relative;
+  }
+
+  fieldset {
+    padding-bottom: 20px;
+    position: relative;
+  }
+
+  .name-group,
+  .email-group {
+    width: 352px;
+  }
+
+  label {
+    position: absolute;
+    left: -9999px;
+  }
+
+  input,
+  textarea {
+    background: $light-grey;
+    @include border-radius;
+    border: solid 1px #c7c7c7;
+    @include box-shadow(0 0 5px rgba(0, 0, 0, 0.2) inset);
+    font-family: $font-default;
+    font-size: .9em;
+    height: 28px;
+    line-height: 28px;
+    padding: 5px 10px;
+  }
+
+  input {
+    display: block;
+    width: 330px;
+  }
+
+  .placeholder {
+    color: #AAA;
+  }
+
+  textarea {
+    width: 478px;
+    height: 200px;
+  }
+
+  .default {
+    color: #777;
+  }
+
+  .error input,
+  .error textarea {
+    border-color: $red;
+  }
+
+  .error-message {
+    background: $red;
+    @include border-radius(0 3px 0 3px);
+    color: #FFF;
+    display: none;
+    font-size: .9em;
+    padding: 5px 8px;
+    position: absolute;
+      right: 0;
+      top: 0;
+  }
+
+  .error .error-message {
+    display: block;
+  }
+
+  input:focus + .error-message,
+  textarea:focus + .error-message {
+    display: none;
+  }
+
+  button {
+    background: $blue;
+    @include background(linear-gradient(top, $blue, darken($blue, 8%)));
+    @include border-radius;
+    border: solid 1px #21415A;
+    @include box-shadow(0 0 2px rgba(255,255,255,0.2) inset);
+    color: $light-grey;
+    cursor: pointer;
+    float: right;
+    font-size: .9em;
+    width: 125px;
+    height: 40px;
+    line-height: 35px;
+
+    &:hover,
+    &:focus {
+      background: lighten($blue, 8%);
+      @include background(linear-gradient(top, lighten($blue, 8%), $blue));
+    }
+
+    &:active {
+      background: $blue;
+      @include background(linear-gradient(top, $blue, lighten($blue, 8%)));
+    }
+  }
+
+  .processing {
+    background: #333 image-url('processing.gif') 50% 50% no-repeat;
+    @include border-radius;
+    float: right;
+    width: 123px;
+    height: 38px;
+  }
+
+  .response {
+    @include border-radius;
+    border: dashed 1px $medium-grey;
+    color: $light-grey;
+    font-size: 1.2em;
+    line-height: 1.5;
+    padding: 20px;
+  }
+
+  .invalid {
+    border-color: #600;
+    color: #600;
+  }
+
+  .icon-envelope {
+    color: #5B5B5B;
+    cursor: default;
+    font-size: 140px;
+    position: absolute;
+      top: -20px;
+      right: 0;
+    width: 128px;
+    height: 100px;
+  }
+}
