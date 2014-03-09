@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Github",
+    "class": "github",
+    "href": "https://github.com/chrisbreiding",
+    "title": "View my Github repos"
+  },{
+    "name": "Twitter",
+    "class": "twitter",
+    "href": "http://twitter.com/chrisbreiding",
+    "title": "Follow me on Twitter"
+  },{
+    "name": "LinkedIn",
+    "class": "linkedin",
+    "href": "http://www.linkedin.com/in/chrisbreiding",
+    "title": "Connect with me on LinkedIn"
+  }
+]

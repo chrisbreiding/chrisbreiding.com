@@ -1,0 +1,61 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title Chris Breiding | Software Developer
+    meta(name='viewport', content='width=device-width initial-scale=1.0')
+    link(rel='stylesheet', href='stylesheets/all.css')
+    link(rel='icon', href='images/favicon.ico', type='image/ico')
+
+  body
+
+    .header
+
+      h1 Chris Breiding
+        span Software Developer
+
+      ul.social
+        each link in social
+          li(class=link.class)
+            a(href=link.href target='blank', title=link.title)
+              #{link.name}
+
+      p.bio #{bio}
+
+    .skills
+
+      h2 Areas of Expertise
+
+      ul.clearfix
+        each skill in skills
+          li #{skill}
+
+    .contact#contact
+
+      h2 Get in Touch
+
+      noscript
+        .response.invalid This contact form requires JavaScript. Please enable JavaScript and refresh the page.
+
+      form.clearfix#contact-form
+
+        fieldset.name-group
+          label(for='name') Name
+          input(name='name', class='contact-input', placeholder='Name', type='text')
+          .error-message Please enter your name
+
+        fieldset.email-group
+          label(for='email') Email
+          input(name='email', class='contact-input', placeholder='Email', type='text')
+          .error-message Please enter your email
+
+        fieldset.message-group
+          label(for='message') Message
+          textarea(name='message', class='contact-input', placeholder='Message')
+          .error-message Please enter a message
+
+        button(name='submit', type='submit') Send Message
+
+        i.icon-envelope
+
+   //- #{javascript_include_tag 'all', 'google-analytics'}

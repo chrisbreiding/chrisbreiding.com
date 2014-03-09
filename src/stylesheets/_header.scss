@@ -1,0 +1,50 @@
+.header {
+  @include clearfix;
+  padding: 10px 0;
+}
+
+h1 {
+  background: image-url('header.png') no-repeat;
+  color: #FFF;
+  float: left;
+  font-size: 1.8em;
+  font-weight: bold;
+  height: 72px;
+  line-height: 72px;
+  padding-left: 32px;
+
+  span {
+    color: #333;
+    font-size: .6em;
+    font-weight: normal;
+    margin-left: 30px;
+  }
+}
+
+.social {
+  float: right;
+
+  li {
+    float: left;
+
+    a {
+      background-repeat: no-repeat;
+      display: block;
+      transition: all .25s ease;
+      width: 80px;
+      height: 80px;
+
+      &:hover {
+        -webkit-transform: rotate(-10deg);
+        transform: rotate(-10deg);
+      }
+    }
+
+    @each $social-site in github, twitter, linkedin {
+      &.#{$social-site} a {
+        background-image: image-url('#{$social-site}.png');
+      }
+    }
+
+  }
+}
