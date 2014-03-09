@@ -1,6 +1,6 @@
 .header {
   @include clearfix;
-  padding: 10px 0;
+  padding-top: 20px;
 }
 
 h1 {
@@ -26,6 +26,7 @@ h1 {
 
   li {
     float: left;
+    margin-left: 10px;
 
     a {
       background-repeat: no-repeat;

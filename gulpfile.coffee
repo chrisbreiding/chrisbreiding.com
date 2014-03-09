@@ -8,14 +8,27 @@ jade = require 'gulp-jade'
 clean = require 'gulp-clean'
 
 server = require './server'
-skills = require './src/content/skills'
 social = require './src/content/social'
+projects = require './src/content/projects'
+skills = require './src/content/skills'
 
 # buildIndex = require ''
 
 # Dev
 
 buildDevIndex = ->
+  jadeOptions =
+    locals:
+      social: social
+      projects: projects
+      skills: skills
+    pretty: true
+
+  gulp.src('src/index.jade')
+    .pipe(plumber())
+    .pipe(jade(jadeOptions))
+    .pipe(gulp.dest('./_dev/'))
+
   # gulp.src('src/index.hbs')
   #   .pipe(buildIndex.dev(config.scripts, ['stylesheets/all.css']))
   #   .pipe(gulp.dest('./_dev/'))
@@ -44,16 +57,8 @@ gulp.task 'watchCopies', ->
     .pipe(gulp.dest('./_dev/scripts/lib/'))
 
 gulp.task 'watchIndex', ->
-  jadeOptions =
-    locals:
-      skills: skills
-      social: social
-    pretty: true
-
-  watch(glob: 'src/index.jade')
-    .pipe(plumber())
-    .pipe(jade(jadeOptions))
-    .pipe(gulp.dest('./_dev/'))
+  watch glob: 'src/index.jade', buildDevIndex
+  watch glob: 'src/content/*.json', buildDevIndex
 
 gulp.task 'watch', ['watchCoffee', 'watchSass', 'watchCopies', 'watchIndex']
 

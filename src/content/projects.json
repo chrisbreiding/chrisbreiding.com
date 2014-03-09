@@ -1,0 +1,21 @@
+[
+  {
+    "class": "ember",
+    "description": "a YouTube app using Ember"
+  },{
+    "class": "ruby",
+    "description": "a TV show tracking app using Ruby on Rails"
+  },{
+    "class": "ios",
+    "description": "a real-time grocery list app using Objective-C"
+  },{
+    "class": "python",
+    "description": "Sublime Text plugins using Python"
+  },{
+    "class": "php",
+    "description": "a task manager using PHP"
+  },{
+    "class": "csharp",
+    "description": "automated integration tests using C#"
+  }
+]

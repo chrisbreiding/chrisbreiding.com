@@ -22,13 +22,22 @@ html
 
       p.bio #{bio}
 
+    .projects
+
+      h2 I've created
+
+      ul
+        each project in projects
+          li(class=project.class) #{project.description}
+
     .skills
 
-      h2 Areas of Expertise
+      h2 I love
 
-      ul.clearfix
+      ul
         each skill in skills
-          li #{skill}
+          - idx = Math.ceil(Math.random() * 4)
+          li(class='bullet-' + idx) #{skill}
 
     .contact#contact
 
