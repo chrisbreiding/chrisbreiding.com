@@ -1,19 +1,19 @@
 [
   {
-    "class": "ember",
-    "description": "a YouTube app using Ember"
+    "class": "javascript",
+    "description": "single-page applications using JavaScript"
   },{
     "class": "ruby",
-    "description": "a TV show tracking app using Ruby on Rails"
+    "description": "web apps and API services using Ruby"
   },{
     "class": "ios",
-    "description": "a real-time grocery list app using Objective-C"
+    "description": "mobile apps using Objective-C"
   },{
     "class": "python",
     "description": "Sublime Text plugins using Python"
   },{
     "class": "php",
-    "description": "a task manager using PHP"
+    "description": "websites and web apps using PHP"
   },{
     "class": "csharp",
     "description": "automated integration tests using C#"

@@ -14,7 +14,7 @@ h1 {
   padding-left: 32px;
 
   span {
-    color: #333;
+    color: #e3e3e3;
     font-size: .6em;
     font-weight: normal;
     margin-left: 30px;
@@ -36,8 +36,8 @@ h1 {
       height: 80px;
 
       &:hover {
-        -webkit-transform: rotate(-10deg);
-        transform: rotate(-10deg);
+        -webkit-transform: rotate(10deg) translate(5px, -5px);
+        transform: rotate(10deg) translate(5px, -5px);
       }
     }
 

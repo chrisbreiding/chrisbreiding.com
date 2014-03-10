@@ -8,9 +8,6 @@ jade = require 'gulp-jade'
 clean = require 'gulp-clean'
 
 server = require './server'
-social = require './src/content/social'
-projects = require './src/content/projects'
-skills = require './src/content/skills'
 
 # buildIndex = require ''
 
@@ -19,9 +16,9 @@ skills = require './src/content/skills'
 buildDevIndex = ->
   jadeOptions =
     locals:
-      social: social
-      projects: projects
-      skills: skills
+      social: require './src/content/social'
+      projects: require './src/content/projects'
+      skills: require './src/content/skills'
     pretty: true
 
   gulp.src('src/index.jade')
