@@ -1,21 +1,19 @@
 class Input
 
   constructor: (el)->
-    @$el = $(el).on 'blur', @onBlur
-    @onBlur()
+    @$el = $(el).on 'keyup', @checkValidity
+    @checkValidity()
 
-  onBlur: (e)=>
+  checkValidity: =>
     @removeError() if @isValid()
 
   validate: ->
-    if !@isValid()
-      @addError()
-      false
-    else
-      true
+    isValid = @isValid()
+    @addError() unless isValid
+    isValid
 
   isValid: ->
-    @$el.val() isnt '' and @$el.val() isnt @$el.attr 'title'
+    @$el.val() isnt ''
 
   addError: ->
     @$el.closest('fieldset').addClass 'error'
@@ -45,7 +43,7 @@ class Contact
     if @inputsValid() and !$('.processing').length
       @$contactForm
         .find('button')
-        .after($('<div class="processing" />'))
+        .after($('<div class="processing">Sending...</div>'))
         .remove()
       @sendMessage()
 
