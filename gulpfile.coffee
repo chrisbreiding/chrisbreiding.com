@@ -72,7 +72,7 @@ gulp.task 'watchImages', ->
         buildDevIndex()
 
 gulp.task 'watchCopies', ->
-  watch(glob: 'src/images/*.+(png|gif|jpg)').pipe(gulp.dest('./_dev/images/'))
+  watch(glob: 'src/images/*.+(png|gif|jpg|ico)').pipe(gulp.dest('./_dev/images/'))
   watch(glob: 'src/scripts/lib/*').pipe(gulp.dest('./_dev/scripts/lib/'))
 
 gulp.task 'watchIndex', ->
