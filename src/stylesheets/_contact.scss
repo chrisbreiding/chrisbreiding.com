@@ -79,6 +79,10 @@
   .error & {
     display: block;
   }
+
+  .contact-input:focus + & {
+    display: none;
+  }
 }
 
 .processing {

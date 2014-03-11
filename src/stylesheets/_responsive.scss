@@ -1,0 +1,111 @@
+//
+// <= 990
+//
+@media only screen and (max-width: 990px) {
+
+  body {
+    box-sizing: border-box;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 100%;
+  }
+
+}
+
+//
+// <= 740
+//
+@media only screen and (max-width: 740px) {
+
+  h1 {
+    height: auto;
+
+    span {
+      display: block;
+      line-height: 1;
+      margin-top: 10px;
+    }
+  }
+
+  .contact {
+    background: none;
+    @include clearfix;
+    padding-right: 0;
+
+    button {
+      float: right;
+      position: static;
+    }
+  }
+
+}
+
+//
+// <= 580
+//
+@media only screen and (max-width: 580px) {
+
+  h1 {
+    background-position: 50% 0;
+    float: none;
+    margin-bottom: 10px;
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .social {
+    text-align: center;
+    float: none;
+
+    li {
+      display: inline-block;
+      float: none;
+    }
+  }
+
+  .projects {
+    li {
+      float: none;
+      width: 100%;
+    }
+  }
+
+  .skills li {
+    width: 33%;
+  }
+
+  .contact {
+    label {
+      position: relative;
+      left: 0;
+      z-index: 1;
+    }
+
+    fieldset {
+      margin-left: 0;
+    }
+
+    .contact-input {
+      margin-top: -10px;
+    }
+  }
+
+  .error-message {
+    top: 0;
+    z-index: 2;
+  }
+
+  .processing {
+    float: right;
+    position: static;
+  }
+}
+
+//
+// <= 420
+//
+@media only screen and (max-width: 420px) {
+  .skills li {
+    width: 50%;
+  }
+}

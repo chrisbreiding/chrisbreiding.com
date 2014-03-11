@@ -28,8 +28,10 @@ html
 
       ul
         each project in projects
-          li #{project.description}
+          li
             i(class='icon-#{project.class}')
+            p
+              span #{project.description}
 
     .skills
 
@@ -51,17 +53,17 @@ html
 
       form#contact-form
 
-        fieldset.name-group
+        fieldset
           label.icon-label-1(for='name') Name
           input.contact-input(name='name', type='text')
           .error-message.icon-error Please enter your name
 
-        fieldset.email-group
+        fieldset
           label.icon-label-2(for='email') Email
           input.contact-input(name='email', type='text')
           .error-message.icon-error Please enter your email
 
-        fieldset.message-group
+        fieldset
           label.icon-label-3(for='message') Message
           textarea.contact-input(name='message')
           .error-message.icon-error Please enter a message

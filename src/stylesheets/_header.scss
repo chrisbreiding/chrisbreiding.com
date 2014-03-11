@@ -5,12 +5,14 @@
 
 h1 {
   background: image-url('header.png') no-repeat;
+  box-sizing: border-box;
   color: #FFF;
   float: left;
   font-size: 1.8em;
   font-weight: bold;
   height: 72px;
   line-height: 72px;
+  min-width: 254px;
   padding-left: 32px;
 
   span {
