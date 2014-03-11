@@ -1,31 +1,3 @@
-class Portfolio
-
-  constructor: ->
-    @addEvents()
-
-  addEvents: ->
-    $('.port-items')
-        .on('click', '.item-more-info', @reveal)
-        .on('click', '.item-links', (e)-> e.stopPropagation())
-
-    $(document.body).on 'click', @hide
-
-  reveal: (e)=>
-    e.preventDefault()
-    e.stopPropagation()
-
-    $parent = $(e.target).closest '.port-item'
-
-    if !$parent.hasClass 'details-open'
-      @hide()
-      $parent.addClass 'details-open'
-    else
-      @hide()
-
-  hide: ->
-    $('.details-open').removeClass 'details-open'
-
-
 class Input
 
   constructor: (el)->
@@ -60,8 +32,6 @@ class Contact
     @$contactForm = $('#contact-form').show()
     @inputs = $inputs.map ->
       new Input this
-
-    $inputs.placeholder()
 
     @addEvents()
     @wakeCourier()
@@ -109,5 +79,4 @@ class Contact
     $.get 'http://courier.crbapps.com/wake'
 
 
-new Portfolio
 new Contact

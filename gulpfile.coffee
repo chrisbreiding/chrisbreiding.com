@@ -5,17 +5,33 @@ plumber = require 'gulp-plumber'
 coffee = require 'gulp-coffee'
 sass = require 'gulp-sass'
 jade = require 'gulp-jade'
+spritesmith = require 'gulp.spritesmith'
 clean = require 'gulp-clean'
-
+glob = require 'glob'
 server = require './server'
 
-# buildIndex = require ''
 
 # Dev
+
+cssFiles = ->
+  files = glob.sync('_dev/stylesheets/*.css').map (file)->
+    file.replace '_dev', ''
+  # ensure all is last
+  files.sort (a, b)->
+    a.indexOf('all.css') - b.indexOf('all.css')
+
+jsFiles = ->
+  files = glob.sync('_dev/scripts/**/*.js').map (file)->
+    file.replace '_dev', ''
+  # ensure jquery is first
+  files.sort (a, b)->
+    b.indexOf('jquery.js') - a.indexOf('jquery.js')
 
 buildDevIndex = ->
   jadeOptions =
     locals:
+      stylesheets: cssFiles()
+      scripts: jsFiles()
       social: require './src/content/social'
       projects: require './src/content/projects'
       skills: require './src/content/skills'
@@ -26,19 +42,13 @@ buildDevIndex = ->
     .pipe(jade(jadeOptions))
     .pipe(gulp.dest('./_dev/'))
 
-  # gulp.src('src/index.hbs')
-  #   .pipe(buildIndex.dev(config.scripts, ['stylesheets/all.css']))
-  #   .pipe(gulp.dest('./_dev/'))
-
 gulp.task 'watchCoffee', ->
-  watchCoffee = watch glob: 'src/scripts/**/*.coffee'
-  watchCoffee
-    .pipe(plumber())
-    .pipe(coffee().on('error', gutil.log))
-    .pipe(gulp.dest('./_dev/scripts/'))
-
-  watchCoffee.gaze.on 'all', (event)->
-    # buildDevIndex()
+  watch glob: 'src/scripts/**/*.coffee', (files)->
+    files
+      .pipe(plumber())
+      .pipe(coffee().on('error', gutil.log))
+      .pipe(gulp.dest('./_dev/scripts/'))
+    buildDevIndex()
 
 gulp.task 'watchSass', ->
   watch glob: 'src/stylesheets/*.scss', ->
@@ -46,18 +56,30 @@ gulp.task 'watchSass', ->
       .pipe(plumber())
       .pipe(sass())
       .pipe(gulp.dest('./_dev/stylesheets/'))
+    buildDevIndex()
+
+gulp.task 'watchImages', ->
+  imageCategories = ['contact', 'projects', 'skills', 'social']
+  for imageCategory in imageCategories
+    do (imageCategory)->
+      watch glob: "src/images/#{imageCategory}/*.png", ->
+        spriteData = gulp.src("src/images/#{imageCategory}/*.png")
+          .pipe spritesmith
+            imgName: "../images/#{imageCategory}.png"
+            cssName: "#{imageCategory}.css"
+        spriteData.img.pipe(gulp.dest('_dev/images/'))
+        spriteData.css.pipe(gulp.dest('_dev/stylesheets/'))
+        buildDevIndex()
 
 gulp.task 'watchCopies', ->
-  watch(glob: 'src/images/**/*')
-    .pipe(gulp.dest('./_dev/images/'))
-  watch(glob: 'src/scripts/lib/*')
-    .pipe(gulp.dest('./_dev/scripts/lib/'))
+  watch(glob: 'src/images/*.png').pipe(gulp.dest('./_dev/images/'))
+  watch(glob: 'src/scripts/lib/*').pipe(gulp.dest('./_dev/scripts/lib/'))
 
 gulp.task 'watchIndex', ->
   watch glob: 'src/index.jade', buildDevIndex
   watch glob: 'src/content/*.json', buildDevIndex
 
-gulp.task 'watch', ['watchCoffee', 'watchSass', 'watchCopies', 'watchIndex']
+gulp.task 'watch', ['watchCoffee', 'watchSass', 'watchImages', 'watchCopies', 'watchIndex']
 
 gulp.task 'devServer', -> server '_dev', 8080
 

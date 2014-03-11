@@ -4,7 +4,8 @@ html
     meta(charset='utf-8')
     title Chris Breiding | Software Developer
     meta(name='viewport', content='width=device-width initial-scale=1.0')
-    link(rel='stylesheet', href='stylesheets/all.css')
+    each stylesheet in stylesheets
+      link(rel='stylesheet', href='#{stylesheet}')
     link(rel='icon', href='images/favicon.ico', type='image/ico')
 
   body
@@ -17,8 +18,7 @@ html
       ul.social
         each link in social
           li(class=link.class)
-            a(href=link.href target='blank', title=link.title)
-              #{link.name}
+            a(class='icon-#{link.class}' href=link.href target='blank', title=link.title)
 
       p.bio #{bio}
 
@@ -28,7 +28,8 @@ html
 
       ul
         each project in projects
-          li(class=project.class) #{project.description}
+          li #{project.description}
+            i(class='icon-#{project.class}')
 
     .skills
 
@@ -37,7 +38,9 @@ html
       ul
         each skill in skills
           - idx = Math.ceil(Math.random() * 4)
-          li(class='bullet-#{idx}') #{skill}
+          li
+            i(class='icon-bullet-#{idx}')
+            span #{skill}
 
     .contact#contact
 
@@ -49,20 +52,21 @@ html
       form#contact-form
 
         fieldset.name-group
-          label(for='name') Name
+          label.icon-label-1(for='name') Name
           input.contact-input(name='name', type='text')
           .error-message Please enter your name
 
         fieldset.email-group
-          label(for='email') Email
+          label.icon-label-2(for='email') Email
           input.contact-input(name='email', type='text')
           .error-message Please enter your email
 
         fieldset.message-group
-          label(for='message') Message
+          label.icon-label-3(for='message') Message
           textarea.contact-input(name='message')
           .error-message Please enter a message
 
-        button(name='submit', type='submit') Send Message
+        button.icon-submit(name='submit', type='submit') Send Message
 
-   //- #{javascript_include_tag 'all', 'google-analytics'}
+    each script in scripts
+      script(src='#{script}')
