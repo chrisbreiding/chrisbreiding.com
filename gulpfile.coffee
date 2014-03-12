@@ -4,6 +4,7 @@ watch = require 'gulp-watch'
 plumber = require 'gulp-plumber'
 coffee = require 'gulp-coffee'
 sass = require 'gulp-sass'
+prefix = require 'gulp-autoprefixer'
 jade = require 'gulp-jade'
 spritesmith = require 'gulp.spritesmith'
 clean = require 'gulp-clean'
@@ -55,6 +56,7 @@ gulp.task 'watchSass', ->
     gulp.src('src/stylesheets/!(_)*.scss')
       .pipe(plumber())
       .pipe(sass())
+      .pipe(prefix('last 3 versions', 'ie 8'))
       .pipe(gulp.dest('./_dev/stylesheets/'))
     buildDevIndex()
 

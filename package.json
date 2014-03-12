@@ -15,7 +15,8 @@
     "gulp-util": "~2.2.14",
     "gulp-plumber": "~0.5.6",
     "gulp.spritesmith": "~0.2.0",
-    "glob": "~3.2.9"
+    "glob": "~3.2.9",
+    "gulp-autoprefixer": "0.0.6"
   },
   "scripts": {
     "dev": "gulp dev --require coffee-script/register",
