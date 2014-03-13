@@ -27,12 +27,12 @@ class Contact
   constructor: ->
     $inputs = $('.contact-input')
 
+    @$contact = $ '#contact'
     @$contactForm = $('#contact-form').show()
     @inputs = $inputs.map ->
       new Input this
 
     @addEvents()
-    @wakeCourier()
 
   addEvents: ->
     @$contactForm.on 'submit', @onSubmit
@@ -50,31 +50,55 @@ class Contact
   inputsValid: ->
     allValid = true
 
-    @inputs.each ->
-      inputValid = @validate()
-
-      if !inputValid
-        allValid = false
-
-      return null
+    for input in @inputs
+      allValid = false unless input.validate()
 
     allValid
 
   sendMessage: ->
+    reverse = (word)-> word.split('').reverse().join ''
+
+    name = $('#contact-name').val()
+    email = $('#contact-email').val()
+    message = $('#contact-message').val()
+
     $.ajax
-      dataType: 'JSONP'
-      url: 'http://courier.crbapps.com/send'
-      data: @$contactForm.serialize()
-      success: @close
+      type: 'POST'
+      dataType: 'JSON'
+      url: 'https://mandrillapp.com/api/1.0/messages/send-template.json'
+      data:
+        key: 'rPNtGh3XdGX45uKEpeZGjA'
+        template_name: 'website-contact-form'
+        template_content: [
+            name: 'contact-name',    content: name
+          ,
+            name: 'contact-email',   content: email
+          ,
+            name: 'contact-message', content: message
+        ]
+        message:
+          from_name: name
+          from_email: email
+          to: [ email: [reverse('gnidierbsirhc'), reverse('moc.liamg')].join('@') ]
+      success: (response)=>
+        if response.reject_reason
+          @showError()
+        else
+          @close()
+      error: (jqXhr)=>
+        @showError()
 
-  close: (response)=>
+  close: =>
     @$contactForm.slideUp 500, =>
-      @$contactForm
-        .after("<div class='response'>#{response}</div")
-        .remove()
+      @$contact.addClass 'success'
+      @scrollToBottom()
 
-  wakeCourier: ->
-    $.get 'http://courier.crbapps.com/wake'
+  showError: ->
+    @$contact.addClass 'failure'
+    @scrollToBottom()
+
+  scrollToBottom: ->
+    $(document.body).animate scrollTop: $(document).height()
 
 
 new Contact

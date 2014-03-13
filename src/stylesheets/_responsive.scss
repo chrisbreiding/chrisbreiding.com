@@ -28,14 +28,21 @@
   }
 
   .contact {
-    background: none;
-    @include clearfix;
-    padding-right: 0;
+    form {
+      @include clearfix;
+      background: none;
+      padding-right: 0;
+    }
 
-    button {
+    button,
+    .processing {
       float: right;
       position: static;
     }
+  }
+
+  .contact-failure {
+    margin: 0 20px;
   }
 
 }
@@ -98,6 +105,18 @@
   .processing {
     float: right;
     position: static;
+  }
+
+  .contact-success {
+    p {
+      line-height: 1.5;
+      margin-bottom: 30px;
+      margin-left: 0;
+    }
+
+    i {
+      margin-left: 20px;
+    }
   }
 }
 

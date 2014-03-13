@@ -55,20 +55,28 @@ html
 
         fieldset
           label.icon-label-1(for='name') Name
-          input.contact-input(name='name', type='text')
+          input.contact-input#contact-name(name='name', type='text')
           .error-message.icon-error Please enter your name
 
         fieldset
           label.icon-label-2(for='email') Email
-          input.contact-input(name='email', type='text')
+          input.contact-input#contact-email(name='email', type='text')
           .error-message.icon-error Please enter your email
 
         fieldset
           label.icon-label-3(for='message') Message
-          textarea.contact-input(name='message')
+          textarea.contact-input#contact-message(name='message')
           .error-message.icon-error Please enter a message
 
         button.icon-submit(name='submit', type='submit') Send Message
+
+      .contact-success
+        p Your message has been sent - Thank you!
+        i.icon-plane
+
+      .contact-failure
+        i.icon-alert
+        p I'm sorry, but an unexpected error occurred and your message could not be sent. Please get in touch with me on <a href="http://twitter.com/chrisbreiding" target="_blank">Twitter</a>.
 
     each script in scripts
       script(src='#{script}')

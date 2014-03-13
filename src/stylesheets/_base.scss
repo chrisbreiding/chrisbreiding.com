@@ -24,3 +24,16 @@ p {
 li {
   line-height: 1.5;
 }
+
+a:link,
+a:visited {
+  color: #5695AD;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus,
+a:active {
+  color: #357087;
+  text-decoration: underline;
+}
