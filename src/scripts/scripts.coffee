@@ -25,16 +25,11 @@ class Input
 class Contact
 
   constructor: ->
-    $inputs = $('.contact-input')
-
     @$contact = $ '#contact'
-    @$contactForm = $('#contact-form').show()
-    @inputs = $inputs.map ->
+    @$contactForm = $ '#contact-form'
+    @inputs = $('.contact-input').map ->
       new Input this
 
-    @addEvents()
-
-  addEvents: ->
     @$contactForm.on 'submit', @onSubmit
 
   onSubmit: (e)=>
@@ -56,30 +51,11 @@ class Contact
     allValid
 
   sendMessage: ->
-    reverse = (word)-> word.split('').reverse().join ''
-
-    name = $('#contact-name').val()
-    email = $('#contact-email').val()
-    message = $('#contact-message').val()
-
     $.ajax
       type: 'POST'
       dataType: 'JSON'
       url: 'https://mandrillapp.com/api/1.0/messages/send-template.json'
-      data:
-        key: 'rPNtGh3XdGX45uKEpeZGjA'
-        template_name: 'website-contact-form'
-        template_content: [
-            name: 'contact-name',    content: name
-          ,
-            name: 'contact-email',   content: email
-          ,
-            name: 'contact-message', content: message
-        ]
-        message:
-          from_name: name
-          from_email: email
-          to: [ email: [reverse('gnidierbsirhc'), reverse('moc.liamg')].join('@') ]
+      data: @messageData()
       success: (response)=>
         if response.reject_reason
           @showError()
@@ -87,6 +63,25 @@ class Contact
           @close()
       error: (jqXhr)=>
         @showError()
+
+  messageData: ->
+    reverse = (word)-> word.split('').reverse().join ''
+
+    name    = $('#contact-name').val()
+    email   = $('#contact-email').val()
+    message = $('#contact-message').val()
+
+    key: 'rPNtGh3XdGX45uKEpeZGjA'
+    template_name: 'website-contact-form'
+    template_content: [
+      { name: 'contact-name',    content: name    }
+      { name: 'contact-email',   content: email   }
+      { name: 'contact-message', content: message }
+    ]
+    message:
+      from_name: name
+      from_email: email
+      to: [ email: [reverse('gnidierbsirhc'), reverse('moc.liamg')].join('@') ]
 
   close: =>
     @$contactForm.slideUp 500, =>

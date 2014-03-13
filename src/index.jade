@@ -48,9 +48,6 @@ html
 
       h2 I'd love to hear from you
 
-      noscript
-        .response.invalid This contact form requires JavaScript. Please enable JavaScript and refresh the page.
-
       form#contact-form
 
         fieldset
@@ -69,6 +66,9 @@ html
           .error-message.icon-error Please enter a message
 
         button.icon-submit(name='submit', type='submit') Send Message
+
+        noscript
+          p This contact form requires JavaScript. To use it, please enable JavaScript and refresh the page.
 
       .contact-success
         p Your message has been sent - Thank you!

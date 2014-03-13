@@ -10,6 +10,24 @@
     position: relative;
   }
 
+  noscript {
+    background: rgba(35, 35, 35, 0.9);
+    padding: 5px 30px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    p {
+      background: rgba(0, 0, 0, 0.3);
+      font-size: 1.2em;
+      margin: 0 100px;
+      padding: 20px;
+      text-align: center;
+    }
+  }
+
   fieldset {
     @include clearfix;
     margin-bottom: 10px;
