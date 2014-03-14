@@ -112,6 +112,7 @@ cacheBuster = ''
 
 gulp.task 'buildCopy', ['cleanBuild'], ->
   gulp.src('src/images/*.+(png|gif|jpg|ico)').pipe(gulp.dest('./_build/images/'))
+  gulp.src('CNAME').pipe(gulp.dest('./_build/'))
 
 gulp.task 'buildJs', ['buildCopy'], ->
   cacheBuster = (new Date()).valueOf()
