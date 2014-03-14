@@ -1,3 +1,4 @@
+fs = require 'fs'
 gulp = require 'gulp'
 gutil = require 'gulp-util'
 watch = require 'gulp-watch'
@@ -8,20 +9,54 @@ prefix = require 'gulp-autoprefixer'
 jade = require 'gulp-jade'
 spritesmith = require 'gulp.spritesmith'
 clean = require 'gulp-clean'
+uglify = require 'gulp-uglify'
+minifyCss = require 'gulp-minify-css'
+order = require 'gulp-order'
 glob = require 'glob'
+es = require 'event-stream'
+concat = require 'gulp-concat'
 server = require './server'
+deploy = require './lib/deploy'
 
+
+getJSON = (name)->
+  JSON.parse fs.readFileSync "#{__dirname}/src/content/#{name}.json"
+
+buildIndex = (cssFiles, jsFiles, destination)->
+  jadeOptions =
+    locals:
+      stylesheets: cssFiles
+      scripts: jsFiles
+      social: getJSON 'social'
+      projects: getJSON 'projects'
+      skills: getJSON 'skills'
+    pretty: true
+
+  gulp.src('src/index.jade')
+    .pipe(plumber())
+    .pipe(jade(jadeOptions))
+    .pipe(gulp.dest("./#{destination}/"))
+
+imageCategories = ['contact', 'projects', 'skills', 'social']
+
+spriteAndCopyImages = (imageCategory, destination)->
+  spriteData = gulp.src("src/images/#{imageCategory}/*.png")
+    .pipe spritesmith
+      imgName: "../images/#{imageCategory}.png"
+      cssName: "#{imageCategory}.css"
+  spriteData.img.pipe(gulp.dest("#{destination}/images/"))
+  spriteData
 
 # Dev
 
-cssFiles = ->
+devCssFiles = ->
   files = glob.sync('_dev/stylesheets/*.css').map (file)->
     file.replace '_dev', ''
   # ensure all is last
   files.sort (a, b)->
     a.indexOf('all.css') - b.indexOf('all.css')
 
-jsFiles = ->
+devJsFiles = ->
   files = glob.sync('_dev/scripts/**/*.js').map (file)->
     file.replace '_dev', ''
   # ensure jquery is first
@@ -29,19 +64,7 @@ jsFiles = ->
     b.indexOf('jquery.js') - a.indexOf('jquery.js')
 
 buildDevIndex = ->
-  jadeOptions =
-    locals:
-      stylesheets: cssFiles()
-      scripts: jsFiles()
-      social: require './src/content/social'
-      projects: require './src/content/projects'
-      skills: require './src/content/skills'
-    pretty: true
-
-  gulp.src('src/index.jade')
-    .pipe(plumber())
-    .pipe(jade(jadeOptions))
-    .pipe(gulp.dest('./_dev/'))
+  buildIndex devCssFiles(), devJsFiles(), '_dev'
 
 gulp.task 'watchCoffee', ->
   watch glob: 'src/scripts/**/*.coffee', (files)->
@@ -61,15 +84,10 @@ gulp.task 'watchSass', ->
     buildDevIndex()
 
 gulp.task 'watchImages', ->
-  imageCategories = ['contact', 'projects', 'skills', 'social']
   for imageCategory in imageCategories
     do (imageCategory)->
       watch glob: "src/images/#{imageCategory}/*.png", ->
-        spriteData = gulp.src("src/images/#{imageCategory}/*.png")
-          .pipe spritesmith
-            imgName: "../images/#{imageCategory}.png"
-            cssName: "#{imageCategory}.css"
-        spriteData.img.pipe(gulp.dest('_dev/images/'))
+        spriteData = spriteAndCopyImages imageCategory
         spriteData.css.pipe(gulp.dest('_dev/stylesheets/'))
         buildDevIndex()
 
@@ -90,12 +108,47 @@ gulp.task 'dev', ['watch', 'devServer']
 
 # Prod
 
-gulp.task 'prod', ->
+cacheBuster = ''
+
+gulp.task 'buildCopy', ['cleanBuild'], ->
+  gulp.src('src/images/*.+(png|gif|jpg|ico)').pipe(gulp.dest('./_build/images/'))
+
+gulp.task 'buildJs', ['buildCopy'], ->
+  cacheBuster = (new Date()).valueOf()
+
+  coffeeJs = gulp.src('src/scripts/*.coffee').pipe(coffee().on('error', gutil.log))
+  libJs = gulp.src('src/scripts/lib/*.js')
+
+  es.merge(coffeeJs, libJs)
+    .pipe(order([
+      'src/scripts/lib/jquery.js'
+      'src/scripts/**/*.js'
+    ]))
+    .pipe(uglify())
+    .pipe(concat("all-#{cacheBuster}.js"))
+    .pipe(gulp.dest('./_build/scripts/'))
+
+gulp.task 'buildSass', ['buildJs'], ->
+  spriteCss = for imageCategory in imageCategories
+    spriteAndCopyImages(imageCategory, '_build').css
+  sassCss = gulp.src('src/stylesheets/!(_)*.scss').pipe(sass())
+
+  es.merge(sassCss, es.merge(spriteCss...))
+    .pipe(minifyCss())
+    .pipe(concat("all-#{cacheBuster}.css"))
+    .pipe(gulp.dest('./_build/stylesheets/'))
+
+gulp.task 'build', ['buildCopy', 'buildSass'], ->
+  buildIndex ["stylesheets/all-#{cacheBuster}.css"], ["scripts/all-#{cacheBuster}.js"], '_build'
+
+gulp.task 'prod', ['build'], ->
+  server '_build', 8081
 
 
 # Deploy
 
-gulp.task 'deploy', ->
+gulp.task 'deploy', ['build'], ->
+  deploy()
 
 
 # Misc
