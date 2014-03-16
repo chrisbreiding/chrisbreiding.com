@@ -20,6 +20,11 @@
       position: absolute;
       top: 50%;
       left: 0;
+
+      &.bullet-1 { @include sprite($bullet-1); }
+      &.bullet-2 { @include sprite($bullet-2); }
+      &.bullet-3 { @include sprite($bullet-3); }
+      &.bullet-4 { @include sprite($bullet-4); }
     }
   }
 }

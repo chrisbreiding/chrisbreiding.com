@@ -22,6 +22,13 @@
       top: 0;
     }
 
+    &.javascript i { @include sprite($javascript); }
+    &.ruby i       { @include sprite($ruby); }
+    &.ios i        { @include sprite($ios); }
+    &.python i     { @include sprite($python); }
+    &.php i        { @include sprite($php); }
+    &.csharp i     { @include sprite($csharp); }
+
     p {
       display: table;
       height: 80px;

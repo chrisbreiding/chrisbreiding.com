@@ -4,22 +4,31 @@
 }
 
 h1 {
-  background: image-url('header.png') no-repeat;
-  box-sizing: border-box;
   color: #FFF;
   float: left;
-  font-size: 1.8em;
-  font-weight: bold;
-  height: 72px;
-  line-height: 72px;
-  min-width: 254px;
-  padding-left: 32px;
+  margin-bottom: 20px;
 
-  span {
+  .title {
+    @include sprite-image($title);
+    @include sprite-position($title);
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    display: block;
+    float: left;
+    font-size: 1.8em;
+    font-weight: bold;
+    height: 72px;
+    line-height: 72px;
+    min-width: 254px;
+    padding-left: 32px;
+  }
+
+  .sub-title {
     color: #e3e3e3;
-    font-size: .6em;
-    font-weight: normal;
-    margin-left: 30px;
+    float: left;
+    height: 72px;
+    line-height: 72px;
+    margin-left: 10px;
   }
 }
 
@@ -41,5 +50,8 @@ h1 {
       }
     }
 
+    &.github a   { @include sprite($github); }
+    &.twitter a  { @include sprite($twitter); }
+    &.linkedin a { @include sprite($linkedin); }
   }
 }

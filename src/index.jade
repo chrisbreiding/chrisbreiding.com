@@ -12,15 +12,14 @@ html
 
     .header
 
-      h1 Chris Breiding
-        span Software Developer
+      h1
+        span.title Chris Breiding
+        span.sub-title Software Developer
 
       ul.social
         each link in social
           li(class=link.class)
-            a(class='icon-#{link.class}' href=link.href target='blank', title=link.title)
-
-      p.bio #{bio}
+            a(href=link.href target='blank', title=link.title)
 
     .projects
 
@@ -28,8 +27,8 @@ html
 
       ul
         each project in projects
-          li
-            i(class='icon-#{project.class}')
+          li(class='#{project.class}')
+            i
             p
               span #{project.description}
 
@@ -41,7 +40,7 @@ html
         each skill in skills
           - idx = Math.ceil(Math.random() * 4)
           li
-            i(class='icon-bullet-#{idx}')
+            i(class='bullet-#{idx}')
             span #{skill}
 
     .contact#contact
@@ -50,32 +49,34 @@ html
 
       form#contact-form
 
-        fieldset
-          label.icon-label-1(for='name') Name
+        i.envelope
+
+        fieldset.name-group
+          label(for='name') Name
           input.contact-input#contact-name(name='name', type='text')
-          .error-message.icon-error Please enter your name
+          .error-message Please enter your name
 
-        fieldset
-          label.icon-label-2(for='email') Email
+        fieldset.email-group
+          label(for='email') Email
           input.contact-input#contact-email(name='email', type='text')
-          .error-message.icon-error Please enter your email
+          .error-message Please enter your email
 
-        fieldset
-          label.icon-label-3(for='message') Message
+        fieldset.message-group
+          label(for='message') Message
           textarea.contact-input#contact-message(name='message')
-          .error-message.icon-error Please enter a message
+          .error-message Please enter a message
 
-        button.icon-submit(name='submit', type='submit') Send Message
+        button(name='submit', type='submit') Send Message
 
         noscript
           p This contact form requires JavaScript. To use it, please enable JavaScript and refresh the page.
 
       .contact-success
         p Your message has been sent - Thank you!
-        i.icon-plane
+        i
 
       .contact-failure
-        i.icon-alert
+        i
         p I'm sorry, but an unexpected error occurred and your message could not be sent. Please get in touch with me on <a href="http://twitter.com/chrisbreiding" target="_blank">Twitter</a>.
 
     each script in scripts
