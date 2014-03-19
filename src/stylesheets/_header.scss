@@ -55,3 +55,18 @@ h1 {
     &.linkedin a { @include sprite($linkedin); }
   }
 }
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dppx) {
+  h1 .title,
+  .social li a {
+    background-size: $title-total-width $title-total-height;
+  }
+
+  h1 .title { @include sprite-image($title-2x); }
+
+  .social li {
+    &.github a   { @include sprite-image($github-2x); }
+    &.twitter a  { @include sprite-image($twitter-2x); }
+    &.linkedin a { @include sprite-image($linkedin-2x); }
+  }
+}

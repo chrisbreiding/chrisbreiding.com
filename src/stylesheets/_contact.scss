@@ -67,7 +67,7 @@
     right: 0;
     bottom: 6px;
     text-align: center;
-    line-height: 68px;
+    line-height: 55px;
 
     &:hover {
       -webkit-transform: scale(1.1);
@@ -174,4 +174,25 @@
     float: left;
     margin-top: 20px;
   }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dppx) {
+  .contact button,
+  .contact label,
+  .envelope,
+  .error-message,
+  .contact-success i,
+  .contact-failure i {
+    background-size: $plane-total-width $plane-total-height;
+  }
+
+  .contact button      { @include sprite-image($submit-2x); }
+  .envelope            { @include sprite-image($envelope-2x); }
+  .error-message       { @include sprite-image($error-2x); }
+  .contact-success i   { @include sprite-image($plane-2x); }
+  .contact-failure i   { @include sprite-image($alert-2x); }
+  .name-group label    { @include sprite-image($label-1-2x); }
+  .email-group label   { @include sprite-image($label-2-2x); }
+  .message-group label { @include sprite-image($label-3-2x); }
+
 }

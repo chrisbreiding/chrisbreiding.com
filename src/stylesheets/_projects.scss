@@ -29,6 +29,17 @@
     &.php i        { @include sprite($php); }
     &.csharp i     { @include sprite($csharp); }
 
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dppx) {
+      i { background-size: $javascript-total-width $javascript-total-height; }
+
+      &.javascript i { @include sprite-image($javascript-2x); }
+      &.ruby i       { @include sprite-image($ruby-2x); }
+      &.ios i        { @include sprite-image($ios-2x); }
+      &.python i     { @include sprite-image($python-2x); }
+      &.php i        { @include sprite-image($php-2x); }
+      &.csharp i     { @include sprite-image($csharp-2x); }
+    }
+
     p {
       display: table;
       height: 80px;

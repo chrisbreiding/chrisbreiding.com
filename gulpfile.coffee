@@ -14,9 +14,9 @@ minifyCss = require 'gulp-minify-css'
 order = require 'gulp-order'
 es = require 'event-stream'
 concat = require 'gulp-concat'
+Q = require 'q'
 server = require './server'
 deploy = require './lib/deploy'
-
 
 getJSON = (name)->
   JSON.parse fs.readFileSync "#{__dirname}/src/content/#{name}.json"
@@ -36,16 +36,25 @@ buildIndex = (cssFiles, jsFiles, destination)->
     .pipe(jade(jadeOptions))
     .pipe(gulp.dest("./#{destination}/"))
 
-imageCategories = ['header', 'projects', 'skills', 'contact']
+imageCategories = [
+  'header',   'header-2x'
+  'projects', 'projects-2x'
+  'skills',   'skills-2x'
+  'contact',  'contact-2x'
+]
 
 spriteAndCopyImages = (imageCategory, destination)->
   spriteData = gulp.src("src/images/#{imageCategory}/*.png")
     .pipe spritesmith
       imgName: "../images/#{imageCategory}.png"
-      cssName: "_#{imageCategory}.scss"
+      cssName: "_#{imageCategory}-sprite.scss"
       cssFormat: 'scss'
+      cssVarMap: (sprite)->
+        sprite.name = sprite.name.replace '@', '-'
+        return
   spriteData.img.pipe(gulp.dest("#{destination}/images/"))
   spriteData
+
 
 # Dev
 
@@ -56,36 +65,45 @@ buildDevIndex = ->
   ]
   buildIndex ['stylesheets/all.css'], jsFiles, '_dev'
 
-gulp.task 'watchCoffee', ->
-  watch glob: 'src/scripts/**/*.coffee', (files)->
-    files
-      .pipe(plumber())
-      .pipe(coffee().on('error', gutil.log))
-      .pipe(gulp.dest('./_dev/scripts/'))
-    buildDevIndex()
+compileSass = ->
+  gulp.src('src/stylesheets/*.scss')
+    .pipe(plumber())
+    .pipe(sass().on('error', gutil.log))
+    .pipe(prefix('last 3 versions', 'ie 8'))
+    .pipe(gulp.dest('./_dev/stylesheets/'))
 
-gulp.task 'watchImages', ->
+createSprite = (imageCategory)->
+  spriteData = spriteAndCopyImages imageCategory, '_dev'
+  spriteData.css.pipe(gulp.dest('src/stylesheets/generated/'))
+
+gulp.task 'watchCoffee', ->
+  watch(glob: 'src/scripts/**/*.coffee')
+    .pipe(plumber())
+    .pipe(coffee().on('error', gutil.log))
+    .pipe(gulp.dest('./_dev/scripts/'))
+  buildDevIndex()
+
+gulp.task 'createSprites', ->
+  createSprite imageCategory for imageCategory in imageCategories
+  # ensure sprite scss gets written before dependent tasks run
+  Q.delay 3000
+
+gulp.task 'watchImages', ['createSprites'], ->
   for imageCategory in imageCategories
     do (imageCategory)->
       watch glob: "src/images/#{imageCategory}/*.png", ->
-        spriteData = spriteAndCopyImages imageCategory, '_dev'
-        spriteData.css.pipe(gulp.dest('src/stylesheets/generated/'))
-        buildDevIndex()
+        createSprite imageCategory
+        compileSass()
 
-gulp.task 'watchSass', ['watchImages'], ->
+gulp.task 'watchSass', ['createSprites'], ->
   watch glob: 'src/stylesheets/*.scss', ->
-    gulp.src('src/stylesheets/!(_)*.scss')
-      .pipe(plumber())
-      .pipe(sass())
-      .pipe(prefix('last 3 versions', 'ie 8'))
-      .pipe(gulp.dest('./_dev/stylesheets/'))
-    buildDevIndex()
+    compileSass()
 
 gulp.task 'watchCopies', ->
   watch(glob: 'src/images/*.+(png|gif|jpg|ico)').pipe(gulp.dest('./_dev/images/'))
   watch(glob: 'src/scripts/lib/*').pipe(gulp.dest('./_dev/scripts/lib/'))
 
-gulp.task 'watchIndex', ['watchCoffee', 'watchSass', 'watchCopies'], ->
+gulp.task 'watchIndex', ['watchCoffee', 'watchSass', 'watchImages', 'watchCopies'], ->
   watch glob: 'src/index.jade', buildDevIndex
   watch glob: 'src/content/*.json', buildDevIndex
 
@@ -143,10 +161,13 @@ gulp.task 'deploy', ['build'], ->
 # Misc
 
 gulp.task 'cleanBuild', ->
+  gutil.log gutil.colors.yellow 'removing _build'
   gulp.src('_build', read: false).pipe(clean())
 
 gulp.task 'cleanDev', ->
+  gutil.log gutil.colors.yellow 'removing _dev'
   gulp.src('_dev', read: false).pipe(clean())
+  gutil.log gutil.colors.yellow 'removing src/stylesheets/generated'
   gulp.src('src/stylesheets/generated', read: false).pipe(clean())
 
 gulp.task 'clean', ['cleanBuild', 'cleanDev']

@@ -25,6 +25,15 @@
       &.bullet-2 { @include sprite($bullet-2); }
       &.bullet-3 { @include sprite($bullet-3); }
       &.bullet-4 { @include sprite($bullet-4); }
+
+      @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dppx) {
+        & { background-size: $bullet-1-total-width $bullet-1-total-height; }
+
+        &.bullet-1 { @include sprite-image($bullet-1-2x); }
+        &.bullet-2 { @include sprite-image($bullet-2-2x); }
+        &.bullet-3 { @include sprite-image($bullet-3-2x); }
+        &.bullet-4 { @include sprite-image($bullet-4-2x); }
+      }
     }
   }
 }
