@@ -24,9 +24,9 @@
     "q": "~1.0.1"
   },
   "scripts": {
-    "dev": "gulp dev --require coffee-script/register",
-    "prod": "gulp prod --require coffee-script/register",
+    "dev":    "gulp dev    --require coffee-script/register",
+    "prod":   "gulp prod   --require coffee-script/register",
     "deploy": "gulp deploy --require coffee-script/register",
-    "clean": "gulp clean --require coffee-script/register"
+    "clean":  "gulp clean  --require coffee-script/register"
   }
 }

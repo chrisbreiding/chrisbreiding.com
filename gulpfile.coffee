@@ -56,6 +56,18 @@ spriteAndCopyImages = (imageCategory, destination)->
   spriteData
 
 
+# Shared
+
+createSprite = (imageCategory, destination)->
+  spriteData = spriteAndCopyImages imageCategory, destination
+  spriteData.css.pipe(gulp.dest('src/stylesheets/generated/'))
+
+createSprites = (destination)->
+  createSprite imageCategory, destination for imageCategory in imageCategories
+  # ensure sprite scss gets written before dependent tasks run
+  Q.delay 3000
+
+
 # Dev
 
 buildDevIndex = ->
@@ -68,13 +80,9 @@ buildDevIndex = ->
 compileSass = ->
   gulp.src('src/stylesheets/*.scss')
     .pipe(plumber())
-    .pipe(sass().on('error', gutil.log))
+    .pipe(sass(imagePath: '../images/').on('error', gutil.log))
     .pipe(prefix('last 3 versions', 'ie 8'))
     .pipe(gulp.dest('./_dev/stylesheets/'))
-
-createSprite = (imageCategory)->
-  spriteData = spriteAndCopyImages imageCategory, '_dev'
-  spriteData.css.pipe(gulp.dest('src/stylesheets/generated/'))
 
 gulp.task 'watchCoffee', ->
   watch(glob: 'src/scripts/**/*.coffee')
@@ -83,12 +91,10 @@ gulp.task 'watchCoffee', ->
     .pipe(gulp.dest('./_dev/scripts/'))
   buildDevIndex()
 
-gulp.task 'createSprites', ->
-  createSprite imageCategory for imageCategory in imageCategories
-  # ensure sprite scss gets written before dependent tasks run
-  Q.delay 3000
+gulp.task 'createDevSprites', ->
+  createSprites '_dev'
 
-gulp.task 'watchImages', ['createSprites'], ->
+gulp.task 'watchImages', ['createDevSprites'], ->
   for imageCategory in imageCategories
     do (imageCategory)->
       watch glob: "src/images/#{imageCategory}/*.png", ->
@@ -135,12 +141,12 @@ gulp.task 'buildJs', ['buildCopy'], ->
     .pipe(concat("all-#{cacheBuster}.js"))
     .pipe(gulp.dest('./_build/scripts/'))
 
-gulp.task 'buildSass', ['buildJs'], ->
-  spriteCss = for imageCategory in imageCategories
-    spriteAndCopyImages(imageCategory, '_build').css
-  sassCss = gulp.src('src/stylesheets/!(_)*.scss').pipe(sass())
+gulp.task 'createProdSprites', ->
+  createSprites '_build'
 
-  es.merge(sassCss, es.merge(spriteCss...))
+gulp.task 'buildSass', ['createProdSprites', 'buildJs'], ->
+  gulp.src('src/stylesheets/!(_)*.scss')
+    .pipe(sass().on('error', gutil.log))
     .pipe(minifyCss())
     .pipe(concat("all-#{cacheBuster}.css"))
     .pipe(gulp.dest('./_build/stylesheets/'))
