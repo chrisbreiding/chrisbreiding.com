@@ -102,3 +102,17 @@ class Contact
 
 
 new Contact
+
+
+# google analytics
+
+window._gaq = [
+  ['_setAccount', 'UA-30345162-1']
+  ['_trackPageview']
+]
+ga = document.createElement 'script'
+ga.type = 'text/javascript'
+ga.async = true
+ga.src = 'http://www.google-analytics.com/ga.js'
+s = document.getElementsByTagName('script')[0]
+s.parentNode.insertBefore ga, s

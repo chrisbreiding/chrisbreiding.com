@@ -72,7 +72,7 @@ createSprites = (destination)->
 
 buildDevIndex = ->
   jsFiles = [
-    "scripts/lib/jquery.js"
+    "scripts/jquery.js"
     "scripts/scripts.js"
   ]
   buildIndex ['stylesheets/all.css'], jsFiles, '_dev'
@@ -107,7 +107,7 @@ gulp.task 'watchSass', ['createDevSprites'], ->
 
 gulp.task 'watchCopies', ->
   watch(glob: 'src/images/*.+(png|gif|jpg|ico)').pipe(gulp.dest('./_dev/images/'))
-  watch(glob: 'src/scripts/lib/*').pipe(gulp.dest('./_dev/scripts/lib/'))
+  watch(glob: 'src/scripts/*.js').pipe(gulp.dest('./_dev/scripts/'))
 
 gulp.task 'watchIndex', ['watchCoffee', 'watchSass', 'watchImages', 'watchCopies'], ->
   watch glob: 'src/index.jade', buildDevIndex
@@ -130,12 +130,12 @@ gulp.task 'buildJs', ['buildCopy'], ->
   cacheBuster = (new Date()).valueOf()
 
   coffeeJs = gulp.src('src/scripts/*.coffee').pipe(coffee().on('error', gutil.log))
-  libJs = gulp.src('src/scripts/lib/*.js')
+  libJs = gulp.src('src/scripts/*.js')
 
   es.merge(coffeeJs, libJs)
     .pipe(order([
-      'src/scripts/lib/jquery.js'
-      'src/scripts/**/*.js'
+      'src/scripts/jquery.js'
+      'src/scripts/scripts.js'
     ]))
     .pipe(uglify())
     .pipe(concat("all-#{cacheBuster}.js"))
