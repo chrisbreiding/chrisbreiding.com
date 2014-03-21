@@ -80,7 +80,7 @@ buildDevIndex = ->
 compileSass = ->
   gulp.src('src/stylesheets/*.scss')
     .pipe(plumber())
-    .pipe(sass(imagePath: '../images/').on('error', gutil.log))
+    .pipe(sass().on('error', gutil.log))
     .pipe(prefix('last 3 versions', 'ie 8'))
     .pipe(gulp.dest('./_dev/stylesheets/'))
 
@@ -98,7 +98,7 @@ gulp.task 'watchImages', ['createDevSprites'], ->
   for imageCategory in imageCategories
     do (imageCategory)->
       watch glob: "src/images/#{imageCategory}/*.png", ->
-        createSprite imageCategory
+        createSprite imageCategory, '_dev'
         compileSass()
 
 gulp.task 'watchSass', ['createDevSprites'], ->

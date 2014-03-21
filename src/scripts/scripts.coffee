@@ -64,12 +64,17 @@ class Contact
       error: (jqXhr)=>
         @showError()
 
+  isValidEmail: (email)->
+    /.*@.*\..*/.test email
+
   messageData: ->
     reverse = (word)-> word.split('').reverse().join ''
+    toEmail = [reverse('gnidierbsirhc'), reverse('moc.liamg')].join('@')
 
-    name    = $('#contact-name').val()
-    email   = $('#contact-email').val()
-    message = $('#contact-message').val()
+    name      = $('#contact-name').val()
+    email     = $('#contact-email').val()
+    fromEmail = if @isValidEmail email then email else toEmail
+    message   = $('#contact-message').val()
 
     key: 'rPNtGh3XdGX45uKEpeZGjA'
     template_name: 'website-contact-form'
@@ -80,8 +85,8 @@ class Contact
     ]
     message:
       from_name: name
-      from_email: email
-      to: [ email: [reverse('gnidierbsirhc'), reverse('moc.liamg')].join('@') ]
+      from_email: fromEmail
+      to: [ email: toEmail ]
 
   close: =>
     @$contactForm.slideUp 500, =>
