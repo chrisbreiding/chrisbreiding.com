@@ -101,7 +101,7 @@ gulp.task 'watchImages', ['createDevSprites'], ->
         createSprite imageCategory
         compileSass()
 
-gulp.task 'watchSass', ['createSprites'], ->
+gulp.task 'watchSass', ['createDevSprites'], ->
   watch glob: 'src/stylesheets/*.scss', ->
     compileSass()
 
