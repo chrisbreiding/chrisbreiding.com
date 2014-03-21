@@ -98,7 +98,7 @@ class Contact
     @scrollToBottom()
 
   scrollToBottom: ->
-    $(document.body).animate scrollTop: $(document).height()
+    $(document.body).animate scrollTop: "#{$(document).height()}px"
 
 
 new Contact

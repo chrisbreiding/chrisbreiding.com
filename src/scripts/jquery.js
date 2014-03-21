@@ -1,5 +1,5 @@
 /*!
- * jQuery JavaScript Library v1.11.0
+ * jQuery JavaScript Library v1.11.1pre -ajax/script,-ajax/jsonp,-deprecated,-event/alias,-wrap,-core/ready,-exports/amd
  * http://jquery.com/
  *
  * Includes Sizzle.js
@@ -9,7 +9,7 @@
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2014-01-23T21:02Z
+ * Date: 2014-03-21T01:28Z
  */
 
 (function( global, factory ) {
@@ -59,14 +59,12 @@ var toString = class2type.toString;
 
 var hasOwn = class2type.hasOwnProperty;
 
-var trim = "".trim;
-
 var support = {};
 
 
 
 var
-  version = "1.11.0",
+  version = "1.11.1pre -ajax/script,-ajax/jsonp,-deprecated,-event/alias,-wrap,-core/ready,-exports/amd",
 
   // Define a local copy of jQuery
   jQuery = function( selector, context ) {
@@ -75,7 +73,8 @@ var
     return new jQuery.fn.init( selector, context );
   },
 
-  // Make sure we trim BOM and NBSP (here's looking at you, Safari 5.0 and IE)
+  // Support: Android<4.1, IE<9
+  // Make sure we trim BOM and NBSP
   rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,
 
   // Matches dashed string for camelizing
@@ -108,10 +107,10 @@ jQuery.fn = jQuery.prototype = {
   get: function( num ) {
     return num != null ?
 
-      // Return a 'clean' array
+      // Return just the one element from the set
       ( num < 0 ? this[ num + this.length ] : this[ num ] ) :
 
-      // Return just the object
+      // Return all the elements in a clean array
       slice.call( this );
   },
 
@@ -270,7 +269,7 @@ jQuery.extend({
     // parseFloat NaNs numeric-cast false positives (null|true|false|"")
     // ...but misinterprets leading-number strings, particularly hex literals ("0x...")
     // subtraction forces infinities to NaN
-    return obj - parseFloat( obj ) >= 0;
+    return !jQuery.isArray( obj ) && obj - parseFloat( obj ) >= 0;
   },
 
   isEmptyObject: function( obj ) {
@@ -401,20 +400,12 @@ jQuery.extend({
     return obj;
   },
 
-  // Use native String.trim function wherever possible
-  trim: trim && !trim.call("\uFEFF\xA0") ?
-    function( text ) {
-      return text == null ?
-        "" :
-        trim.call( text );
-    } :
-
-    // Otherwise use our own trimming functionality
-    function( text ) {
-      return text == null ?
-        "" :
-        ( text + "" ).replace( rtrim, "" );
-    },
+  // Support: Android<4.1, IE<9
+  trim: function( text ) {
+    return text == null ?
+      "" :
+      ( text + "" ).replace( rtrim, "" );
+  },
 
   // results is for internal usage only
   makeArray: function( arr, results ) {
@@ -593,14 +584,14 @@ function isArraylike( obj ) {
 }
 var Sizzle =
 /*!
- * Sizzle CSS Selector Engine v1.10.16
+ * Sizzle CSS Selector Engine v1.10.18
  * http://sizzlejs.com/
  *
  * Copyright 2013 jQuery Foundation, Inc. and other contributors
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2014-01-13
+ * Date: 2014-02-05
  */
 (function( window ) {
 
@@ -610,6 +601,7 @@ var i,
   getText,
   isXML,
   compile,
+  select,
   outermostContext,
   sortInput,
   hasDuplicate,
@@ -731,7 +723,7 @@ var i,
   funescape = function( _, escaped, escapedWhitespace ) {
     var high = "0x" + escaped - 0x10000;
     // NaN means non-codepoint
-    // Support: Firefox
+    // Support: Firefox<24
     // Workaround erroneous numeric interpretation of +"0x"
     return high !== high || escapedWhitespace ?
       escaped :
@@ -2164,6 +2156,15 @@ function elementMatcher( matchers ) {
     matchers[0];
 }
 
+function multipleContexts( selector, contexts, results ) {
+  var i = 0,
+    len = contexts.length;
+  for ( ; i < len; i++ ) {
+    Sizzle( selector, contexts[i], results );
+  }
+  return results;
+}
+
 function condense( unmatched, map, filter, context, xml ) {
   var elem,
     newUnmatched = [],
@@ -2432,7 +2433,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
     superMatcher;
 }
 
-compile = Sizzle.compile = function( selector, group /* Internal Use Only */ ) {
+compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
   var i,
     setMatchers = [],
     elementMatchers = [],
@@ -2440,12 +2441,12 @@ compile = Sizzle.compile = function( selector, group /* Internal Use Only */ ) {
 
   if ( !cached ) {
     // Generate a function of recursive functions that can be used to check each element
-    if ( !group ) {
-      group = tokenize( selector );
+    if ( !match ) {
+      match = tokenize( selector );
     }
-    i = group.length;
+    i = match.length;
     while ( i-- ) {
-      cached = matcherFromTokens( group[i] );
+      cached = matcherFromTokens( match[i] );
       if ( cached[ expando ] ) {
         setMatchers.push( cached );
       } else {
@@ -2455,74 +2456,83 @@ compile = Sizzle.compile = function( selector, group /* Internal Use Only */ ) {
 
     // Cache the compiled function
     cached = compilerCache( selector, matcherFromGroupMatchers( elementMatchers, setMatchers ) );
+
+    // Save selector and tokenization
+    cached.selector = selector;
   }
   return cached;
 };
 
-function multipleContexts( selector, contexts, results ) {
-  var i = 0,
-    len = contexts.length;
-  for ( ; i < len; i++ ) {
-    Sizzle( selector, contexts[i], results );
-  }
-  return results;
-}
-
-function select( selector, context, results, seed ) {
+/**
+ * A low-level selection function that works with Sizzle's compiled
+ *  selector functions
+ * @param {String|Function} selector A selector or a pre-compiled
+ *  selector function built with Sizzle.compile
+ * @param {Element} context
+ * @param {Array} [results]
+ * @param {Array} [seed] A set of elements to match against
+ */
+select = Sizzle.select = function( selector, context, results, seed ) {
   var i, tokens, token, type, find,
-    match = tokenize( selector );
+    compiled = typeof selector === "function" && selector,
+    match = !seed && tokenize( (selector = compiled.selector || selector) );
 
-  if ( !seed ) {
-    // Try to minimize operations if there is only one group
-    if ( match.length === 1 ) {
+  results = results || [];
 
-      // Take a shortcut and set the context if the root selector is an ID
-      tokens = match[0] = match[0].slice( 0 );
-      if ( tokens.length > 2 && (token = tokens[0]).type === "ID" &&
-          support.getById && context.nodeType === 9 && documentIsHTML &&
-          Expr.relative[ tokens[1].type ] ) {
+  // Try to minimize operations if there is no seed and only one group
+  if ( match.length === 1 ) {
 
-        context = ( Expr.find["ID"]( token.matches[0].replace(runescape, funescape), context ) || [] )[0];
-        if ( !context ) {
-          return results;
-        }
-        selector = selector.slice( tokens.shift().value.length );
+    // Take a shortcut and set the context if the root selector is an ID
+    tokens = match[0] = match[0].slice( 0 );
+    if ( tokens.length > 2 && (token = tokens[0]).type === "ID" &&
+        support.getById && context.nodeType === 9 && documentIsHTML &&
+        Expr.relative[ tokens[1].type ] ) {
+
+      context = ( Expr.find["ID"]( token.matches[0].replace(runescape, funescape), context ) || [] )[0];
+      if ( !context ) {
+        return results;
+
+      // Precompiled matchers will still verify ancestry, so step up a level
+      } else if ( compiled ) {
+        context = context.parentNode;
       }
 
-      // Fetch a seed set for right-to-left matching
-      i = matchExpr["needsContext"].test( selector ) ? 0 : tokens.length;
-      while ( i-- ) {
-        token = tokens[i];
+      selector = selector.slice( tokens.shift().value.length );
+    }
 
-        // Abort if we hit a combinator
-        if ( Expr.relative[ (type = token.type) ] ) {
-          break;
-        }
-        if ( (find = Expr.find[ type ]) ) {
-          // Search, expanding context for leading sibling combinators
-          if ( (seed = find(
-            token.matches[0].replace( runescape, funescape ),
-            rsibling.test( tokens[0].type ) && testContext( context.parentNode ) || context
-          )) ) {
+    // Fetch a seed set for right-to-left matching
+    i = matchExpr["needsContext"].test( selector ) ? 0 : tokens.length;
+    while ( i-- ) {
+      token = tokens[i];
 
-            // If seed is empty or no tokens remain, we can return early
-            tokens.splice( i, 1 );
-            selector = seed.length && toSelector( tokens );
-            if ( !selector ) {
-              push.apply( results, seed );
-              return results;
-            }
+      // Abort if we hit a combinator
+      if ( Expr.relative[ (type = token.type) ] ) {
+        break;
+      }
+      if ( (find = Expr.find[ type ]) ) {
+        // Search, expanding context for leading sibling combinators
+        if ( (seed = find(
+          token.matches[0].replace( runescape, funescape ),
+          rsibling.test( tokens[0].type ) && testContext( context.parentNode ) || context
+        )) ) {
 
-            break;
+          // If seed is empty or no tokens remain, we can return early
+          tokens.splice( i, 1 );
+          selector = seed.length && toSelector( tokens );
+          if ( !selector ) {
+            push.apply( results, seed );
+            return results;
           }
+
+          break;
         }
       }
     }
   }
 
-  // Compile and execute a filtering function
+  // Compile and execute a filtering function if one is not provided
   // Provide `match` to avoid retokenization if we modified the selector above
-  compile( selector, match )(
+  ( compiled || compile( selector, match ) )(
     seed,
     context,
     !documentIsHTML,
@@ -2530,7 +2540,7 @@ function select( selector, context, results, seed ) {
     rsibling.test( selector ) && testContext( context.parentNode ) || context
   );
   return results;
-}
+};
 
 // One-time assignments
 
@@ -3369,153 +3379,6 @@ jQuery.extend({
     return deferred.promise();
   }
 });
-
-
-// The deferred used on DOM ready
-var readyList;
-
-jQuery.fn.ready = function( fn ) {
-  // Add the callback
-  jQuery.ready.promise().done( fn );
-
-  return this;
-};
-
-jQuery.extend({
-  // Is the DOM ready to be used? Set to true once it occurs.
-  isReady: false,
-
-  // A counter to track how many items to wait for before
-  // the ready event fires. See #6781
-  readyWait: 1,
-
-  // Hold (or release) the ready event
-  holdReady: function( hold ) {
-    if ( hold ) {
-      jQuery.readyWait++;
-    } else {
-      jQuery.ready( true );
-    }
-  },
-
-  // Handle when the DOM is ready
-  ready: function( wait ) {
-
-    // Abort if there are pending holds or we're already ready
-    if ( wait === true ? --jQuery.readyWait : jQuery.isReady ) {
-      return;
-    }
-
-    // Make sure body exists, at least, in case IE gets a little overzealous (ticket #5443).
-    if ( !document.body ) {
-      return setTimeout( jQuery.ready );
-    }
-
-    // Remember that the DOM is ready
-    jQuery.isReady = true;
-
-    // If a normal DOM Ready event fired, decrement, and wait if need be
-    if ( wait !== true && --jQuery.readyWait > 0 ) {
-      return;
-    }
-
-    // If there are functions bound, to execute
-    readyList.resolveWith( document, [ jQuery ] );
-
-    // Trigger any bound ready events
-    if ( jQuery.fn.trigger ) {
-      jQuery( document ).trigger("ready").off("ready");
-    }
-  }
-});
-
-/**
- * Clean-up method for dom ready events
- */
-function detach() {
-  if ( document.addEventListener ) {
-    document.removeEventListener( "DOMContentLoaded", completed, false );
-    window.removeEventListener( "load", completed, false );
-
-  } else {
-    document.detachEvent( "onreadystatechange", completed );
-    window.detachEvent( "onload", completed );
-  }
-}
-
-/**
- * The ready event handler and self cleanup method
- */
-function completed() {
-  // readyState === "complete" is good enough for us to call the dom ready in oldIE
-  if ( document.addEventListener || event.type === "load" || document.readyState === "complete" ) {
-    detach();
-    jQuery.ready();
-  }
-}
-
-jQuery.ready.promise = function( obj ) {
-  if ( !readyList ) {
-
-    readyList = jQuery.Deferred();
-
-    // Catch cases where $(document).ready() is called after the browser event has already occurred.
-    // we once tried to use readyState "interactive" here, but it caused issues like the one
-    // discovered by ChrisS here: http://bugs.jquery.com/ticket/12282#comment:15
-    if ( document.readyState === "complete" ) {
-      // Handle it asynchronously to allow scripts the opportunity to delay ready
-      setTimeout( jQuery.ready );
-
-    // Standards-based browsers support DOMContentLoaded
-    } else if ( document.addEventListener ) {
-      // Use the handy event callback
-      document.addEventListener( "DOMContentLoaded", completed, false );
-
-      // A fallback to window.onload, that will always work
-      window.addEventListener( "load", completed, false );
-
-    // If IE event model is used
-    } else {
-      // Ensure firing before onload, maybe late but safe also for iframes
-      document.attachEvent( "onreadystatechange", completed );
-
-      // A fallback to window.onload, that will always work
-      window.attachEvent( "onload", completed );
-
-      // If IE and not a frame
-      // continually check to see if the document is ready
-      var top = false;
-
-      try {
-        top = window.frameElement == null && document.documentElement;
-      } catch(e) {}
-
-      if ( top && top.doScroll ) {
-        (function doScrollCheck() {
-          if ( !jQuery.isReady ) {
-
-            try {
-              // Use the trick by Diego Perini
-              // http://javascript.nwbox.com/IEContentLoaded/
-              top.doScroll("left");
-            } catch(e) {
-              return setTimeout( doScrollCheck, 50 );
-            }
-
-            // detach all dom ready events
-            detach();
-
-            // and execute any waiting functions
-            jQuery.ready();
-          }
-        })();
-      }
-    }
-  }
-  return readyList.promise( obj );
-};
-
-
 var strundefined = typeof undefined;
 
 
@@ -3532,23 +3395,21 @@ support.ownLast = i !== "0";
 // false until the test is run
 support.inlineBlockNeedsLayout = false;
 
+// Execute ASAP in case we need to set body.style.zoom
 jQuery(function() {
-  // We need to execute this one support test ASAP because we need to know
-  // if body.style.zoom needs to be set.
+  // Minified: var a,b,c,d
+  var val, div, body, container;
 
-  var container, div,
-    body = document.getElementsByTagName("body")[0];
-
-  if ( !body ) {
+  body = document.getElementsByTagName( "body" )[ 0 ];
+  if ( !body || !body.style ) {
     // Return for frameset docs that don't have a body
     return;
   }
 
   // Setup
-  container = document.createElement( "div" );
-  container.style.cssText = "border:0;width:0;height:0;position:absolute;top:0;left:-9999px;margin-top:1px";
-
   div = document.createElement( "div" );
+  container = document.createElement( "div" );
+  container.style.cssText = "position:absolute;border:0;width:0;height:0;top:0;left:-9999px";
   body.appendChild( container ).appendChild( div );
 
   if ( typeof div.style.zoom !== strundefined ) {
@@ -3556,9 +3417,10 @@ jQuery(function() {
     // Check if natively block-level elements act like inline-block
     // elements when setting their display to 'inline' and giving
     // them layout
-    div.style.cssText = "border:0;margin:0;width:1px;padding:1px;display:inline;zoom:1";
+    div.style.cssText = "display:inline;margin:0;border:0;padding:1px;width:1px;zoom:1";
 
-    if ( (support.inlineBlockNeedsLayout = ( div.offsetWidth === 3 )) ) {
+    support.inlineBlockNeedsLayout = val = div.offsetWidth === 3;
+    if ( val ) {
       // Prevent IE 6 from affecting layout for positioned elements #11048
       // Prevent IE from shrinking the body in IE 7 mode #12869
       // Support: IE<8
@@ -3567,9 +3429,6 @@ jQuery(function() {
   }
 
   body.removeChild( container );
-
-  // Null elements to avoid leaks in IE
-  container = div = null;
 });
 
 
@@ -4137,13 +3996,13 @@ var rcheckableType = (/^(?:checkbox|radio)$/i);
 
 
 (function() {
-  var fragment = document.createDocumentFragment(),
-    div = document.createElement("div"),
-    input = document.createElement("input");
+  // Minified: var a,b,c
+  var input = document.createElement( "input" ),
+    div = document.createElement( "div" ),
+    fragment = document.createDocumentFragment();
 
   // Setup
-  div.setAttribute( "className", "t" );
-  div.innerHTML = "  <link/><table></table><a href='/a'>a</a>";
+  div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";
 
   // IE strips leading whitespace when .innerHTML is used
   support.leadingWhitespace = div.firstChild.nodeType === 3;
@@ -4203,9 +4062,6 @@ var rcheckableType = (/^(?:checkbox|radio)$/i);
       support.deleteExpando = false;
     }
   }
-
-  // Null elements to avoid leaks in IE.
-  fragment = div = input = null;
 })();
 
 
@@ -4231,7 +4087,7 @@ var rcheckableType = (/^(?:checkbox|radio)$/i);
 
 var rformElems = /^(?:input|select|textarea)$/i,
   rkeyEvent = /^key/,
-  rmouseEvent = /^(?:mouse|contextmenu)|click/,
+  rmouseEvent = /^(?:mouse|pointer|contextmenu)|click/,
   rfocusMorph = /^(?:focusinfocus|focusoutblur)$/,
   rtypenamespace = /^([^.]*)(?:\.(.+)|)$/;
 
@@ -4834,8 +4690,9 @@ jQuery.event = {
     beforeunload: {
       postDispatch: function( event ) {
 
-        // Even when returnValue equals to undefined Firefox will still show alert
-        if ( event.result !== undefined ) {
+        // Support: Firefox 20+
+        // Firefox doesn't alert if the returnValue field is not set.
+        if ( event.result !== undefined && event.originalEvent ) {
           event.originalEvent.returnValue = event.result;
         }
       }
@@ -4968,7 +4825,14 @@ jQuery.Event.prototype = {
     e.cancelBubble = true;
   },
   stopImmediatePropagation: function() {
+    var e = this.originalEvent;
+
     this.isImmediatePropagationStopped = returnTrue;
+
+    if ( e && e.stopImmediatePropagation ) {
+      e.stopImmediatePropagation();
+    }
+
     this.stopPropagation();
   }
 };
@@ -4976,7 +4840,9 @@ jQuery.Event.prototype = {
 // Create mouseenter/leave events using mouseover/out and event-time checks
 jQuery.each({
   mouseenter: "mouseover",
-  mouseleave: "mouseout"
+  mouseleave: "mouseout",
+  pointerenter: "pointerover",
+  pointerleave: "pointerout"
 }, function( orig, fix ) {
   jQuery.event.special[ orig ] = {
     delegateType: fix,
@@ -5980,14 +5846,15 @@ var iframe,
  */
 // Called only from within defaultDisplay
 function actualDisplay( name, doc ) {
-  var elem = jQuery( doc.createElement( name ) ).appendTo( doc.body ),
+  var style,
+    elem = jQuery( doc.createElement( name ) ).appendTo( doc.body ),
 
     // getDefaultComputedStyle might be reliably used only on attached element
-    display = window.getDefaultComputedStyle ?
+    display = window.getDefaultComputedStyle && ( style = window.getDefaultComputedStyle( elem[ 0 ] ) ) ?
 
       // Use of this method is a temporary fix (more like optmization) until something better comes along,
       // since it was removed from specification and supported only in FF
-      window.getDefaultComputedStyle( elem[ 0 ] ).display : jQuery.css( elem[ 0 ], "display" );
+      style.display : jQuery.css( elem[ 0 ], "display" );
 
   // We don't have any data stored on the element,
   // so use "detach" method as fast way to get rid of the element
@@ -6033,67 +5900,46 @@ function defaultDisplay( nodeName ) {
 
 
 (function() {
-  var a, shrinkWrapBlocksVal,
-    div = document.createElement( "div" ),
-    divReset =
-      "-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;" +
-      "display:block;padding:0;margin:0;border:0";
-
-  // Setup
-  div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";
-  a = div.getElementsByTagName( "a" )[ 0 ];
-
-  a.style.cssText = "float:left;opacity:.5";
-
-  // Make sure that element opacity exists
-  // (IE uses filter instead)
-  // Use a regex to work around a WebKit issue. See #5145
-  support.opacity = /^0.5/.test( a.style.opacity );
-
-  // Verify style float existence
-  // (IE uses styleFloat instead of cssFloat)
-  support.cssFloat = !!a.style.cssFloat;
-
-  div.style.backgroundClip = "content-box";
-  div.cloneNode( true ).style.backgroundClip = "";
-  support.clearCloneStyle = div.style.backgroundClip === "content-box";
-
-  // Null elements to avoid leaks in IE.
-  a = div = null;
+  var shrinkWrapBlocksVal;
 
   support.shrinkWrapBlocks = function() {
-    var body, container, div, containerStyles;
-
-    if ( shrinkWrapBlocksVal == null ) {
-      body = document.getElementsByTagName( "body" )[ 0 ];
-      if ( !body ) {
-        // Test fired too early or in an unsupported environment, exit.
-        return;
-      }
-
-      containerStyles = "border:0;width:0;height:0;position:absolute;top:0;left:-9999px";
-      container = document.createElement( "div" );
-      div = document.createElement( "div" );
-
-      body.appendChild( container ).appendChild( div );
-
-      // Will be changed later if needed.
-      shrinkWrapBlocksVal = false;
-
-      if ( typeof div.style.zoom !== strundefined ) {
-        // Support: IE6
-        // Check if elements with layout shrink-wrap their children
-        div.style.cssText = divReset + ";width:1px;padding:1px;zoom:1";
-        div.innerHTML = "<div></div>";
-        div.firstChild.style.width = "5px";
-        shrinkWrapBlocksVal = div.offsetWidth !== 3;
-      }
-
-      body.removeChild( container );
-
-      // Null elements to avoid leaks in IE.
-      body = container = div = null;
+    if ( shrinkWrapBlocksVal != null ) {
+      return shrinkWrapBlocksVal;
     }
+
+    // Will be changed later if needed.
+    shrinkWrapBlocksVal = false;
+
+    // Minified: var b,c,d
+    var div, body, container;
+
+    body = document.getElementsByTagName( "body" )[ 0 ];
+    if ( !body || !body.style ) {
+      // Test fired too early or in an unsupported environment, exit.
+      return;
+    }
+
+    // Setup
+    div = document.createElement( "div" );
+    container = document.createElement( "div" );
+    container.style.cssText = "position:absolute;border:0;width:0;height:0;top:0;left:-9999px";
+    body.appendChild( container ).appendChild( div );
+
+    // Support: IE6
+    // Check if elements with layout shrink-wrap their children
+    if ( typeof div.style.zoom !== strundefined ) {
+      // Reset CSS: box-sizing; display; margin; border
+      div.style.cssText =
+        // Support: Firefox<29, Android 2.3
+        // Vendor-prefix box-sizing
+        "-webkit-box-sizing:content-box;-moz-box-sizing:content-box;" +
+        "box-sizing:content-box;display:block;margin:0;border:0;" +
+        "padding:1px;width:1px;zoom:1";
+      div.appendChild( document.createElement( "div" ) ).style.width = "5px";
+      shrinkWrapBlocksVal = div.offsetWidth !== 3;
+    }
+
+    body.removeChild( container );
 
     return shrinkWrapBlocksVal;
   };
@@ -6242,92 +6088,46 @@ function addGetHookIf( conditionFn, hookFn ) {
 
 
 (function() {
-  var a, reliableHiddenOffsetsVal, boxSizingVal, boxSizingReliableVal,
-    pixelPositionVal, reliableMarginRightVal,
-    div = document.createElement( "div" ),
-    containerStyles = "border:0;width:0;height:0;position:absolute;top:0;left:-9999px",
-    divReset =
-      "-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;" +
-      "display:block;padding:0;margin:0;border:0";
+  // Minified: var b,c,d,e,f,g, h,i
+  var div, style, a, pixelPositionVal, boxSizingReliableVal,
+    reliableHiddenOffsetsVal, reliableMarginRightVal;
 
   // Setup
+  div = document.createElement( "div" );
   div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";
   a = div.getElementsByTagName( "a" )[ 0 ];
+  style = a && a.style;
 
-  a.style.cssText = "float:left;opacity:.5";
+  // Finish early in limited (non-browser) environments
+  if ( !style ) {
+    return;
+  }
 
-  // Make sure that element opacity exists
-  // (IE uses filter instead)
-  // Use a regex to work around a WebKit issue. See #5145
-  support.opacity = /^0.5/.test( a.style.opacity );
+  style.cssText = "float:left;opacity:.5";
+
+  // Support: IE<9
+  // Make sure that element opacity exists (as opposed to filter)
+  support.opacity = style.opacity === "0.5";
 
   // Verify style float existence
   // (IE uses styleFloat instead of cssFloat)
-  support.cssFloat = !!a.style.cssFloat;
+  support.cssFloat = !!style.cssFloat;
 
   div.style.backgroundClip = "content-box";
   div.cloneNode( true ).style.backgroundClip = "";
   support.clearCloneStyle = div.style.backgroundClip === "content-box";
 
-  // Null elements to avoid leaks in IE.
-  a = div = null;
+  // Support: Firefox<29, Android 2.3
+  // Vendor-prefix box-sizing
+  support.boxSizing = style.boxSizing === "" || style.MozBoxSizing === "" ||
+    style.WebkitBoxSizing === "";
 
   jQuery.extend(support, {
     reliableHiddenOffsets: function() {
-      if ( reliableHiddenOffsetsVal != null ) {
-        return reliableHiddenOffsetsVal;
-      }
-
-      var container, tds, isSupported,
-        div = document.createElement( "div" ),
-        body = document.getElementsByTagName( "body" )[ 0 ];
-
-      if ( !body ) {
-        // Return for frameset docs that don't have a body
-        return;
-      }
-
-      // Setup
-      div.setAttribute( "className", "t" );
-      div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";
-
-      container = document.createElement( "div" );
-      container.style.cssText = containerStyles;
-
-      body.appendChild( container ).appendChild( div );
-
-      // Support: IE8
-      // Check if table cells still have offsetWidth/Height when they are set
-      // to display:none and there are still other visible table cells in a
-      // table row; if so, offsetWidth/Height are not reliable for use when
-      // determining if an element has been hidden directly using
-      // display:none (it is still safe to use offsets if a parent element is
-      // hidden; don safety goggles and see bug #4512 for more information).
-      div.innerHTML = "<table><tr><td></td><td>t</td></tr></table>";
-      tds = div.getElementsByTagName( "td" );
-      tds[ 0 ].style.cssText = "padding:0;margin:0;border:0;display:none";
-      isSupported = ( tds[ 0 ].offsetHeight === 0 );
-
-      tds[ 0 ].style.display = "";
-      tds[ 1 ].style.display = "none";
-
-      // Support: IE8
-      // Check if empty table cells still have offsetWidth/Height
-      reliableHiddenOffsetsVal = isSupported && ( tds[ 0 ].offsetHeight === 0 );
-
-      body.removeChild( container );
-
-      // Null elements to avoid leaks in IE.
-      div = body = null;
-
-      return reliableHiddenOffsetsVal;
-    },
-
-    boxSizing: function() {
-      if ( boxSizingVal == null ) {
+      if ( reliableHiddenOffsetsVal == null ) {
         computeStyleTests();
       }
-      return boxSizingVal;
+      return reliableHiddenOffsetsVal;
     },
 
     boxSizingReliable: function() {
@@ -6344,84 +6144,87 @@ function addGetHookIf( conditionFn, hookFn ) {
       return pixelPositionVal;
     },
 
+    // Support: Android 2.3
     reliableMarginRight: function() {
-      var body, container, div, marginDiv;
-
-      // Use window.getComputedStyle because jsdom on node.js will break without it.
-      if ( reliableMarginRightVal == null && window.getComputedStyle ) {
-        body = document.getElementsByTagName( "body" )[ 0 ];
-        if ( !body ) {
-          // Test fired too early or in an unsupported environment, exit.
-          return;
-        }
-
-        container = document.createElement( "div" );
-        div = document.createElement( "div" );
-        container.style.cssText = containerStyles;
-
-        body.appendChild( container ).appendChild( div );
-
-        // Check if div with explicit width and no margin-right incorrectly
-        // gets computed margin-right based on width of container. (#3333)
-        // Fails in WebKit before Feb 2011 nightlies
-        // WebKit Bug 13343 - getComputedStyle returns wrong value for margin-right
-        marginDiv = div.appendChild( document.createElement( "div" ) );
-        marginDiv.style.cssText = div.style.cssText = divReset;
-        marginDiv.style.marginRight = marginDiv.style.width = "0";
-        div.style.width = "1px";
-
-        reliableMarginRightVal =
-          !parseFloat( ( window.getComputedStyle( marginDiv, null ) || {} ).marginRight );
-
-        body.removeChild( container );
+      if ( reliableMarginRightVal == null ) {
+        computeStyleTests();
       }
-
       return reliableMarginRightVal;
     }
   });
 
   function computeStyleTests() {
-    var container, div,
-      body = document.getElementsByTagName( "body" )[ 0 ];
+    // Minified: var b,c,d,j
+    var div, body, container, contents;
 
-    if ( !body ) {
+    body = document.getElementsByTagName( "body" )[ 0 ];
+    if ( !body || !body.style ) {
       // Test fired too early or in an unsupported environment, exit.
       return;
     }
 
-    container = document.createElement( "div" );
+    // Setup
     div = document.createElement( "div" );
-    container.style.cssText = containerStyles;
-
+    container = document.createElement( "div" );
+    container.style.cssText = "position:absolute;border:0;width:0;height:0;top:0;left:-9999px";
     body.appendChild( container ).appendChild( div );
 
     div.style.cssText =
-      "-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;" +
-        "position:absolute;display:block;padding:1px;border:1px;width:4px;" +
-        "margin-top:1%;top:1%";
+      // Support: Firefox<29, Android 2.3
+      // Vendor-prefix box-sizing
+      "-webkit-box-sizing:border-box;-moz-box-sizing:border-box;" +
+      "box-sizing:border-box;display:block;margin-top:1%;top:1%;" +
+      "border:1px;padding:1px;width:4px;position:absolute";
 
-    // Workaround failing boxSizing test due to offsetWidth returning wrong value
-    // with some non-1 values of body zoom, ticket #13543
-    jQuery.swap( body, body.style.zoom != null ? { zoom: 1 } : {}, function() {
-      boxSizingVal = div.offsetWidth === 4;
-    });
-
-    // Will be changed later if needed.
-    boxSizingReliableVal = true;
+    // Support: IE<9
+    // Assume reasonable values in the absence of getComputedStyle
     pixelPositionVal = false;
-    reliableMarginRightVal = true;
+    reliableMarginRightVal = boxSizingReliableVal = true;
 
-    // Use window.getComputedStyle because jsdom on node.js will break without it.
+    // Support: node.js jsdom
+    // Don't assume that getComputedStyle is a property of the global object
     if ( window.getComputedStyle ) {
       pixelPositionVal = ( window.getComputedStyle( div, null ) || {} ).top !== "1%";
       boxSizingReliableVal =
         ( window.getComputedStyle( div, null ) || { width: "4px" } ).width === "4px";
+
+      // Support: Android 2.3
+      // Div with explicit width and no margin-right incorrectly
+      // gets computed margin-right based on width of container (#3333)
+      // WebKit Bug 13343 - getComputedStyle returns wrong value for margin-right
+      contents = div.appendChild( document.createElement( "div" ) );
+
+      // Reset CSS: box-sizing; display; margin; border; padding
+      contents.style.cssText = div.style.cssText =
+        // Support: Firefox<29, Android 2.3
+        // Vendor-prefix box-sizing
+        "-webkit-box-sizing:content-box;-moz-box-sizing:content-box;" +
+        "box-sizing:content-box;display:block;margin:0;border:0;padding:0";
+      contents.style.marginRight = contents.style.width = "0";
+      div.style.width = "1px";
+
+      reliableMarginRightVal =
+        !parseFloat( ( window.getComputedStyle( contents, null ) || {} ).marginRight );
+    }
+
+    // Support: IE8
+    // Check if table cells still have offsetWidth/Height when they are set
+    // to display:none and there are still other visible table cells in a
+    // table row; if so, offsetWidth/Height are not reliable for use when
+    // determining if an element has been hidden directly using
+    // display:none (it is still safe to use offsets if a parent element is
+    // hidden; don safety goggles and see bug #4512 for more information).
+    div.innerHTML = "<table><tr><td></td><td>t</td></tr></table>";
+    contents = div.getElementsByTagName( "td" );
+    contents[ 0 ].style.cssText = "margin:0;border:0;padding:0;display:none";
+    reliableHiddenOffsetsVal = contents[ 0 ].offsetHeight === 0;
+    if ( reliableHiddenOffsetsVal ) {
+      contents[ 0 ].style.display = "";
+      contents[ 1 ].style.display = "none";
+      reliableHiddenOffsetsVal = contents[ 0 ].offsetHeight === 0;
     }
 
     body.removeChild( container );
-
-    // Null elements to avoid leaks in IE.
-    div = body = null;
   }
 
 })();
@@ -6461,8 +6264,8 @@ var
 
   cssShow = { position: "absolute", visibility: "hidden", display: "block" },
   cssNormalTransform = {
-    letterSpacing: 0,
-    fontWeight: 400
+    letterSpacing: "0",
+    fontWeight: "400"
   },
 
   cssPrefixes = [ "Webkit", "O", "Moz", "ms" ];
@@ -6598,7 +6401,7 @@ function getWidthOrHeight( elem, name, extra ) {
   var valueIsBorderBox = true,
     val = name === "width" ? elem.offsetWidth : elem.offsetHeight,
     styles = getStyles( elem ),
-    isBorderBox = support.boxSizing() && jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
+    isBorderBox = support.boxSizing && jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
 
   // some non-html elements return undefined for offsetWidth, so check for null/undefined
   // svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
@@ -6654,6 +6457,8 @@ jQuery.extend({
   cssNumber: {
     "columnCount": true,
     "fillOpacity": true,
+    "flexGrow": true,
+    "flexShrink": true,
     "fontWeight": true,
     "lineHeight": true,
     "opacity": true,
@@ -6722,9 +6527,6 @@ jQuery.extend({
         // Support: IE
         // Swallow errors from 'invalid' CSS values (#5509)
         try {
-          // Support: Chrome, Safari
-          // Setting style to blank string required to delete "style: x !important;"
-          style[ name ] = "";
           style[ name ] = value;
         } catch(e) {}
       }
@@ -6796,7 +6598,7 @@ jQuery.each([ "height", "width" ], function( i, name ) {
           elem,
           name,
           extra,
-          support.boxSizing() && jQuery.css( elem, "boxSizing", false, styles ) === "border-box",
+          support.boxSizing && jQuery.css( elem, "boxSizing", false, styles ) === "border-box",
           styles
         ) : 0
       );
@@ -7690,10 +7492,11 @@ jQuery.fn.delay = function( time, type ) {
 
 
 (function() {
-  var a, input, select, opt,
-    div = document.createElement("div" );
+  // Minified: var a,b,c,d,e
+  var input, div, select, a, opt;
 
   // Setup
+  div = document.createElement( "div" );
   div.setAttribute( "className", "t" );
   div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";
   a = div.getElementsByTagName("a")[ 0 ];
@@ -7741,9 +7544,6 @@ jQuery.fn.delay = function( time, type ) {
   input.value = "t";
   input.setAttribute( "type", "radio" );
   support.radioValue = input.value === "t";
-
-  // Null elements to avoid leaks in IE.
-  a = input = select = opt = div = null;
 })();
 
 
@@ -7817,7 +7617,9 @@ jQuery.extend({
         var val = jQuery.find.attr( elem, "value" );
         return val != null ?
           val :
-          jQuery.text( elem );
+          // Support: IE10-11+
+          // option.text throws exceptions (#14686, #14858)
+          jQuery.trim( jQuery.text( elem ) );
       }
     },
     select: {
@@ -8465,42 +8267,6 @@ jQuery.fn.extend({
 
 
 // Return jQuery for attributes-only inclusion
-
-
-jQuery.each( ("blur focus focusin focusout load resize scroll unload click dblclick " +
-  "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " +
-  "change select submit keydown keypress keyup error contextmenu").split(" "), function( i, name ) {
-
-  // Handle event binding
-  jQuery.fn[ name ] = function( data, fn ) {
-    return arguments.length > 0 ?
-      this.on( name, null, data, fn ) :
-      this.trigger( name );
-  };
-});
-
-jQuery.fn.extend({
-  hover: function( fnOver, fnOut ) {
-    return this.mouseenter( fnOver ).mouseleave( fnOut || fnOver );
-  },
-
-  bind: function( types, data, fn ) {
-    return this.on( types, null, data, fn );
-  },
-  unbind: function( types, fn ) {
-    return this.off( types, null, fn );
-  },
-
-  delegate: function( selector, types, data, fn ) {
-    return this.on( types, selector, data, fn );
-  },
-  undelegate: function( selector, types, fn ) {
-    // ( namespace ) or ( selector, types [, fn] )
-    return arguments.length === 1 ? this.off( selector, "**" ) : this.off( types, selector || "**", fn );
-  }
-});
-
-
 var nonce = jQuery.now();
 
 var rquery = (/\?/);
@@ -9384,74 +9150,6 @@ jQuery._evalUrl = function( url ) {
 };
 
 
-jQuery.fn.extend({
-  wrapAll: function( html ) {
-    if ( jQuery.isFunction( html ) ) {
-      return this.each(function(i) {
-        jQuery(this).wrapAll( html.call(this, i) );
-      });
-    }
-
-    if ( this[0] ) {
-      // The elements to wrap the target around
-      var wrap = jQuery( html, this[0].ownerDocument ).eq(0).clone(true);
-
-      if ( this[0].parentNode ) {
-        wrap.insertBefore( this[0] );
-      }
-
-      wrap.map(function() {
-        var elem = this;
-
-        while ( elem.firstChild && elem.firstChild.nodeType === 1 ) {
-          elem = elem.firstChild;
-        }
-
-        return elem;
-      }).append( this );
-    }
-
-    return this;
-  },
-
-  wrapInner: function( html ) {
-    if ( jQuery.isFunction( html ) ) {
-      return this.each(function(i) {
-        jQuery(this).wrapInner( html.call(this, i) );
-      });
-    }
-
-    return this.each(function() {
-      var self = jQuery( this ),
-        contents = self.contents();
-
-      if ( contents.length ) {
-        contents.wrapAll( html );
-
-      } else {
-        self.append( html );
-      }
-    });
-  },
-
-  wrap: function( html ) {
-    var isFunction = jQuery.isFunction( html );
-
-    return this.each(function(i) {
-      jQuery( this ).wrapAll( isFunction ? html.call(this, i) : html );
-    });
-  },
-
-  unwrap: function() {
-    return this.parent().each(function() {
-      if ( !jQuery.nodeName( this, "body" ) ) {
-        jQuery( this ).replaceWith( this.childNodes );
-      }
-    }).end();
-  }
-});
-
-
 jQuery.expr.filters.hidden = function( elem ) {
   // Support: Opera <= 12.12
   // Opera reports offsetWidths and offsetHeights less than zero on some elements
@@ -9760,180 +9458,6 @@ function createActiveXHR() {
 
 
 
-// Install script dataType
-jQuery.ajaxSetup({
-  accepts: {
-    script: "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"
-  },
-  contents: {
-    script: /(?:java|ecma)script/
-  },
-  converters: {
-    "text script": function( text ) {
-      jQuery.globalEval( text );
-      return text;
-    }
-  }
-});
-
-// Handle cache's special case and global
-jQuery.ajaxPrefilter( "script", function( s ) {
-  if ( s.cache === undefined ) {
-    s.cache = false;
-  }
-  if ( s.crossDomain ) {
-    s.type = "GET";
-    s.global = false;
-  }
-});
-
-// Bind script tag hack transport
-jQuery.ajaxTransport( "script", function(s) {
-
-  // This transport only deals with cross domain requests
-  if ( s.crossDomain ) {
-
-    var script,
-      head = document.head || jQuery("head")[0] || document.documentElement;
-
-    return {
-
-      send: function( _, callback ) {
-
-        script = document.createElement("script");
-
-        script.async = true;
-
-        if ( s.scriptCharset ) {
-          script.charset = s.scriptCharset;
-        }
-
-        script.src = s.url;
-
-        // Attach handlers for all browsers
-        script.onload = script.onreadystatechange = function( _, isAbort ) {
-
-          if ( isAbort || !script.readyState || /loaded|complete/.test( script.readyState ) ) {
-
-            // Handle memory leak in IE
-            script.onload = script.onreadystatechange = null;
-
-            // Remove the script
-            if ( script.parentNode ) {
-              script.parentNode.removeChild( script );
-            }
-
-            // Dereference the script
-            script = null;
-
-            // Callback if not abort
-            if ( !isAbort ) {
-              callback( 200, "success" );
-            }
-          }
-        };
-
-        // Circumvent IE6 bugs with base elements (#2709 and #4378) by prepending
-        // Use native DOM manipulation to avoid our domManip AJAX trickery
-        head.insertBefore( script, head.firstChild );
-      },
-
-      abort: function() {
-        if ( script ) {
-          script.onload( undefined, true );
-        }
-      }
-    };
-  }
-});
-
-
-
-
-var oldCallbacks = [],
-  rjsonp = /(=)\?(?=&|$)|\?\?/;
-
-// Default jsonp settings
-jQuery.ajaxSetup({
-  jsonp: "callback",
-  jsonpCallback: function() {
-    var callback = oldCallbacks.pop() || ( jQuery.expando + "_" + ( nonce++ ) );
-    this[ callback ] = true;
-    return callback;
-  }
-});
-
-// Detect, normalize options and install callbacks for jsonp requests
-jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
-
-  var callbackName, overwritten, responseContainer,
-    jsonProp = s.jsonp !== false && ( rjsonp.test( s.url ) ?
-      "url" :
-      typeof s.data === "string" && !( s.contentType || "" ).indexOf("application/x-www-form-urlencoded") && rjsonp.test( s.data ) && "data"
-    );
-
-  // Handle iff the expected data type is "jsonp" or we have a parameter to set
-  if ( jsonProp || s.dataTypes[ 0 ] === "jsonp" ) {
-
-    // Get callback name, remembering preexisting value associated with it
-    callbackName = s.jsonpCallback = jQuery.isFunction( s.jsonpCallback ) ?
-      s.jsonpCallback() :
-      s.jsonpCallback;
-
-    // Insert callback into url or form data
-    if ( jsonProp ) {
-      s[ jsonProp ] = s[ jsonProp ].replace( rjsonp, "$1" + callbackName );
-    } else if ( s.jsonp !== false ) {
-      s.url += ( rquery.test( s.url ) ? "&" : "?" ) + s.jsonp + "=" + callbackName;
-    }
-
-    // Use data converter to retrieve json after script execution
-    s.converters["script json"] = function() {
-      if ( !responseContainer ) {
-        jQuery.error( callbackName + " was not called" );
-      }
-      return responseContainer[ 0 ];
-    };
-
-    // force json dataType
-    s.dataTypes[ 0 ] = "json";
-
-    // Install callback
-    overwritten = window[ callbackName ];
-    window[ callbackName ] = function() {
-      responseContainer = arguments;
-    };
-
-    // Clean-up function (fires after converters)
-    jqXHR.always(function() {
-      // Restore preexisting value
-      window[ callbackName ] = overwritten;
-
-      // Save back as free
-      if ( s[ callbackName ] ) {
-        // make sure that re-using the options doesn't screw things around
-        s.jsonpCallback = originalSettings.jsonpCallback;
-
-        // save the callback name for future use
-        oldCallbacks.push( callbackName );
-      }
-
-      // Call if it was a function and we have a response
-      if ( responseContainer && jQuery.isFunction( overwritten ) ) {
-        overwritten( responseContainer[ 0 ] );
-      }
-
-      responseContainer = overwritten = undefined;
-    });
-
-    // Delegate to script
-    return "script";
-  }
-});
-
-
-
-
 // data: string of html
 // context (optional): If specified, the fragment will be created in this context, defaults to document
 // keepScripts (optional): If true, will include scripts passed in the html string
@@ -9981,7 +9505,7 @@ jQuery.fn.load = function( url, params, callback ) {
     off = url.indexOf(" ");
 
   if ( off >= 0 ) {
-    selector = url.slice( off, url.length );
+    selector = jQuery.trim( url.slice( off, url.length ) );
     url = url.slice( 0, off );
   }
 
@@ -10275,32 +9799,6 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
     };
   });
 });
-
-
-// The number of elements contained in the matched element set
-jQuery.fn.size = function() {
-  return this.length;
-};
-
-jQuery.fn.andSelf = jQuery.fn.addBack;
-
-
-
-
-// Register as a named AMD module, since jQuery can be concatenated with other
-// files that may use define, but not via a proper concatenation script that
-// understands anonymous AMD modules. A named AMD is safest and most robust
-// way to register. Lowercase jquery is used because AMD module names are
-// derived from file names, and jQuery is normally delivered in a lowercase
-// file name. Do this after creating the global so that if an AMD module wants
-// to call noConflict to hide this version of jQuery, it will work.
-if ( typeof define === "function" && define.amd ) {
-  define( "jquery", [], function() {
-    return jQuery;
-  });
-}
-
-
 
 
 var
