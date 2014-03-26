@@ -73,6 +73,7 @@ createSprites = (destination)->
 buildDevIndex = ->
   jsFiles = [
     "scripts/jquery.js"
+    "scripts/jquery.xdomainrequest.js"
     "scripts/scripts.js"
   ]
   buildIndex ['stylesheets/all.css'], jsFiles, '_dev'
@@ -135,6 +136,7 @@ gulp.task 'buildJs', ['buildCopy'], ->
   es.merge(coffeeJs, libJs)
     .pipe(order([
       'src/scripts/jquery.js'
+      'src/scripts/jquery.xdomainrequest.js'
       'src/scripts/scripts.js'
     ]))
     .pipe(uglify())
