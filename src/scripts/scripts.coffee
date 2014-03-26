@@ -1,3 +1,5 @@
+$.support.cors = true
+
 class Input
 
   constructor: (el)->
