@@ -55,10 +55,7 @@ class Contact
       type: 'POST'
       dataType: 'JSON'
       url: 'http://courier.crbapps.com'
-      data:
-        name: $('#contact-name').val()
-        email: $('#contact-email').val()
-        message: $('#contact-message').val()
+      data: @$contactForm.serialize()
       success: (response)=>
         if response.reject_reason
           @showError()
