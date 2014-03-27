@@ -54,39 +54,18 @@ class Contact
     $.ajax
       type: 'POST'
       dataType: 'JSON'
-      url: 'https://mandrillapp.com/api/1.0/messages/send-template.json'
-      data: @messageData()
+      url: 'http://courier.crbapps.com'
+      data:
+        name: $('#contact-name').val()
+        email: $('#contact-email').val()
+        message: $('#contact-message').val()
       success: (response)=>
         if response.reject_reason
           @showError()
         else
           @close()
-      error: (jqXhr)=>
+      error: =>
         @showError()
-
-  isValidEmail: (email)->
-    /.*@.*\..*/.test email
-
-  messageData: ->
-    reverse = (word)-> word.split('').reverse().join ''
-    toEmail = [reverse('gnidierbsirhc'), reverse('moc.liamg')].join('@')
-
-    name      = $('#contact-name').val()
-    email     = $('#contact-email').val()
-    fromEmail = if @isValidEmail email then email else toEmail
-    message   = $('#contact-message').val()
-
-    key: 'rPNtGh3XdGX45uKEpeZGjA'
-    template_name: 'website-contact-form'
-    template_content: [
-      { name: 'contact-name',    content: name    }
-      { name: 'contact-email',   content: email   }
-      { name: 'contact-message', content: message }
-    ]
-    message:
-      from_name: name
-      from_email: fromEmail
-      to: [ email: toEmail ]
 
   close: =>
     @$contactForm.slideUp 500, =>
