@@ -3,11 +3,16 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input
 body {
   background: #222;
   color: #e3e3e3;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
   margin: 0 auto;
   width: 960px;
   height: 100%;
+}
+
+body,
+input,
+textarea {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
 }
 
 h2 {
