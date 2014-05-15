@@ -52,7 +52,6 @@ h1 {
 
     &.github a   { @include sprite($github); }
     &.twitter a  { @include sprite($twitter); }
-    &.linkedin a { @include sprite($linkedin); }
   }
 }
 
@@ -67,6 +66,5 @@ h1 {
   .social li {
     &.github a   { @include sprite-image($github-2x); }
     &.twitter a  { @include sprite-image($twitter-2x); }
-    &.linkedin a { @include sprite-image($linkedin-2x); }
   }
 }
