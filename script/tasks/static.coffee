@@ -1,11 +1,12 @@
 gulp = require 'gulp'
 
-imagesGlob = 'src/images/*.+(png|gif|jpg|ico)'
+glob = 'src/static/**/*'
 
-gulp.task 'buildStatic', ['cleanBuild'], ->
-  gulp.src(imagesGlob).pipe(gulp.dest('./_build/images/'))
-  gulp.src('CNAME').pipe(gulp.dest('./_build/'))
+gulp.task 'buildStatic', ->
+  gulp.src(glob).pipe(gulp.dest('./_build/'))
 
-gulp.task 'watchStatic', ->
-  gulp.watch imagesGlob, ->
-    gulp.src(imagesGlob).pipe(gulp.dest('./_dev/images/'))
+gulp.task 'copyStatic', ->
+  gulp.src(glob).pipe(gulp.dest('./_dev/'))
+
+gulp.task 'watchStatic', ['copyStatic'], ->
+  gulp.watch glob, ['copyStatic']

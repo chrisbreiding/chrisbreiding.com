@@ -1,7 +1,6 @@
 fs = require 'fs'
 gulp = require 'gulp'
 jade = require 'gulp-jade'
-plumber = require 'gulp-plumber'
 
 scripts = require './scripts'
 stylesheets = require './stylesheets'
@@ -20,14 +19,13 @@ buildIndex = (cssFiles, jsFiles, destination)->
     pretty: true
 
   gulp.src('src/index.jade')
-    .pipe(plumber())
     .pipe(jade(jadeOptions))
     .pipe(gulp.dest("./#{destination}/"))
 
 buildDevIndex = ->
   buildIndex stylesheets.files, scripts.files, '_dev'
 
-gulp.task 'watchIndex', ['watchScripts', 'watchStylesheets', 'watchImages', 'watchStatic'], ->
+gulp.task 'watchIndex', ['watchScripts', 'watchStylesheets', 'watchStatic'], ->
   gulp.watch 'src/index.jade', buildDevIndex
   gulp.watch 'src/content/*.json', buildDevIndex
   buildDevIndex()

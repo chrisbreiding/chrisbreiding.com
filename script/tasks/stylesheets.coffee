@@ -7,7 +7,7 @@ cacheBuster = ''
 files = ['styles.css']
 srcFiles = files.map (file)-> "src/#{file}"
 
-gulp.task 'buildSass', ['createProdSprites', 'buildJs'], ->
+gulp.task 'buildStylesheets', ->
   cacheBuster = (new Date()).valueOf()
 
   gulp.src(srcFiles)
@@ -18,7 +18,7 @@ gulp.task 'buildSass', ['createProdSprites', 'buildJs'], ->
 gulp.task 'copyStylesheets', ->
   gulp.src('./src/**/*.css').pipe(gulp.dest('./_dev/'))
 
-gulp.task 'watchStylesheets', ['copyStylesheets', 'createDevSprites'], ->
+gulp.task 'watchStylesheets', ['copyStylesheets'], ->
   gulp.watch srcFiles, ['copyStylesheets']
 
 module.exports =

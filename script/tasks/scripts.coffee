@@ -11,7 +11,7 @@ files = [
 ]
 srcFiles = files.map (file)-> "src/#{file}"
 
-gulp.task 'buildJs', ['buildStatic'], ->
+gulp.task 'buildScripts', ->
   cacheBuster = (new Date()).valueOf()
 
   gulp.src(srcFiles)
