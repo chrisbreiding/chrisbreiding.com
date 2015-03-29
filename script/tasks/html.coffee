@@ -25,7 +25,7 @@ buildIndex = (cssFiles, jsFiles, destination)->
 buildDevIndex = ->
   buildIndex stylesheets.files, scripts.files, '_dev'
 
-gulp.task 'watchIndex', ['watchScripts', 'watchStylesheets', 'watchStatic'], ->
+gulp.task 'watch-index', ['watch-scripts', 'watch-stylesheets', 'watch-static'], ->
   gulp.watch 'src/index.jade', buildDevIndex
   gulp.watch 'src/content/*.json', buildDevIndex
   buildDevIndex()
@@ -33,4 +33,4 @@ gulp.task 'watchIndex', ['watchScripts', 'watchStylesheets', 'watchStatic'], ->
 module.exports =
   dev: buildDevIndex
   prod: ->
-    buildIndex ["all-#{stylesheets.cacheBuster()}.css"], ["all-#{scripts.cacheBuster()}.js"], '_build'
+    buildIndex ["all-#{stylesheets.cacheBuster()}.css"], ["all-#{scripts.cacheBuster()}.js"], '_prod'

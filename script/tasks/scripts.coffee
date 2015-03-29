@@ -1,7 +1,7 @@
 concat = require 'gulp-concat'
 gulp = require 'gulp'
 gutil = require 'gulp-util'
-uglify = require 'gulp-uglify'
+minify = require 'gulp-uglify'
 
 cacheBuster = ''
 files = [
@@ -15,15 +15,15 @@ gulp.task 'buildScripts', ->
   cacheBuster = (new Date()).valueOf()
 
   gulp.src(srcFiles)
-    .pipe(uglify())
+    .pipe(minify())
     .pipe(concat("all-#{cacheBuster}.js"))
-    .pipe(gulp.dest('./_build/'))
+    .pipe(gulp.dest('./_prod/'))
 
-gulp.task 'copyScripts', ->
+gulp.task 'copy-scripts', ->
   gulp.src('./src/**/*.js').pipe(gulp.dest('./_dev/'))
 
-gulp.task 'watchScripts', ['copyScripts'], ->
-  gulp.watch srcFiles, ['copyScripts']
+gulp.task 'watch-scripts', ['copy-scripts'], ->
+  gulp.watch srcFiles, ['copy-scripts']
 
 module.exports =
   files: files

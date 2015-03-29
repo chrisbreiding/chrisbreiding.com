@@ -8,38 +8,38 @@ module.exports = ->
     prefix = '. '
     gutil.log gutil.colors.green "#{prefix}#{message}"
 
-  execInBuild = (command)->
-    exec command, cwd: '_build'
+  execInDir = (command)->
+    exec command, cwd: '_prod'
 
   initRepo = ->
-    return if fs.existsSync '_build/.git'
+    return if fs.existsSync '_prod/.git'
 
     originUrl = exec 'git config --get remote.origin.url'
-    execInBuild 'git init'
-    log 'create repo in _build'
+    execInDir 'git init'
+    log 'create repo in _prod'
     url = originUrl.stdout.replace gutil.linefeed, ''
-    execInBuild "git remote add origin #{url}"
+    execInDir "git remote add origin #{url}"
 
   checkoutBranch = ->
     log 'checkout gh-pages branch'
-    branches = execInBuild 'git branch'
+    branches = execInDir 'git branch'
     branchExists = branches.stdout.split('\n').some (branch)->
       /gh\-pages/.test branch
     flag = if branchExists then '' else '-b'
-    execInBuild "git checkout #{flag} gh-pages"
+    execInDir "git checkout #{flag} gh-pages"
 
   addAll = ->
     log 'add all files'
-    execInBuild 'git add -A'
+    execInDir 'git add -A'
 
   commit = ->
     log 'commit'
     commitMessage = "automated commit by deployment at #{(new Date()).toUTCString()}"
-    execInBuild "git commit --allow-empty -am '#{commitMessage}'"
+    execInDir "git commit --allow-empty -am '#{commitMessage}'"
 
   push = ->
     log 'push to gh-pages branch'
-    execInBuild 'git push -f origin gh-pages'
+    execInDir 'git push -f origin gh-pages'
 
   initRepo()
   checkoutBranch()

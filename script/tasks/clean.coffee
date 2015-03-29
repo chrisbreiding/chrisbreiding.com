@@ -1,8 +1,8 @@
 del = require 'del'
 gulp = require 'gulp'
 
-gulp.task 'cleanBuild', -> del '_build'
+gulp.task 'clean-prod', -> del '_prod'
 
-gulp.task 'cleanDev', -> del ['_dev', 'src/stylesheets/generated']
+gulp.task 'clean-dev', -> del '_dev'
 
-gulp.task 'clean', ['cleanBuild', 'cleanDev']
+gulp.task 'clean', ['clean-prod', 'clean-dev']
