@@ -1,34 +1,32 @@
 gutil = require 'gulp-util'
 fs = require 'fs'
-RSVP = require 'rsvp'
-exec = require './exec-promise'
+exec = require('child_process').execSync
 
 module.exports = ->
-
-  execInBuild = (command)->
-    exec command, cwd: '_build'
 
   log = (message)->
     prefix = '. '
     gutil.log gutil.colors.green "#{prefix}#{message}"
 
-  initRepo = ->
-    if fs.existsSync '_build/.git'
-      return RSVP.resolve()
+  execInBuild = (command)->
+    exec command, cwd: '_build'
 
-    exec('git config --get remote.origin.url').then (result)->
-      url = result.stdout.replace(gutil.linefeed, '')
-      execInBuild('git init').then ->
-        log 'create repo in _build'
-        execInBuild "git remote add origin #{url}"
+  initRepo = ->
+    return if fs.existsSync '_build/.git'
+
+    originUrl = exec 'git config --get remote.origin.url'
+    execInBuild 'git init'
+    log 'create repo in _build'
+    url = originUrl.stdout.replace gutil.linefeed, ''
+    execInBuild "git remote add origin #{url}"
 
   checkoutBranch = ->
     log 'checkout gh-pages branch'
-    execInBuild('git branch').then (result)->
-      branchExists = result.stdout.split('\n').some (branch)->
-        /gh\-pages/.test branch
-      flag = if branchExists then '' else '-b'
-      execInBuild "git checkout #{flag} gh-pages"
+    branches = execInBuild 'git branch'
+    branchExists = branches.stdout.split('\n').some (branch)->
+      /gh\-pages/.test branch
+    flag = if branchExists then '' else '-b'
+    execInBuild "git checkout #{flag} gh-pages"
 
   addAll = ->
     log 'add all files'
@@ -37,14 +35,14 @@ module.exports = ->
   commit = ->
     log 'commit'
     commitMessage = "automated commit by deployment at #{(new Date()).toUTCString()}"
-    execInBuild("git commit --allow-empty -am '#{commitMessage}'").then ->
+    execInBuild "git commit --allow-empty -am '#{commitMessage}'"
 
   push = ->
     log 'push to gh-pages branch'
     execInBuild 'git push -f origin gh-pages'
 
   initRepo()
-    .then(checkoutBranch)
-    .then(addAll)
-    .then(commit)
-    .then(push)
+  checkoutBranch()
+  addAll()
+  commit()
+  push()
