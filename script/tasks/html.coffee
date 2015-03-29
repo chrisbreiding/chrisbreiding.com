@@ -4,8 +4,8 @@ jade = require 'gulp-jade'
 plumber = require 'gulp-plumber'
 watch = require 'gulp-watch'
 
-getScriptsCacheBuster = require './scripts'
-getStylesheetsCacheBuster = require('./stylesheets').cacheBuster
+scripts = require './scripts'
+stylesheets = require './stylesheets'
 
 getJSON = (name)->
   JSON.parse fs.readFileSync "src/content/#{name}.json"
@@ -27,18 +27,17 @@ buildIndex = (cssFiles, jsFiles, destination)->
 
 buildDevIndex = ->
   jsFiles = [
-    "scripts/jquery.js"
-    "scripts/jquery.xdomainrequest.js"
-    "scripts/scripts.js"
+    "vendor/jquery.js"
+    "vendor/jquery.xdomainrequest.js"
+    "scripts.js"
   ]
-  buildIndex ['stylesheets/all.css'], jsFiles, '_dev'
+  buildIndex stylesheets.files, scripts.files, '_dev'
 
-gulp.task 'watchIndex', ['watchCoffee', 'watchSass', 'watchImages', 'watchStatic'], ->
+gulp.task 'watchIndex', ['watchScripts', 'watchStylesheets', 'watchImages', 'watchStatic'], ->
   watch glob: 'src/index.jade', buildDevIndex
   watch glob: 'src/content/*.json', buildDevIndex
-  watch glob: 'src/scripts/**/*.coffee', buildDevIndex
 
 module.exports =
   dev: buildDevIndex
   prod: ->
-    buildIndex ["stylesheets/all-#{getScriptsCacheBuster()}.css"], ["scripts/all-#{getStylesheetsCacheBuster}.js"], '_build'
+    buildIndex ["all-#{stylesheets.cacheBuster()}.css"], ["all-#{scripts.cacheBuster()}.js"], '_build'

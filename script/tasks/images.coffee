@@ -3,8 +3,6 @@ Q = require 'q'
 spritesmith = require 'gulp.spritesmith'
 watch = require 'gulp-watch'
 
-compileSass = require('./stylesheets').compile
-
 imageCategories = [
   'header',   'header-2x'
   'projects', 'projects-2x'
@@ -44,4 +42,3 @@ gulp.task 'watchImages', ['createDevSprites'], ->
     do (imageCategory)->
       watch glob: "src/images/#{imageCategory}/*.png", ->
         createSprite imageCategory, '_dev'
-        compileSass()
