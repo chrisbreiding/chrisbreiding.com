@@ -1,11 +1,11 @@
 gulp = require 'gulp'
-watch = require 'gulp-watch'
+
+imagesGlob = 'src/images/*.+(png|gif|jpg|ico)'
 
 gulp.task 'buildStatic', ['cleanBuild'], ->
-  gulp.src('src/images/*.+(png|gif|jpg|ico)').pipe(gulp.dest('./_build/images/'))
+  gulp.src(imagesGlob).pipe(gulp.dest('./_build/images/'))
   gulp.src('CNAME').pipe(gulp.dest('./_build/'))
 
 gulp.task 'watchStatic', ->
-  watch(glob: 'src/images/*.+(png|gif|jpg|ico)').pipe(gulp.dest('./_dev/images/'))
-  watch(glob: 'src/scripts/*.js').pipe(gulp.dest('./_dev/scripts/'))
-  return
+  gulp.watch imagesGlob, ->
+    gulp.src(imagesGlob).pipe(gulp.dest('./_dev/images/'))

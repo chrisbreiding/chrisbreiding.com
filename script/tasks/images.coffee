@@ -1,7 +1,6 @@
 gulp = require 'gulp'
 Q = require 'q'
 spritesmith = require 'gulp.spritesmith'
-watch = require 'gulp-watch'
 
 imageCategories = [
   'header',   'header-2x'
@@ -40,5 +39,5 @@ gulp.task 'createDevSprites', ->
 gulp.task 'watchImages', ['createDevSprites'], ->
   for imageCategory in imageCategories
     do (imageCategory)->
-      watch glob: "src/images/#{imageCategory}/*.png", ->
+      gulp.watch "src/images/#{imageCategory}/*.png", ->
         createSprite imageCategory, '_dev'

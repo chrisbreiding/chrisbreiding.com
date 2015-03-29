@@ -2,7 +2,6 @@ gutil = require 'gulp-util'
 fs = require 'fs'
 RSVP = require 'rsvp'
 exec = require './exec-promise'
-_ = require 'lodash'
 
 module.exports = ->
 
@@ -26,7 +25,7 @@ module.exports = ->
   checkoutBranch = ->
     log 'checkout gh-pages branch'
     execInBuild('git branch').then (result)->
-      branchExists = _.any result.stdout.split('\n'), (branch)->
+      branchExists = result.stdout.split('\n').some (branch)->
         /gh\-pages/.test branch
       flag = if branchExists then '' else '-b'
       execInBuild "git checkout #{flag} gh-pages"

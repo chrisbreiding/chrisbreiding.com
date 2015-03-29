@@ -2,7 +2,6 @@ concat = require 'gulp-concat'
 gulp = require 'gulp'
 gutil = require 'gulp-util'
 uglify = require 'gulp-uglify'
-watch = require 'gulp-watch'
 
 cacheBuster = ''
 files = [
@@ -10,18 +9,21 @@ files = [
   'vendor/jquery.xdomainrequest.js'
   'scripts.js'
 ]
+srcFiles = files.map (file)-> "src/#{file}"
 
 gulp.task 'buildJs', ['buildStatic'], ->
   cacheBuster = (new Date()).valueOf()
 
-  gulp.src(files.map (file)-> "src/#{file}")
+  gulp.src(srcFiles)
     .pipe(uglify())
     .pipe(concat("all-#{cacheBuster}.js"))
     .pipe(gulp.dest('./_build/'))
 
-gulp.task 'watchScripts', ->
-  watch(glob: 'src/**/*.js').pipe(gulp.dest('./_dev/'))
-  return
+gulp.task 'copyScripts', ->
+  gulp.src('./src/**/*.js').pipe(gulp.dest('./_dev/'))
+
+gulp.task 'watchScripts', ['copyScripts'], ->
+  gulp.watch srcFiles, ['copyScripts']
 
 module.exports =
   files: files

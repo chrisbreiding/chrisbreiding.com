@@ -1,9 +1,8 @@
-connect = require 'connect'
+express = require 'express'
+
 
 module.exports = (dir, port)->
-
-  connect.createServer(
-    connect.static "#{__dirname}/../../#{dir}"
-  ).listen port
-
-  console.log "serving assets on http://localhost:#{port}"
+  app = express()
+  app.use express.static "#{__dirname}/../../#{dir}"
+  app.listen port, ->
+    console.log "serving assets on http://localhost:#{port}"

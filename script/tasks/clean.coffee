@@ -1,15 +1,8 @@
-clean = require 'gulp-clean'
+del = require 'del'
 gulp = require 'gulp'
-gutil = require 'gulp-util'
 
-gulp.task 'cleanBuild', ->
-  gutil.log gutil.colors.yellow 'removing _build'
-  gulp.src('_build', read: false).pipe(clean())
+gulp.task 'cleanBuild', -> del '_build'
 
-gulp.task 'cleanDev', ->
-  gutil.log gutil.colors.yellow 'removing _dev'
-  gulp.src('_dev', read: false).pipe(clean())
-  gutil.log gutil.colors.yellow 'removing src/stylesheets/generated'
-  gulp.src('src/stylesheets/generated', read: false).pipe(clean())
+gulp.task 'cleanDev', -> del ['_dev', 'src/stylesheets/generated']
 
 gulp.task 'clean', ['cleanBuild', 'cleanDev']

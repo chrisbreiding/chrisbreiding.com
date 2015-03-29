@@ -2,7 +2,6 @@ fs = require 'fs'
 gulp = require 'gulp'
 jade = require 'gulp-jade'
 plumber = require 'gulp-plumber'
-watch = require 'gulp-watch'
 
 scripts = require './scripts'
 stylesheets = require './stylesheets'
@@ -26,16 +25,12 @@ buildIndex = (cssFiles, jsFiles, destination)->
     .pipe(gulp.dest("./#{destination}/"))
 
 buildDevIndex = ->
-  jsFiles = [
-    "vendor/jquery.js"
-    "vendor/jquery.xdomainrequest.js"
-    "scripts.js"
-  ]
   buildIndex stylesheets.files, scripts.files, '_dev'
 
 gulp.task 'watchIndex', ['watchScripts', 'watchStylesheets', 'watchImages', 'watchStatic'], ->
-  watch glob: 'src/index.jade', buildDevIndex
-  watch glob: 'src/content/*.json', buildDevIndex
+  gulp.watch 'src/index.jade', buildDevIndex
+  gulp.watch 'src/content/*.json', buildDevIndex
+  buildDevIndex()
 
 module.exports =
   dev: buildDevIndex
