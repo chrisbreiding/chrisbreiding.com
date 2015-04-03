@@ -5,6 +5,7 @@ minify = require 'gulp-uglify'
 
 cacheBuster = ''
 files = [
+  'vendor/ga.js'
   'vendor/jquery.js'
   'vendor/jquery.xdomainrequest.js'
   'scripts.js'

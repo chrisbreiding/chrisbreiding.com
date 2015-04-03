@@ -32,29 +32,31 @@
     or anything suited for the job at hand.
   </p>
 
-  <p class="social">
-    Check me out on <a href="https://github.com/chrisbreiding">Github</a> and <a href="https://twitter.com/chrisbreiding">Twitter</a> and say hello:
+  <p>
+    Check me out on <a href="https://github.com/chrisbreiding">Github</a> and <a href="https://twitter.com/chrisbreiding">Twitter</a>.
   </p>
 
-  <form class="contact-form"><i class="envelope"></i>
-    <textarea id="contact-message" name="message" class="contact-input"></textarea>
-    <div class="error-message">Please enter a message</div>
-    <footer>
-      <button name="submit" type="submit">Send Message</button>
-    </footer>
+  <form class="contact-form invalid">
+    <div class="fields">
+      <textarea name="message" class="message" placeholder="Say hello..."></textarea>
+
+      <footer>
+        <button name="submit" type="submit">Send Message</button>
+      </footer>
+    </div>
+
+    <div class="contact-success">
+      <p>Your message has been sent - Thank you!</p>
+    </div>
+
+    <div class="contact-failure">
+      <p>I'm sorry, but an unexpected error occurred and your message could not be sent. Please get in touch with me via <a href="http://twitter.com/chrisbreiding" target="_blank">Twitter</a>.</p>
+    </div>
 
     <noscript>
       <p>This contact form requires JavaScript. To use it, please enable JavaScript and refresh the page.</p>
     </noscript>
   </form>
-
-  <div class="contact-success">
-    <p>Your message has been sent - Thank you!</p><i></i>
-  </div>
-
-  <div class="contact-failure"><i></i>
-    <p>I'm sorry, but an unexpected error occurred and your message could not be sent. Please get in touch with me on <a href="http://twitter.com/chrisbreiding" target="_blank">Twitter</a>.</p>
-  </div>
 
   {{#each scripts}}
     <script src="{{this}}"></script>

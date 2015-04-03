@@ -46,7 +46,7 @@ a:link, a:visited {
 }
 
 a:hover, a:focus, a:active {
-  color: #FAC5F2;
+  color: #EDC2E7;
   text-decoration: underline;
 }
 
@@ -69,6 +69,7 @@ textarea:focus {
 }
 
 footer {
+  margin-top: 0.8em;
   text-align: right;
 }
 
@@ -78,23 +79,34 @@ button {
   color: #222;
   cursor: pointer;
   font-size: 1em;
-  margin-top: 0.8em;
   padding: 0.6em 1.2em;
   text-align: center;
 }
 
 button:hover, button:focus, button:active {
-  background: #FAC5F2;
+  background: #EDC2E7;
 }
 
-.error-message {
-  display: none;
+.invalid button {
+  background: #E079D1;
+  opacity: 0.3;
+  cursor: default;
+  outline: none;
 }
 
-.contact-success {
-  display: none;
-}
-
+.contact-success,
 .contact-failure {
+  border-top: solid 1px #444;
+}
+
+.contact-success,
+.contact-failure,
+.success .fields,
+.failure .fields {
   display: none;
+}
+
+.success .contact-success,
+.failure .contact-failure {
+  display: block;
 }
