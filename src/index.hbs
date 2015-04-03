@@ -12,72 +12,48 @@
 </head>
 <body>
 
-  <div class="header">
-    <h1>
-      <span class="title">Chris Breiding</span>
-      <span class="sub-title">Software Developer</span>
-    </h1>
-    <ul class="social">
-      {{#each socialLinks}}
-        <li class="{{class}}">
-          <a href="{{href}}" target="_blank" title="{{title}}">
-            {{class}}
-          </a>
-        </li>
-      {{/each}}
-    </ul>
-  </div>
+  <p>My name is <strong>Chris Breiding</strong>.</p>
 
-  <div class="projects">
-    <h2>I've created</h2>
-    <ul>
-      {{#each projects}}
-        <li class="{{class}}">{{description}}</li>
-      {{/each}}
-    </ul>
-  </div>
+  <p>I like to make
+    <span>web apps</span>,
+    <span>mobile apps</span>,
+    <span>websites</span>,
+    <span>dev tools</span>,
+    and other similar things.
+  </p>
 
-  <div class="skills">
-    <h2>I enjoy</h2>
-    <ul>
-      {{#each skills}}
-        <li>{{this}}</li>
-      {{/each}}
-    </ul>
-  </div>
+  <p>I'm known to use
+    <span>JavaScript</span>,
+    <span>Ruby</span>,
+    <span>Objective-C</span>,
+    <span>Python</span>,
+    <span>Clojure</span>,
+    <span>C#</span>,
+    or anything suited for the job at hand.
+  </p>
 
-  <div id="contact" class="contact">
-    <h2>I'd love to hear from you</h2>
+  <p class="social">
+    Check me out on <a href="https://github.com/chrisbreiding">Github</a> and <a href="https://twitter.com/chrisbreiding">Twitter</a> and say hello:
+  </p>
 
-    <form id="contact-form"><i class="envelope"></i>
-      <fieldset class="name-group">
-        <label for="name">Name</label>
-        <input id="contact-name" name="name" type="text" class="contact-input">
-        <div class="error-message">Please enter your name</div>
-      </fieldset>
-      <fieldset class="email-group">
-        <label for="email">Email</label>
-        <input id="contact-email" name="email" type="text" class="contact-input">
-        <div class="error-message">Please enter your email</div>
-      </fieldset>
-      <fieldset class="message-group">
-        <label for="message">Message</label>
-        <textarea id="contact-message" name="message" class="contact-input"></textarea>
-        <div class="error-message">Please enter a message</div>
-      </fieldset>
+  <form class="contact-form"><i class="envelope"></i>
+    <textarea id="contact-message" name="message" class="contact-input"></textarea>
+    <div class="error-message">Please enter a message</div>
+    <footer>
       <button name="submit" type="submit">Send Message</button>
-      <noscript>
-        <p>This contact form requires JavaScript. To use it, please enable JavaScript and refresh the page.</p>
-      </noscript>
-    </form>
+    </footer>
 
-    <div class="contact-success">
-      <p>Your message has been sent - Thank you!</p><i></i>
-    </div>
+    <noscript>
+      <p>This contact form requires JavaScript. To use it, please enable JavaScript and refresh the page.</p>
+    </noscript>
+  </form>
 
-    <div class="contact-failure"><i></i>
-      <p>I'm sorry, but an unexpected error occurred and your message could not be sent. Please get in touch with me on <a href="http://twitter.com/chrisbreiding" target="_blank">Twitter</a>.</p>
-    </div>
+  <div class="contact-success">
+    <p>Your message has been sent - Thank you!</p><i></i>
+  </div>
+
+  <div class="contact-failure"><i></i>
+    <p>I'm sorry, but an unexpected error occurred and your message could not be sent. Please get in touch with me on <a href="http://twitter.com/chrisbreiding" target="_blank">Twitter</a>.</p>
   </div>
 
   {{#each scripts}}
