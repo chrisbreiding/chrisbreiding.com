@@ -2,8 +2,9 @@ concat = require 'gulp-concat'
 gulp = require 'gulp'
 gutil = require 'gulp-util'
 minify = require 'gulp-uglify'
+rename = require 'gulp-rename'
+rev = require 'gulp-rev'
 
-cacheBuster = ''
 files = [
   'vendor/ga.js'
   'vendor/jquery.js'
@@ -13,12 +14,14 @@ files = [
 srcFiles = files.map (file)-> "src/#{file}"
 
 gulp.task 'build-scripts', ->
-  cacheBuster = (new Date()).valueOf()
-
   gulp.src(srcFiles)
-    .pipe(minify())
-    .pipe(concat("all-#{cacheBuster}.js"))
-    .pipe(gulp.dest('./_prod/'))
+    .pipe concat('app.js')
+    .pipe minify()
+    .pipe rev()
+    .pipe gulp.dest('./_prod/')
+    .pipe rev.manifest()
+    .pipe rename('scripts-manifest.json')
+    .pipe gulp.dest('./_prod/')
 
 gulp.task 'copy-scripts', ->
   gulp.src('./src/**/*.js').pipe(gulp.dest('./_dev/'))
@@ -26,6 +29,4 @@ gulp.task 'copy-scripts', ->
 gulp.task 'watch-scripts', ['copy-scripts'], ->
   gulp.watch srcFiles, ['copy-scripts']
 
-module.exports =
-  files: files
-  cacheBuster: -> cacheBuster
+module.exports = files: files

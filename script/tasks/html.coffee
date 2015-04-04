@@ -5,22 +5,36 @@ rename = require 'gulp-rename'
 
 scripts = require './scripts'
 stylesheets = require './stylesheets'
+statics = require './static'
 
-buildIndex = (cssFiles, jsFiles, destination)->
-  data =
-    stylesheets: cssFiles
-    scripts: jsFiles
-
+buildIndex = (destination, data)->
   gulp.src('src/index.hbs')
-    .pipe(handlebars(data))
-    .pipe(rename('index.html'))
-    .pipe(gulp.dest("./#{destination}/"))
+    .pipe handlebars(data)
+    .pipe rename('index.html')
+    .pipe gulp.dest("./#{destination}/")
 
-gulp.task 'build-index', ['build-scripts', 'build-stylesheets'], ->
-  buildIndex ["all-#{stylesheets.cacheBuster()}.css"], ["all-#{scripts.cacheBuster()}.js"], '_prod'
+manifests = [
+  { type: 'stylesheets', array: true,  file: 'app.css' }
+  { type: 'favicon',     array: false, file: 'favicon.ico' }
+  { type: 'scripts',     array: true,  file: 'app.js' }
+]
+
+gulp.task 'build-index', ['build-scripts', 'build-stylesheets', 'build-static'], ->
+  data = {}
+
+  for manifest in manifests
+    file = "./_prod/#{manifest.type}-manifest.json"
+    name = JSON.parse(fs.readFileSync(file))[manifest.file]
+    data[manifest.type] = if manifest.array then [name] else name
+    fs.unlinkSync file
+
+  buildIndex '_prod', data
 
 gulp.task 'build-dev-index', ->
-  buildIndex stylesheets.files, scripts.files, '_dev'
+  buildIndex '_dev',
+    stylesheets: stylesheets.files
+    scripts: scripts.files
+    favicon: statics.favicon
 
 gulp.task 'watch-index', ['build-dev-index'], ->
   gulp.watch 'src/index.hbs', ['build-dev-index']
