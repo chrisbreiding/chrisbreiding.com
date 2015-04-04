@@ -9,7 +9,7 @@ module.exports = ->
     gutil.log gutil.colors.green "#{prefix}#{message}"
 
   execInDir = (command)->
-    exec command, cwd: '_prod'
+    exec command, cwd: './_prod'
 
   initRepo = ->
     return if fs.existsSync '_prod/.git'
@@ -17,14 +17,13 @@ module.exports = ->
     originUrl = exec 'git config --get remote.origin.url'
     execInDir 'git init'
     log 'create repo in _prod'
-    url = originUrl.stdout.replace gutil.linefeed, ''
+    url = originUrl.toString().replace gutil.linefeed, ''
     execInDir "git remote add origin #{url}"
 
   checkoutBranch = ->
     log 'checkout gh-pages branch'
     branches = execInDir 'git branch'
-    branchExists = branches.stdout.split('\n').some (branch)->
-      /gh\-pages/.test branch
+    branchExists = /gh\-pages/.test branches.toString()
     flag = if branchExists then '' else '-b'
     execInDir "git checkout #{flag} gh-pages"
 
@@ -40,6 +39,7 @@ module.exports = ->
   push = ->
     log 'push to gh-pages branch'
     execInDir 'git push -f origin gh-pages'
+    exec 'git checkout master'
 
   initRepo()
   checkoutBranch()
