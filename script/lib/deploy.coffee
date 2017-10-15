@@ -21,11 +21,11 @@ module.exports = ->
     execInDir "git remote add origin #{url}"
 
   checkoutBranch = ->
-    log 'checkout gh-pages branch'
+    log 'checkout production branch'
     branches = execInDir 'git branch'
     branchExists = /gh\-pages/.test branches.toString()
     flag = if branchExists then '' else '-b'
-    execInDir "git checkout #{flag} gh-pages"
+    execInDir "git checkout #{flag} production"
 
   addAll = ->
     log 'add all files'
@@ -37,8 +37,8 @@ module.exports = ->
     execInDir "git commit --allow-empty -am '#{commitMessage}'"
 
   push = ->
-    log 'push to gh-pages branch'
-    execInDir 'git push -f origin gh-pages'
+    log 'push to production branch'
+    execInDir 'git push -f origin production'
     exec 'git checkout master'
 
   initRepo()
