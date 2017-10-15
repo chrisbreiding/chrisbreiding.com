@@ -23,7 +23,7 @@ module.exports = ->
   checkoutBranch = ->
     log 'checkout production branch'
     branches = execInDir 'git branch'
-    branchExists = /gh\-pages/.test branches.toString()
+    branchExists = /production/.test branches.toString()
     flag = if branchExists then '' else '-b'
     execInDir "git checkout #{flag} production"
 
