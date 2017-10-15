@@ -25,18 +25,13 @@
   };
 
   var sendMessage = function ($form) {
-    $.ajax({
-      type: 'POST',
-      dataType: 'JSON',
-      url: 'http://courier.crbapps.com',
-      data: $form.serialize(),
-      success: function (response) {
-        closeForm($form, !response.reject_reason);
-      },
-      error: function () {
-        closeForm($form, false);
-      }
-    });
+    $.post($form.attr('action'), $form.serialize())
+    .then(function (response) {
+      closeForm($form, !response.reject_reason);
+    })
+    .catch(function () {
+      closeForm($form, false);
+    })
   };
 
   var onSubmit = function ($form, $message, e) {
