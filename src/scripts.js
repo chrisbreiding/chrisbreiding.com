@@ -1,15 +1,15 @@
-$('.contact-form').on('submit', function (e) {
-  e.preventDefault();
+(function () {
+  const form = document.querySelector('.contact-form')
 
-  if ($('.processing').length) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault()
 
-  $('.contact-form button')
-    .after($('<div class="processing">Sending...</div>'))
-    .remove();
+    if (form.classList.contains('sending')) return
 
-  setTimeout(function () {
-    $form.find('.fields').slideUp(500, function () {
-      $form.addClass('success');
-    });
-  }, 2000);
-});
+    form.classList.add('sending')
+
+    setTimeout(function () {
+      form.classList.add('success')
+    }, 2000)
+  })
+}())

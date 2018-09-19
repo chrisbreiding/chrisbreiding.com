@@ -7,7 +7,6 @@ rev = require 'gulp-rev'
 
 files = [
   'vendor/ga.js'
-  'vendor/jquery.js'
   'scripts.js'
 ]
 srcFiles = files.map (file)-> "src/#{file}"
