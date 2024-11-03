@@ -77,27 +77,26 @@ button:hover, button:focus, button:active {
   background: #EDC2E7;
 }
 
-.processing {
-  display: none;
+.invalid button {
+  background: #E079D1;
+  opacity: 0.3;
+  cursor: default;
+  outline: none;
 }
 
-.sending .processing {
-  display: block
-}
-
-.sending button {
-  display: none;
-}
-
-.contact-success {
+.contact-success,
+.contact-failure {
   border-top: solid 1px #444;
 }
 
 .contact-success,
-.success .fields {
+.contact-failure,
+.success .fields,
+.failure .fields {
   display: none;
 }
 
-.success .contact-success {
+.success .contact-success,
+.failure .contact-failure {
   display: block;
 }

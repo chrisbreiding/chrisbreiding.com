@@ -2,20 +2,17 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Chris Breiding | Software Developer</title>
+  <title>Chris Breiding | Software Engineer</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="{{favicon}}" type="image/ico">
+  <link rel="icon" href="/favicon.ico" type="image/ico">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lekton">
-  {{#each stylesheets}}
-    <link rel="stylesheet" href="{{this}}">
-  {{/each}}
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-
   <p>My name is <strong>Chris Breiding</strong>.</p>
 
-  <p>I like to make
+  <p>I make
     <span>web apps</span>,
     <span>mobile apps</span>,
     <span>websites</span>,
@@ -23,27 +20,28 @@
     and other similar things.
   </p>
 
-  <p>I'm known to use
+  <p>I have experience with
     <span>JavaScript</span>,
+    <span>TypeScript</span>,
     <span>Ruby</span>,
+    <span>Swift</span>,
     <span>Objective-C</span>,
     <span>Python</span>,
     <span>Clojure</span>,
-    <span>C#</span>,
-    or anything suited for the job at hand.
+    and
+    <span>C#</span>.
   </p>
 
   <p>
-    Check me out on <a href="https://github.com/chrisbreiding">Github</a> and <a href="https://twitter.com/chrisbreiding">Twitter</a>.
+    Check me out on <a href="https://github.com/chrisbreiding">Github</a>.
   </p>
 
-  <form class="contact-form">
+  <form class="contact-form invalid" netlify name="contact">
     <div class="fields">
       <textarea name="message" class="message" placeholder="Say hello..."></textarea>
 
       <footer>
-        <button name="submit" type="submit">Send Message</button>
-        <div class="processing">Sending...</div>
+        <button type="submit">Send Message</button>
       </footer>
     </div>
 
@@ -51,13 +49,15 @@
       <p>Your message has been sent - Thank you!</p>
     </div>
 
+    <div class="contact-failure">
+      <p>An unexpected error occurred and your message could not be sent. Please get in touch with me via <a href="http://twitter.com/chrisbreiding" target="_blank">Twitter</a>.</p>
+    </div>
+
     <noscript>
       <p>This contact form requires JavaScript. To use it, please enable JavaScript and refresh the page.</p>
     </noscript>
   </form>
 
-  {{#each scripts}}
-    <script src="{{this}}"></script>
-  {{/each}}
+  <script src="/scripts.js"></script>
 </body>
 </html>

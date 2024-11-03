@@ -6,3 +6,5 @@ node_modules
 _*
 *.sublime-*
 generated
+.history
+dist
